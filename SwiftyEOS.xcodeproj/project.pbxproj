@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2700286020A5431D00881560 /* uECC.c in Sources */ = {isa = PBXBuildFile; fileRef = 2700285F20A5431D00881560 /* uECC.c */; };
+		2700286720A5598700881560 /* ripemd160.c in Sources */ = {isa = PBXBuildFile; fileRef = 2700286620A5598700881560 /* ripemd160.c */; };
 		27201547208E0673001205A3 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27201546208E0673001205A3 /* main.swift */; };
 		27858D21209C07C70044A881 /* ChainModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27858D20209C07C70044A881 /* ChainModels.swift */; };
 		27858D23209C0D4F0044A881 /* BigInt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27858D22209C0D4F0044A881 /* BigInt.swift */; };
@@ -14,6 +16,8 @@
 		27858D28209C53A40044A881 /* ChainRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27858D27209C53A40044A881 /* ChainRouter.swift */; };
 		27858D2A209C760F0044A881 /* EOSRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27858D29209C760F0044A881 /* EOSRPC.swift */; };
 		27858D2E209C77870044A881 /* EOSRPC+Chain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27858D2D209C77870044A881 /* EOSRPC+Chain.swift */; };
+		27FFB0F420A19B07000E67DA /* Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FFB0F320A19B07000E67DA /* Key.swift */; };
+		27FFB0FC20A1ADF2000E67DA /* base58.c in Sources */ = {isa = PBXBuildFile; fileRef = 27FFB0FB20A1ADF2000E67DA /* base58.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -29,6 +33,14 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2700285E20A5430000881560 /* uECC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = uECC.h; sourceTree = "<group>"; };
+		2700285F20A5431D00881560 /* uECC.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = uECC.c; sourceTree = "<group>"; };
+		2700286120A543EE00881560 /* types.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = types.h; sourceTree = "<group>"; };
+		2700286220A5441300881560 /* uECC_vli.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = uECC_vli.h; sourceTree = "<group>"; };
+		2700286320A5443300881560 /* platform-specific.inc */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.pascal; path = "platform-specific.inc"; sourceTree = "<group>"; };
+		2700286420A5446000881560 /* curve-specific.inc */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.pascal; path = "curve-specific.inc"; sourceTree = "<group>"; };
+		2700286520A5598700881560 /* ripemd160.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ripemd160.h; sourceTree = "<group>"; };
+		2700286620A5598700881560 /* ripemd160.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ripemd160.c; sourceTree = "<group>"; };
 		27201543208E0673001205A3 /* SwiftyEOS */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SwiftyEOS; sourceTree = BUILT_PRODUCTS_DIR; };
 		27201546208E0673001205A3 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		27858D20209C07C70044A881 /* ChainModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChainModels.swift; sourceTree = "<group>"; };
@@ -37,6 +49,10 @@
 		27858D27209C53A40044A881 /* ChainRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChainRouter.swift; sourceTree = "<group>"; };
 		27858D29209C760F0044A881 /* EOSRPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EOSRPC.swift; sourceTree = "<group>"; };
 		27858D2D209C77870044A881 /* EOSRPC+Chain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EOSRPC+Chain.swift"; sourceTree = "<group>"; };
+		27FFB0F320A19B07000E67DA /* Key.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Key.swift; sourceTree = "<group>"; };
+		27FFB0F520A1A804000E67DA /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
+		27FFB0FA20A1ADCE000E67DA /* libbase58.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = libbase58.h; sourceTree = "<group>"; };
+		27FFB0FB20A1ADF2000E67DA /* base58.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = base58.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +86,8 @@
 		27201545208E0673001205A3 /* SwiftyEOS */ = {
 			isa = PBXGroup;
 			children = (
+				27FFB0F720A1ADB5000E67DA /* Libraries */,
+				27FFB0F220A19AAB000E67DA /* Key */,
 				27858D24209C36900044A881 /* Network */,
 				27858D1F209C07A70044A881 /* Models */,
 			);
@@ -110,6 +128,48 @@
 				27858D2D209C77870044A881 /* EOSRPC+Chain.swift */,
 			);
 			path = Chain;
+			sourceTree = "<group>";
+		};
+		27FFB0F220A19AAB000E67DA /* Key */ = {
+			isa = PBXGroup;
+			children = (
+				27FFB0F320A19B07000E67DA /* Key.swift */,
+			);
+			path = Key;
+			sourceTree = "<group>";
+		};
+		27FFB0F720A1ADB5000E67DA /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				27FFB0F920A1ADBB000E67DA /* include */,
+				27FFB0F820A1ADB5000E67DA /* src */,
+			);
+			path = Libraries;
+			sourceTree = "<group>";
+		};
+		27FFB0F820A1ADB5000E67DA /* src */ = {
+			isa = PBXGroup;
+			children = (
+				27FFB0FB20A1ADF2000E67DA /* base58.c */,
+				2700285F20A5431D00881560 /* uECC.c */,
+				2700286620A5598700881560 /* ripemd160.c */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		27FFB0F920A1ADBB000E67DA /* include */ = {
+			isa = PBXGroup;
+			children = (
+				27FFB0F520A1A804000E67DA /* Bridging-Header.h */,
+				2700286520A5598700881560 /* ripemd160.h */,
+				27FFB0FA20A1ADCE000E67DA /* libbase58.h */,
+				2700285E20A5430000881560 /* uECC.h */,
+				2700286120A543EE00881560 /* types.h */,
+				2700286220A5441300881560 /* uECC_vli.h */,
+				2700286320A5443300881560 /* platform-specific.inc */,
+				2700286420A5446000881560 /* curve-specific.inc */,
+			);
+			path = include;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -169,11 +229,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2700286720A5598700881560 /* ripemd160.c in Sources */,
 				27201547208E0673001205A3 /* main.swift in Sources */,
 				27858D21209C07C70044A881 /* ChainModels.swift in Sources */,
 				27858D23209C0D4F0044A881 /* BigInt.swift in Sources */,
 				27858D2E209C77870044A881 /* EOSRPC+Chain.swift in Sources */,
 				27858D2A209C760F0044A881 /* EOSRPC.swift in Sources */,
+				2700286020A5431D00881560 /* uECC.c in Sources */,
+				27FFB0FC20A1ADF2000E67DA /* base58.c in Sources */,
+				27FFB0F420A19B07000E67DA /* Key.swift in Sources */,
 				27858D26209C51E60044A881 /* BaseRouter.swift in Sources */,
 				27858D28209C53A40044A881 /* ChainRouter.swift in Sources */,
 			);
@@ -299,8 +363,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/SwiftyEOS/Frameworks/macos",
+					"$(PROJECT_DIR)/SwiftyEOS/Frameworks/ios",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "SwiftyEOS/Libraries/include/Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
+				SYSTEM_HEADER_SEARCH_PATHS = SwiftyEOS/Libraries/include;
 			};
 			name = Debug;
 		};
@@ -308,8 +379,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/SwiftyEOS/Frameworks/macos",
+					"$(PROJECT_DIR)/SwiftyEOS/Frameworks/ios",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "SwiftyEOS/Libraries/include/Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
+				SYSTEM_HEADER_SEARCH_PATHS = SwiftyEOS/Libraries/include;
 			};
 			name = Release;
 		};
