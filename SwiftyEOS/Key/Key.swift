@@ -166,23 +166,12 @@ func randomData() -> Data? {
     }
 }
 
-func create(enclave: SecureEnclave) -> String? {
-    let randomPrivateKey = randomData()!
+func create(enclave: SecureEnclave) -> Data? {
+    let privateKey = randomData()!
     
-    let attributes: [String: Any] =
-        [kSecAttrKeyType as String:            kSecAttrKeyTypeECSECPrimeRandom,
-         kSecAttrKeySizeInBits as String:      256
-    ]
-    var error: Unmanaged<CFError>?
-    guard let privateKey = SecKeyCreateFromData(attributes as CFDictionary, randomPrivateKey as CFData, &error) else {
-        print("error: \(error!.takeRetainedValue())")
-        return nil
-    }
-    
-    if let cfdata = SecKeyCopyExternalRepresentation(privateKey, &error) {
-        let data:Data = cfdata as Data
-        print("private key: \(data.wifString(enclave: enclave))")
-        print("private key: \(data.wifStringPureSwift(enclave: enclave))")
+    do {
+        print("private key: \(privateKey.wifString(enclave: enclave))")
+        print("private key: \(privateKey.wifStringPureSwift(enclave: enclave))")
     }
     
     do {
@@ -197,11 +186,11 @@ func create(enclave: SecureEnclave) -> String? {
         default:
             curve = uECC_secp256k1()
         }
-        uECC_compute_public_key([UInt8](randomPrivateKey), &publicBytes, curve)
+        uECC_compute_public_key([UInt8](privateKey), &publicBytes, curve)
         uECC_compress(&publicBytes, &compressedPublicBytes, curve)
         let publicKey = Data(bytes: compressedPublicBytes, count: 33)
         print("public key:  \(publicKey.publicKeyEncodeString(enclave: enclave))")
     }
     
-    return privateKey as? String
+    return privateKey
 }
