@@ -153,7 +153,7 @@ extension Data {
     }
 }
 
-func randomData() -> Data? {
+func randomPrivateKey() -> Data? {
     var keyData = Data(count: 32)
     let result = keyData.withUnsafeMutableBytes { (mutableBytes: UnsafeMutablePointer<UInt8>) -> Int32 in
         SecRandomCopyBytes(kSecRandomDefault, 32, mutableBytes)
@@ -166,31 +166,23 @@ func randomData() -> Data? {
     }
 }
 
-func create(enclave: SecureEnclave) -> Data? {
-    let privateKey = randomData()!
+func generateRandomKeyPair(enclave: SecureEnclave) -> (privateKey: String?, publicKey: String?, error: Error?) {
+    let privateKey = randomPrivateKey()!
     
-    do {
-        print("private key: \(privateKey.wifString(enclave: enclave))")
-        print("private key: \(privateKey.wifStringPureSwift(enclave: enclave))")
+    var publicBytes: Array<UInt8> = Array(repeating: UInt8(0), count: 64)
+    var compressedPublicBytes: Array<UInt8> = Array(repeating: UInt8(0), count: 33)
+    
+    var curve: uECC_Curve
+    
+    switch enclave {
+    case .Secp256r1:
+        curve = uECC_secp256r1()
+    default:
+        curve = uECC_secp256k1()
     }
+    uECC_compute_public_key([UInt8](privateKey), &publicBytes, curve)
+    uECC_compress(&publicBytes, &compressedPublicBytes, curve)
+    let publicKey = Data(bytes: compressedPublicBytes, count: 33)
     
-    do {
-        var publicBytes: Array<UInt8> = Array(repeating: UInt8(0), count: 64)
-        var compressedPublicBytes: Array<UInt8> = Array(repeating: UInt8(0), count: 33)
-        
-        var curve: uECC_Curve
-        
-        switch enclave {
-        case .Secp256r1:
-            curve = uECC_secp256r1()
-        default:
-            curve = uECC_secp256k1()
-        }
-        uECC_compute_public_key([UInt8](privateKey), &publicBytes, curve)
-        uECC_compress(&publicBytes, &compressedPublicBytes, curve)
-        let publicKey = Data(bytes: compressedPublicBytes, count: 33)
-        print("public key:  \(publicKey.publicKeyEncodeString(enclave: enclave))")
-    }
-    
-    return privateKey
+    return (privateKey.wifString(enclave: enclave), publicKey.publicKeyEncodeString(enclave: enclave), nil)
 }

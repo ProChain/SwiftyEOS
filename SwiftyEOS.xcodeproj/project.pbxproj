@@ -69,7 +69,6 @@
 		2720153A208E0673001205A3 = {
 			isa = PBXGroup;
 			children = (
-				27FFB0F520A1A804000E67DA /* Bridging-Header.h */,
 				27201546208E0673001205A3 /* main.swift */,
 				27201545208E0673001205A3 /* SwiftyEOS */,
 				27201544208E0673001205A3 /* Products */,
@@ -161,6 +160,7 @@
 		27FFB0F920A1ADBB000E67DA /* include */ = {
 			isa = PBXGroup;
 			children = (
+				27FFB0F520A1A804000E67DA /* Bridging-Header.h */,
 				2700286520A5598700881560 /* ripemd160.h */,
 				27FFB0FA20A1ADCE000E67DA /* libbase58.h */,
 				2700285E20A5430000881560 /* uECC.h */,
@@ -369,7 +369,7 @@
 					"$(PROJECT_DIR)/SwiftyEOS/Frameworks/ios",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "SwiftyEOS/Libraries/include/Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				SYSTEM_HEADER_SEARCH_PATHS = SwiftyEOS/Libraries/include;
 			};
@@ -385,7 +385,7 @@
 					"$(PROJECT_DIR)/SwiftyEOS/Frameworks/ios",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "SwiftyEOS/Libraries/include/Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				SYSTEM_HEADER_SEARCH_PATHS = SwiftyEOS/Libraries/include;
 			};

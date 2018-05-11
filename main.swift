@@ -26,6 +26,8 @@ print("Hello, SwiftyEOS!")
 //    }
 //}
 
-create(enclave: .Secp256k1)
+let (pk, pub, err) = generateRandomKeyPair(enclave: .Secp256k1)
+print("private key: \(pk!)")
+print("public key : \(pub!)")
 
 RunLoop.main.run()
