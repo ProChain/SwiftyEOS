@@ -1,13 +1,12 @@
 //
-//  Key.swift
+//  Crypto.swift
 //  SwiftyEOS
 //
-//  Created by croath on 2018/5/8.
+//  Created by croath on 2018/5/14.
 //  Copyright © 2018 ProChain. All rights reserved.
 //
 
 import Foundation
-import Security
 
 enum SecureEnclave: String {
     case Secp256k1 = "K1"
@@ -24,53 +23,15 @@ let setSHA256Implementation: Void = {
 }()
 
 extension Data {
-    func wifStringPureSwift(enclave: SecureEnclave) -> String {
-        let size_of_data_to_hash = count + 1
-        let size_of_hash_bytes = 4
-        var data: Array<UInt8> = Array(repeating: UInt8(0), count: size_of_data_to_hash+size_of_hash_bytes)
-        data[0] = UInt8(0x80)
-        let bytes = [UInt8](self)
-        for i in 1..<size_of_data_to_hash {
-            data[i] = bytes[i-1]
-        }
-        var digest = Data(bytes: data, count: size_of_data_to_hash)
-        digest = digest.sha256().sha256()
-        for i in 0..<size_of_hash_bytes {
-            data[size_of_data_to_hash+i] = ([UInt8](digest))[i]
-        }
-        let base58 = Data(bytes: data, count: size_of_data_to_hash+size_of_hash_bytes).base58EncodedData()
-        return "PVT_\(enclave.rawValue)_\(String(data: base58, encoding: .ascii)!)"
-    }
-    
-    func wifString(enclave: SecureEnclave) -> String {
-        return "PVT_\(enclave.rawValue)_\(String(data: base58CheckEncodedData(version: 0x80), encoding: .ascii)!)"
-    }
-    
-    func publicKeyEncodeString(enclave: SecureEnclave) -> String {
-        let size_of_data_to_hash = count
-        let size_of_hash_bytes = 4
-        var data: Array<UInt8> = Array(repeating: UInt8(0), count: size_of_data_to_hash+size_of_hash_bytes)
-        var bytes = [UInt8](self)
-        for i in 0..<size_of_data_to_hash {
-            data[i] = bytes[i]
-        }
-        let hash = RMD(&bytes, 33)
-        for i in 0..<size_of_hash_bytes {
-            data[size_of_data_to_hash+i] = hash![i]
-        }
-        let base58 = Data(bytes: data, count: size_of_data_to_hash+size_of_hash_bytes).base58EncodedData()
-        return "PUB_\(enclave.rawValue)_\(String(data: base58, encoding: .ascii)!)"
-    }
-
     func sha256() -> Data {
         var hash = [UInt8](repeating: 0,  count: Int(CC_SHA256_DIGEST_LENGTH))
         withUnsafeBytes {
             _ = CC_SHA256($0, CC_LONG(count), &hash)
         }
-
+        
         return Data(bytes: hash)
     }
-
+    
     public func base58EncodedData() -> Data {
         var mult = 2
         while true {
@@ -86,11 +47,11 @@ extension Data {
                     return nil
                 }
             }
-
+            
             if let s = s {
                 return s
             }
-
+            
             mult += 1
         }
     }
@@ -151,38 +112,4 @@ extension Data {
         }
         return nil
     }
-}
-
-func randomPrivateKey() -> Data? {
-    var keyData = Data(count: 32)
-    let result = keyData.withUnsafeMutableBytes { (mutableBytes: UnsafeMutablePointer<UInt8>) -> Int32 in
-        SecRandomCopyBytes(kSecRandomDefault, 32, mutableBytes)
-    }
-    if result == errSecSuccess {
-        return keyData
-    } else {
-        print("Problem generating random bytes")
-        return nil
-    }
-}
-
-func generateRandomKeyPair(enclave: SecureEnclave) -> (privateKey: String?, publicKey: String?, error: Error?) {
-    let privateKey = randomPrivateKey()!
-    
-    var publicBytes: Array<UInt8> = Array(repeating: UInt8(0), count: 64)
-    var compressedPublicBytes: Array<UInt8> = Array(repeating: UInt8(0), count: 33)
-    
-    var curve: uECC_Curve
-    
-    switch enclave {
-    case .Secp256r1:
-        curve = uECC_secp256r1()
-    default:
-        curve = uECC_secp256k1()
-    }
-    uECC_compute_public_key([UInt8](privateKey), &publicBytes, curve)
-    uECC_compress(&publicBytes, &compressedPublicBytes, curve)
-    let publicKey = Data(bytes: compressedPublicBytes, count: 33)
-    
-    return (privateKey.wifString(enclave: enclave), publicKey.publicKeyEncodeString(enclave: enclave), nil)
 }
