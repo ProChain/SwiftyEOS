@@ -48,4 +48,8 @@ struct PublicKey {
         data = Data(bytes: compressedPublicBytes, count: 33)
         enclave = privateKey.enclave
     }
+    
+    func wif() -> String {
+        return self.data.publicKeyEncodeString(enclave: enclave)
+    }
 }

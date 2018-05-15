@@ -27,7 +27,12 @@ print("Hello, SwiftyEOS!")
 //}
 
 let (pk, pub, err) = generateRandomKeyPair(enclave: .Secp256k1)
-print("private key: \(pk!)")
-print("public key : \(pub!)")
+print("private key: \(pk!.wif())")
+print("public key : \(pub!.wif())")
+
+let importedPk = try PrivateKey(keyString: pk!.wif())
+let importedPub = PublicKey(privateKey: importedPk!)
+print("imported private key: \(importedPk!.wif())")
+print("imported public key : \(importedPub.wif())")
 
 RunLoop.main.run()

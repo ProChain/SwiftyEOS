@@ -33,9 +33,49 @@ extension Data {
     }
 }
 
+extension String {
+    func parseWif() throws -> Data? {
+        guard let data = decodeChecked(version: 0x80) else {
+            throw NSError(domain: "com.swiftyeos.error", code: 0, userInfo: [NSLocalizedDescriptionKey: "Invalid base58: \(self)"])
+        }
+        return data
+    }
+}
+
 struct PrivateKey {
+    static let prefix = "PVT"
+    static let delimiter = "_"
     var enclave: SecureEnclave
     var data: Data
+    
+    init?(keyString: String) throws {
+        if keyString.range(of: PrivateKey.delimiter) == nil {
+            enclave = .Secp256k1
+            data = try keyString.parseWif()!
+        } else {
+            let dataParts = keyString.components(separatedBy: PrivateKey.delimiter)
+            guard dataParts[0] == PrivateKey.prefix else {
+                throw NSError(domain: "com.swiftyeos.error", code: 0, userInfo: [NSLocalizedDescriptionKey: "Private Key \(keyString) has invalid prefix: \(PrivateKey.delimiter)"])
+            }
+            
+            guard dataParts.count == 3 else {
+                throw NSError(domain: "com.swiftyeos.error", code: 0, userInfo: [NSLocalizedDescriptionKey: "Private Key has data format is not right: \(keyString)"])
+            }
+            
+            enclave = SecureEnclave(rawValue: dataParts[1])!
+            let dataString = dataParts[2]
+            data = try dataString.parseWif()!
+        }
+    }
+    
+    init(enclave: SecureEnclave, data: Data) {
+        self.enclave = enclave
+        self.data = data
+    }
+    
+    func wif() -> String {
+        return self.data.wifString(enclave: enclave)
+    }
     
     static func randomPrivateKey(enclave: SecureEnclave = .Secp256r1) -> PrivateKey? {
         var keyData = Data(count: 32)
