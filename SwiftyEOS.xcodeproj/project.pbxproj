@@ -16,7 +16,10 @@
 		27858D28209C53A40044A881 /* ChainRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27858D27209C53A40044A881 /* ChainRouter.swift */; };
 		27858D2A209C760F0044A881 /* EOSRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27858D29209C760F0044A881 /* EOSRPC.swift */; };
 		27858D2E209C77870044A881 /* EOSRPC+Chain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27858D2D209C77870044A881 /* EOSRPC+Chain.swift */; };
-		27FFB0F420A19B07000E67DA /* Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FFB0F320A19B07000E67DA /* Key.swift */; };
+		2791CE4420A9714C004E0EF5 /* PrivateKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2791CE4320A9714C004E0EF5 /* PrivateKey.swift */; };
+		2791CE4620A9715A004E0EF5 /* PublicKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2791CE4520A9715A004E0EF5 /* PublicKey.swift */; };
+		2791CE4920A9758D004E0EF5 /* Crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2791CE4820A9758D004E0EF5 /* Crypto.swift */; };
+		27FFB0F420A19B07000E67DA /* KeyPair.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FFB0F320A19B07000E67DA /* KeyPair.swift */; };
 		27FFB0FC20A1ADF2000E67DA /* base58.c in Sources */ = {isa = PBXBuildFile; fileRef = 27FFB0FB20A1ADF2000E67DA /* base58.c */; };
 /* End PBXBuildFile section */
 
@@ -49,7 +52,10 @@
 		27858D27209C53A40044A881 /* ChainRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChainRouter.swift; sourceTree = "<group>"; };
 		27858D29209C760F0044A881 /* EOSRPC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EOSRPC.swift; sourceTree = "<group>"; };
 		27858D2D209C77870044A881 /* EOSRPC+Chain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EOSRPC+Chain.swift"; sourceTree = "<group>"; };
-		27FFB0F320A19B07000E67DA /* Key.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Key.swift; sourceTree = "<group>"; };
+		2791CE4320A9714C004E0EF5 /* PrivateKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateKey.swift; sourceTree = "<group>"; };
+		2791CE4520A9715A004E0EF5 /* PublicKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublicKey.swift; sourceTree = "<group>"; };
+		2791CE4820A9758D004E0EF5 /* Crypto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Crypto.swift; sourceTree = "<group>"; };
+		27FFB0F320A19B07000E67DA /* KeyPair.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyPair.swift; sourceTree = "<group>"; };
 		27FFB0F520A1A804000E67DA /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		27FFB0FA20A1ADCE000E67DA /* libbase58.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = libbase58.h; sourceTree = "<group>"; };
 		27FFB0FB20A1ADF2000E67DA /* base58.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = base58.c; sourceTree = "<group>"; };
@@ -86,6 +92,7 @@
 		27201545208E0673001205A3 /* SwiftyEOS */ = {
 			isa = PBXGroup;
 			children = (
+				2791CE4720A97579004E0EF5 /* Crypto */,
 				27FFB0F720A1ADB5000E67DA /* Libraries */,
 				27FFB0F220A19AAB000E67DA /* Key */,
 				27858D24209C36900044A881 /* Network */,
@@ -130,10 +137,20 @@
 			path = Chain;
 			sourceTree = "<group>";
 		};
+		2791CE4720A97579004E0EF5 /* Crypto */ = {
+			isa = PBXGroup;
+			children = (
+				2791CE4820A9758D004E0EF5 /* Crypto.swift */,
+			);
+			path = Crypto;
+			sourceTree = "<group>";
+		};
 		27FFB0F220A19AAB000E67DA /* Key */ = {
 			isa = PBXGroup;
 			children = (
-				27FFB0F320A19B07000E67DA /* Key.swift */,
+				27FFB0F320A19B07000E67DA /* KeyPair.swift */,
+				2791CE4320A9714C004E0EF5 /* PrivateKey.swift */,
+				2791CE4520A9715A004E0EF5 /* PublicKey.swift */,
 			);
 			path = Key;
 			sourceTree = "<group>";
@@ -236,10 +253,13 @@
 				27858D2E209C77870044A881 /* EOSRPC+Chain.swift in Sources */,
 				27858D2A209C760F0044A881 /* EOSRPC.swift in Sources */,
 				2700286020A5431D00881560 /* uECC.c in Sources */,
+				2791CE4620A9715A004E0EF5 /* PublicKey.swift in Sources */,
 				27FFB0FC20A1ADF2000E67DA /* base58.c in Sources */,
-				27FFB0F420A19B07000E67DA /* Key.swift in Sources */,
+				27FFB0F420A19B07000E67DA /* KeyPair.swift in Sources */,
 				27858D26209C51E60044A881 /* BaseRouter.swift in Sources */,
 				27858D28209C53A40044A881 /* ChainRouter.swift in Sources */,
+				2791CE4920A9758D004E0EF5 /* Crypto.swift in Sources */,
+				2791CE4420A9714C004E0EF5 /* PrivateKey.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -363,11 +383,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/SwiftyEOS/Frameworks/macos",
-					"$(PROJECT_DIR)/SwiftyEOS/Frameworks/ios",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "SwiftyEOS/Libraries/include/Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
@@ -379,11 +395,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/SwiftyEOS/Frameworks/macos",
-					"$(PROJECT_DIR)/SwiftyEOS/Frameworks/ios",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "SwiftyEOS/Libraries/include/Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
