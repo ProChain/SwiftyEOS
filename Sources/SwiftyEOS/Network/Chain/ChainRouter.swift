@@ -11,6 +11,8 @@ import Foundation
 enum ChainEndpoint {
     case GetInfo()
     case GetBlock(blockNumberOrId: AnyObject)
+    case PushTransaction(transaction: Transaction)
+//    case AbiJsonToBin()
 }
 
 class ChainRouter: BaseRouter {
@@ -23,6 +25,7 @@ class ChainRouter: BaseRouter {
         switch endpoint {
         case .GetInfo: return .get
         case .GetBlock: return .post
+        case .PushTransaction: return .post
         }
     }
     
@@ -30,6 +33,7 @@ class ChainRouter: BaseRouter {
         switch endpoint {
         case .GetInfo: return "/chain/get_info"
         case .GetBlock: return "/chain/get_block"
+        case .PushTransaction: return "/chain/push_transaction"
         }
     }
     
@@ -37,6 +41,7 @@ class ChainRouter: BaseRouter {
         switch endpoint {
         case .GetInfo(): return [:]
         case .GetBlock(_): return [:]
+        case .PushTransaction(_): return [:]
         }
     }
     
@@ -46,6 +51,10 @@ class ChainRouter: BaseRouter {
         case .GetBlock(let blockNumberOrId):
             let encoder = JSONEncoder()
             let jsonData = try! encoder.encode(["block_num_or_id": "\(blockNumberOrId)"])
+            return jsonData
+        case .PushTransaction(let transaction):
+            let encoder = JSONEncoder()
+            let jsonData = try! encoder.encode(transaction)
             return jsonData
         }
     }
