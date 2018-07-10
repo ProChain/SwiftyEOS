@@ -18,4 +18,14 @@ extension EOSRPC {
         let router = ChainRouter(endpoint: .GetBlock(blockNumberOrId: blockNumOrId))
         internalRequest(router: router, completion: completion)
     }
+    
+    func abiJsonToBin(abi: AbiJson, completion: @escaping (_ result: AbiBinResult?, _ error: Error?) -> ()) {
+        let router = ChainRouter(endpoint: .AbiJsonToBin(abi: abi))
+        internalRequest(router: router, completion: completion)
+    }
+    
+    func pushTransaction(transaction: PackedTransaction, completion: @escaping (_ result: PackedTransaction?, _ error: Error?) -> ()) {
+        let router = ChainRouter(endpoint: .PushTransaction(transaction: transaction))
+        internalRequest(router: router, completion: completion)
+    }
 }

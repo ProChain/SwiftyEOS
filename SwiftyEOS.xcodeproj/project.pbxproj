@@ -25,6 +25,9 @@
 		27FC750C20BD10B900435C50 /* ChainModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FC74FA20BD10B900435C50 /* ChainModels.swift */; };
 		27FC750D20BD10B900435C50 /* BigInt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FC74FB20BD10B900435C50 /* BigInt.swift */; };
 		27FC750E20BD10B900435C50 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FC74FC20BD10B900435C50 /* main.swift */; };
+		27FC751520BD247700435C50 /* AnyDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FC751220BD247700435C50 /* AnyDecodable.swift */; };
+		27FC751620BD247700435C50 /* AnyCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FC751320BD247700435C50 /* AnyCodable.swift */; };
+		27FC751720BD247700435C50 /* AnyEncodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FC751420BD247700435C50 /* AnyEncodable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -65,6 +68,9 @@
 		27FC74FA20BD10B900435C50 /* ChainModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChainModels.swift; sourceTree = "<group>"; };
 		27FC74FB20BD10B900435C50 /* BigInt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BigInt.swift; sourceTree = "<group>"; };
 		27FC74FC20BD10B900435C50 /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		27FC751220BD247700435C50 /* AnyDecodable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnyDecodable.swift; sourceTree = "<group>"; };
+		27FC751320BD247700435C50 /* AnyCodable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnyCodable.swift; sourceTree = "<group>"; };
+		27FC751420BD247700435C50 /* AnyEncodable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnyEncodable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,7 +87,6 @@
 		2720153A208E0673001205A3 = {
 			isa = PBXGroup;
 			children = (
-				27FC751020BD239700435C50 /* Dependencies */,
 				27FC74E720BD10B900435C50 /* Libraries */,
 				27FC750F20BD10C100435C50 /* Tests */,
 				27FC74D720BD10B800435C50 /* Sources */,
@@ -100,6 +105,7 @@
 		27FC74D720BD10B800435C50 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				27FC751120BD247700435C50 /* AnyCodable */,
 				27FC74D820BD10B800435C50 /* SwiftyEOS */,
 			);
 			path = Sources;
@@ -238,12 +244,16 @@
 			path = Tests;
 			sourceTree = "<group>";
 		};
-		27FC751020BD239700435C50 /* Dependencies */ = {
+		27FC751120BD247700435C50 /* AnyCodable */ = {
 			isa = PBXGroup;
 			children = (
+				27FC751220BD247700435C50 /* AnyDecodable.swift */,
+				27FC751320BD247700435C50 /* AnyCodable.swift */,
+				27FC751420BD247700435C50 /* AnyEncodable.swift */,
 			);
-			path = Dependencies;
-			sourceTree = "<group>";
+			name = AnyCodable;
+			path = Dependencies/AnyCodable/Sources/AnyCodable;
+			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
 
@@ -302,6 +312,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27FC751520BD247700435C50 /* AnyDecodable.swift in Sources */,
 				27FC750A20BD10B900435C50 /* PublicKey.swift in Sources */,
 				27FC750020BD10B900435C50 /* ChainRouter.swift in Sources */,
 				27FC750E20BD10B900435C50 /* main.swift in Sources */,
@@ -311,6 +322,7 @@
 				27FC750920BD10B900435C50 /* KeyPair.swift in Sources */,
 				27FC74FF20BD10B900435C50 /* Signature.swift in Sources */,
 				27FC750720BD10B900435C50 /* uECC.c in Sources */,
+				27FC751720BD247700435C50 /* AnyEncodable.swift in Sources */,
 				27FC750420BD10B900435C50 /* curve-specific.inc in Sources */,
 				27FC750820BD10B900435C50 /* base58.c in Sources */,
 				27FC750620BD10B900435C50 /* ripemd160.c in Sources */,
@@ -318,6 +330,7 @@
 				27FC74FE20BD10B900435C50 /* Currency.swift in Sources */,
 				27FC750220BD10B900435C50 /* EOSRPC.swift in Sources */,
 				27FC74FD20BD10B900435C50 /* Crypto.swift in Sources */,
+				27FC751620BD247700435C50 /* AnyCodable.swift in Sources */,
 				27FC750120BD10B900435C50 /* EOSRPC+Chain.swift in Sources */,
 				27FC750B20BD10B900435C50 /* PrivateKey.swift in Sources */,
 			);

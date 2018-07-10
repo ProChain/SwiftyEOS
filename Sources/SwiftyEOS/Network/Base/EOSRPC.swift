@@ -24,6 +24,13 @@ var iso8601dateFormatterWithoutMilliseconds: DateFormatter = {
     return dateFormatter
 }()
 
+var iso8601dateFormatterRequest: DateFormatter = {
+    let dateFormatter = DateFormatter()
+    dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
+    dateFormatter.dateFormat = "yyyy-MM-ddTHH:mm:ss"
+    return dateFormatter
+}()
+
 func customDateFormatter(_ decoder: Decoder) throws -> Date {
     let dateString = try decoder.singleValueContainer().decode(String.self)
     switch dateString.count {

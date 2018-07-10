@@ -72,7 +72,7 @@ class BaseRouter : APIConfiguration {
     }
     
     var baseUrl: String {
-        return "http://198.13.41.28:8888/v1"
+        return "http://47.91.247.187:8087/v1"
     }
     
 }

@@ -11,8 +11,8 @@ import Foundation
 enum ChainEndpoint {
     case GetInfo()
     case GetBlock(blockNumberOrId: AnyObject)
-    case PushTransaction(transaction: Transaction)
-//    case AbiJsonToBin()
+    case PushTransaction(transaction: PackedTransaction)
+    case AbiJsonToBin(abi: AbiJson)
 }
 
 class ChainRouter: BaseRouter {
@@ -26,6 +26,7 @@ class ChainRouter: BaseRouter {
         case .GetInfo: return .get
         case .GetBlock: return .post
         case .PushTransaction: return .post
+        case .AbiJsonToBin: return .post
         }
     }
     
@@ -34,14 +35,13 @@ class ChainRouter: BaseRouter {
         case .GetInfo: return "/chain/get_info"
         case .GetBlock: return "/chain/get_block"
         case .PushTransaction: return "/chain/push_transaction"
+        case .AbiJsonToBin: return "/chain/abi_json_to_bin"
         }
     }
     
     override var parameters: QueryParams {
         switch endpoint {
-        case .GetInfo(): return [:]
-        case .GetBlock(_): return [:]
-        case .PushTransaction(_): return [:]
+        default: return [:]
         }
     }
     
@@ -50,11 +50,19 @@ class ChainRouter: BaseRouter {
         case .GetInfo(): return nil
         case .GetBlock(let blockNumberOrId):
             let encoder = JSONEncoder()
+            encoder.keyEncodingStrategy = .convertToSnakeCase
             let jsonData = try! encoder.encode(["block_num_or_id": "\(blockNumberOrId)"])
             return jsonData
         case .PushTransaction(let transaction):
             let encoder = JSONEncoder()
+            encoder.keyEncodingStrategy = .convertToSnakeCase
+            encoder.dateEncodingStrategy = .formatted(iso8601dateFormatterRequest)
             let jsonData = try! encoder.encode(transaction)
+            return jsonData
+        case .AbiJsonToBin(let abi):
+            let encoder = JSONEncoder()
+            encoder.keyEncodingStrategy = .convertToSnakeCase
+            let jsonData = try! encoder.encode(abi)
             return jsonData
         }
     }
