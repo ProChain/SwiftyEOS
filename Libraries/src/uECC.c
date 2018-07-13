@@ -81,7 +81,7 @@
 DEFER(CONCAT(REPEATM_NAME_, SOME_OR_0(DEC(N))))()(DEC(N), macro)
 #define REPEATM(N, macro) EVAL(REPEATM_SOME(N, macro))
 
-#include "platform-specific.h"
+#include "platform-specific.inc"
 
 #if (uECC_WORD_SIZE == 1)
 #if uECC_SUPPORTS_secp160r1
@@ -735,7 +735,7 @@ uECC_VLI_API void uECC_vli_modInv(uECC_word_t *result,
 
 /* ------ Point operations ------ */
 
-#include "curve-specific.h"
+#include "curve-specific.inc"
 
 /* Returns 1 if 'point' is the point at infinity, 0 otherwise. */
 #define EccPoint_isZero(point, curve) uECC_vli_isZero((point), (curve)->num_words * 2)
