@@ -11,7 +11,7 @@ import Foundation
 enum ChainEndpoint {
     case GetInfo()
     case GetBlock(blockNumberOrId: AnyObject)
-    case PushTransaction(transaction: PackedTransaction)
+    case PushTransaction(transaction: SignedTransaction)
     case AbiJsonToBin(abi: AbiJson)
 }
 
@@ -56,7 +56,6 @@ class ChainRouter: BaseRouter {
         case .PushTransaction(let transaction):
             let encoder = JSONEncoder()
             encoder.keyEncodingStrategy = .convertToSnakeCase
-            encoder.dateEncodingStrategy = .formatted(iso8601dateFormatterRequest)
             let jsonData = try! encoder.encode(transaction)
             return jsonData
         case .AbiJsonToBin(let abi):

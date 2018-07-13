@@ -30,16 +30,16 @@ print("Hello, SwiftyEOS!")
 //print("private key: \(pk!.wif())")
 //print("public key : \(pub!.wif())")
 
-let importedPk = try PrivateKey(keyString: "5HsaHvRCPrjU3yhapB5rLRyuKHuFTsziidA13Uw6WnQTeJAG3t4")
+let importedPk = try PrivateKey(keyString: "5J3Aa7Z98cZn9Rjy4aEaYUsN2EmYveLvh4YgCHCvvNB6EYJ94PA")
 let importedPub = PublicKey(privateKey: importedPk!)
 print("imported private key: \(importedPk!.wif())")
 print("imported public key : \(importedPub.wif())")
 
 var transfer = Transfer()
-transfer.from = "alex"
-transfer.to = "raoji"
-transfer.quantity = "1.0000 EPRA"
-transfer.memo = ""
+transfer.from = "raoji"
+transfer.to = "raojiraoji12"
+transfer.quantity = "10.0000 EOS"
+transfer.memo = "test"
 
 Currency.transferCurrency(tranfer: transfer, privateKey: importedPk!)
 

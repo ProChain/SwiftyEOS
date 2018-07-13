@@ -54,6 +54,24 @@ extension String {
     }
 }
 
+extension String {
+    func hexadecimal() -> Data? {
+        var data = Data(capacity: characters.count / 2)
+        
+        let regex = try! NSRegularExpression(pattern: "[0-9a-f]{1,2}", options: .caseInsensitive)
+        regex.enumerateMatches(in: self, range: NSMakeRange(0, utf16.count)) { match, flags, stop in
+            let byteString = (self as NSString).substring(with: match!.range)
+            var num = UInt8(byteString, radix: 16)!
+            data.append(&num, count: 1)
+        }
+        
+        guard data.count > 0 else { return nil }
+        
+        return data
+    }
+    
+}
+
 extension Data {
     func hexEncodedString() -> String {
         return map { String(format: "%02hhx", $0) }.joined()
@@ -90,33 +108,25 @@ struct Transaction: Codable {
     var expiration: Date
     var scope: [String]
     var actions: [Action]
-    var authorizations: [String]
+    var authorizations: [Authorization]
 }
 
-struct PackedTransaction: Codable {
-    var transaction: Transaction
-    var signatures: [String] = []
+struct SignedTransaction: Codable {
     var compression: String
+    var signatures: [String]
+    var packedContextFreeData: String
+    var packedTrx: String
     
-    var bytesList: [UInt8] = []
-    var packedTrx: String = ""
-    
-    init(transaction: Transaction, compression: String) {
-        self.transaction = transaction
-        self.compression = compression
-        
-        pushInt(value: Int(transaction.expiration.timeIntervalSince1970) & 0xffffffff)
-        pushShort(value: Int(transaction.refBlockNum)! & 0xffff)
-        pushInt(value: Int(transaction.refBlockPrefix)! & 0xffffffff)
-        pushVariableUInt(value: 0)
-        pushVariableUInt(value: 0)
-        pushVariableUInt(value: 0)
-        pushActions(actions: [])
-        pushActions(actions: transaction.actions)
-        pushVariableUInt(value: 0)
-        
-        packedTrx = Data(bytes: bytesList).hexEncodedString()
+    init(packedTx: PackedTransaction) {
+        compression = packedTx.compression
+        signatures = packedTx.signatures
+        packedContextFreeData = ""
+        packedTrx = packedTx.packedTrx
     }
+}
+
+struct DataWriter {
+    var bytesList: [UInt8] = []
     
     mutating func pushBase(value: IntegerLiteralType, stride: StrideTo<Int>) {
         for i in stride {
@@ -170,8 +180,22 @@ struct PackedTransaction: Codable {
         }
     }
     
-    mutating func pushData(data: String) {
-        
+    mutating func pushData(data: Data) {
+        if data.count == 0 {
+            pushVariableUInt(value: 0)
+        } else {
+            pushVariableUInt(value: CUnsignedInt(data.count))
+            bytesList.append(contentsOf: [UInt8](data))
+        }
+    }
+    
+    mutating func pushString(string: String) {
+        if string.count == 0 {
+            pushVariableUInt(value: 0)
+        } else {
+            pushVariableUInt(value: CUnsignedInt(string.count))
+            bytesList.append(contentsOf: [UInt8](string.data(using: .utf8)!))
+        }
     }
     
     mutating func pushActions(actions: [Action]) {
@@ -181,21 +205,56 @@ struct PackedTransaction: Codable {
             pushLong(value: action.name.eosTypeNameToLong())
             pushPermission(permissions: action.authorization)
             if action.data != nil {
-                pushData(data: action.data!)
+                pushData(data: action.data!.hexadecimal()!)
             } else {
                 pushVariableUInt(value: 0)
             }
         }
     }
     
+    static func dataForSignature(chainId: String?, pkt: PackedTransaction) -> Data {
+        var writer = DataWriter()
+        
+        if chainId != nil {
+            writer.pushData(data: chainId!.hexadecimal()!)
+        }
+        writer.pushInt(value: Int(pkt.transaction.expiration.timeIntervalSince1970) & 0xffffffff)
+        writer.pushShort(value: Int(pkt.transaction.refBlockNum)! & 0xffff)
+        writer.pushInt(value: Int(pkt.transaction.refBlockPrefix)! & 0xffffffff)
+        writer.pushVariableUInt(value: 0) // max_net_usage_words
+        writer.pushVariableUInt(value: 0) // max_kcpu_usage
+        writer.pushVariableUInt(value: 0) // delay_sec
+        writer.pushVariableUInt(value: 0) // context_free_actions
+        writer.pushActions(actions: pkt.transaction.actions)
+        writer.pushVariableUInt(value: 0) // transaction_extensions
+//        writer.pushData(data: Data(repeating: 0x00, count: 32)) // TypeChainId
+        
+        return Data(bytes: writer.bytesList)
+    }
+}
+
+struct PackedTransaction {
+    var transaction: Transaction
+    var signatures: [String] = []
+    var compression: String
+    
+    var packedTrx: String = ""
+    
+    init(transaction: Transaction, compression: String) {
+        self.transaction = transaction
+        self.compression = compression
+        
+        packedTrx = DataWriter.dataForSignature(chainId: nil, pkt: self).hexEncodedString()
+    }
+    
     mutating func sign(pk: PrivateKey, chainId: String) {
-        let packedBytes: [UInt8] = Array(chainId.utf8)
-        var digest = Data(bytes: packedBytes, count: packedBytes.count)
-        digest = digest.sha256().sha256()
+        let packedBytes: [UInt8] = [UInt8](DataWriter.dataForSignature(chainId: chainId, pkt: self))
+        
+        let digest = Data(bytes: packedBytes, count: packedBytes.count).sha256()
         let packedSha256 = [UInt8](digest)
         var signature = Data(repeating: UInt8(0), count: 32*2)
         let rectId = signature.withUnsafeMutableBytes { bytes -> Int32 in
-            return uECC_sign([UInt8](pk.data), packedSha256, UInt32(packedSha256.count), bytes, uECC_secp256k1())
+            return uECC_sign_forbc([UInt8](pk.data), packedSha256, UInt32(packedSha256.count), bytes, uECC_secp256k1())
         }
         if rectId == -1 {
             
@@ -211,21 +270,20 @@ struct PackedTransaction: Codable {
                 })
             }
             
-            var temp = Data(repeating: UInt8(0), count: binLength)
+            var temp = Data(repeating: UInt8(0), count: 67)
             
             bin.withUnsafeBytes { (bytes: UnsafePointer<UInt8>) -> Void in
                 temp.withUnsafeMutableBytes({ prt -> Void in
                     memcpy(prt, bytes, 65)
                 })
             }
-            bin.withUnsafeBytes { (bytes: UnsafePointer<UInt8>) -> Void in
-                temp.withUnsafeMutableBytes({ prt -> Void in
-                    memcpy(prt + 65, "K1", 2)
-                })
-            }
+            
+            temp.withUnsafeMutableBytes({ prt -> Void in
+                memcpy(prt + 65, "K1", 2)
+            })
             
             var tempBytes = [UInt8](temp)
-            let rmdHash = RMD(&tempBytes, Int32(binLength))
+            let rmdHash = RMD(&tempBytes, 67)
             
             bin.withUnsafeMutableBytes({ prt -> Void in
                 memcpy(prt+1+32*2, rmdHash, 4)
@@ -247,7 +305,7 @@ struct PackedTransaction: Codable {
             }
             
             if s != nil {
-                let sigString = String(data: s!, encoding: .ascii)
+                let sigString = String(data: s!, encoding: .utf8)
                 signatures.append("SIG_K1_\(sigString!)")
             }
             
@@ -283,11 +341,13 @@ struct Currency {
                     
                     let auth = Authorization(actor: tranfer.from, permission: "active")
                     let action = Action(account: abiJson.code, name: abiJson.action, authorization: [auth], data: bin!.binargs)
-                    let rawTx = Transaction(refBlockNum: "\(blockInfo!.blockNum)", refBlockPrefix: "\(blockInfo!.refBlockPrefix)", expiration: Date(), scope: [transfer.from, transfer.to], actions: [action], authorizations: [])
+                    let rawTx = Transaction(refBlockNum: "\(blockInfo!.blockNum)", refBlockPrefix: "\(blockInfo!.refBlockPrefix)", expiration: Date(timeIntervalSinceNow: 60), scope: [transfer.from, transfer.to], actions: [action], authorizations: [])
+//                    let rawTx = Transaction(refBlockNum: "59596", refBlockPrefix: "2950203573", expiration: Date(timeIntervalSince1970: 1531368174), scope: [transfer.from, transfer.to], actions: [action], authorizations: [])
                     
                     var tx = PackedTransaction(transaction: rawTx, compression: "none")
                     tx.sign(pk: privateKey, chainId: chainInfo!.chainId!)
-                    EOSRPC.sharedInstance.pushTransaction(transaction: tx, completion: { (txResult, error) in
+                    let signedTx = SignedTransaction(packedTx: tx)
+                    EOSRPC.sharedInstance.pushTransaction(transaction: signedTx, completion: { (txResult, error) in
                         
                     })
                 })

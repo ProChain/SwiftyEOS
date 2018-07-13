@@ -81,7 +81,7 @@
 DEFER(CONCAT(REPEATM_NAME_, SOME_OR_0(DEC(N))))()(DEC(N), macro)
 #define REPEATM(N, macro) EVAL(REPEATM_SOME(N, macro))
 
-#include "platform-specific.inc"
+#include "platform-specific.h"
 
 #if (uECC_WORD_SIZE == 1)
 #if uECC_SUPPORTS_secp160r1
@@ -735,7 +735,7 @@ uECC_VLI_API void uECC_vli_modInv(uECC_word_t *result,
 
 /* ------ Point operations ------ */
 
-#include "curve-specific.inc"
+#include "curve-specific.h"
 
 /* Returns 1 if 'point' is the point at infinity, 0 otherwise. */
 #define EccPoint_isZero(point, curve) uECC_vli_isZero((point), (curve)->num_words * 2)
@@ -1321,6 +1321,46 @@ int uECC_sign(const uint8_t *private_key,
         }
     }
     return 0;
+}
+
+int uECC_sign_forbc(const uint8_t *private_key,
+                    const uint8_t *message_hash,
+                    unsigned hash_size,
+                    uint8_t *signature,
+                    uECC_Curve curve){
+    uECC_word_t s[uECC_MAX_WORDS];
+    uECC_word_t r[uECC_MAX_WORDS];
+    
+    uECC_word_t s3[uECC_MAX_WORDS];
+    uECC_vli_set(s3, curve->n, uECC_MAX_WORDS);
+    uECC_vli_rshift1(s3, uECC_MAX_WORDS);
+    
+    int i = 0;
+    while(i < 2000) {
+        if(!uECC_sign(private_key, message_hash, hash_size, signature, curve)){
+            continue;
+        }
+        uECC_vli_bytesToNative(r, signature, 32);
+        uECC_vli_bytesToNative(s, signature+32, 32);
+        
+        if(uECC_vli_cmp(s, s3, uECC_MAX_WORDS) >= 0){
+            uECC_vli_modSub(s, curve->n, s, curve->n, uECC_MAX_WORDS);
+            uECC_vli_nativeToBytes(signature+32, 32, s);
+        }
+        
+        if (uECC_vli_numBits(r, uECC_MAX_WORDS) < 256 &&
+            uECC_vli_numBits(s, uECC_MAX_WORDS) < 256 &&
+            uECC_vli_numBits(r, uECC_MAX_WORDS) > 248 &&
+            uECC_vli_numBits(s, uECC_MAX_WORDS) > 248) {
+            uint8_t public_key[32*2];
+            uECC_compute_public_key(private_key, public_key, curve);
+            return uECC_verify(public_key, message_hash, hash_size, signature, curve);
+        }
+        
+        i++;
+        
+    }
+    return -1;
 }
 
 /* Compute an HMAC using K as a key (as in RFC 6979). Note that K is always

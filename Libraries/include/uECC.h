@@ -45,7 +45,7 @@
  Note that this will *only* work on native little-endian processors and it will treat the uint8_t
  arrays passed into the public API as word arrays, therefore requiring the provided byte arrays
  to be word aligned on architectures that do not support unaligned accesses.
- IMPORTANT: Keys and signatures generated with uECC_VLI_NATIVE_LITTLE_ENDIAN=1 are incompatible
+ IMPORTANT: Keys and signatures generated with uECC_s_NATIVE_LITTLE_ENDIAN=1 are incompatible
  with keys and signatures generated with uECC_VLI_NATIVE_LITTLE_ENDIAN=0; all parties must use
  the same endianness. */
 #ifndef uECC_VLI_NATIVE_LITTLE_ENDIAN
@@ -260,6 +260,12 @@ extern "C"
                   unsigned hash_size,
                   uint8_t *signature,
                   uECC_Curve curve);
+    
+    int uECC_sign_forbc(const uint8_t *private_key,
+                        const uint8_t *message_hash,
+                        unsigned hash_size,
+                        uint8_t *signature,
+                        uECC_Curve curve);
     
     /* uECC_HashContext structure.
      This is used to pass in an arbitrary hash function to uECC_sign_deterministic().

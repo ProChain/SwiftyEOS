@@ -14,8 +14,8 @@
 		27FC750120BD10B900435C50 /* EOSRPC+Chain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FC74E320BD10B900435C50 /* EOSRPC+Chain.swift */; };
 		27FC750220BD10B900435C50 /* EOSRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FC74E520BD10B900435C50 /* EOSRPC.swift */; };
 		27FC750320BD10B900435C50 /* BaseRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FC74E620BD10B900435C50 /* BaseRouter.swift */; };
-		27FC750420BD10B900435C50 /* curve-specific.inc in Sources */ = {isa = PBXBuildFile; fileRef = 27FC74ED20BD10B900435C50 /* curve-specific.inc */; };
-		27FC750520BD10B900435C50 /* platform-specific.inc in Sources */ = {isa = PBXBuildFile; fileRef = 27FC74EF20BD10B900435C50 /* platform-specific.inc */; };
+		27FC750420BD10B900435C50 /* curve-specific.h in Sources */ = {isa = PBXBuildFile; fileRef = 27FC74ED20BD10B900435C50 /* curve-specific.h */; };
+		27FC750520BD10B900435C50 /* platform-specific.h in Sources */ = {isa = PBXBuildFile; fileRef = 27FC74EF20BD10B900435C50 /* platform-specific.h */; };
 		27FC750620BD10B900435C50 /* ripemd160.c in Sources */ = {isa = PBXBuildFile; fileRef = 27FC74F220BD10B900435C50 /* ripemd160.c */; };
 		27FC750720BD10B900435C50 /* uECC.c in Sources */ = {isa = PBXBuildFile; fileRef = 27FC74F320BD10B900435C50 /* uECC.c */; };
 		27FC750820BD10B900435C50 /* base58.c in Sources */ = {isa = PBXBuildFile; fileRef = 27FC74F420BD10B900435C50 /* base58.c */; };
@@ -55,9 +55,9 @@
 		27FC74EA20BD10B900435C50 /* ripemd160.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ripemd160.h; sourceTree = "<group>"; };
 		27FC74EB20BD10B900435C50 /* uECC_vli.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uECC_vli.h; sourceTree = "<group>"; };
 		27FC74EC20BD10B900435C50 /* libbase58.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = libbase58.h; sourceTree = "<group>"; };
-		27FC74ED20BD10B900435C50 /* curve-specific.inc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.pascal; path = "curve-specific.inc"; sourceTree = "<group>"; };
+		27FC74ED20BD10B900435C50 /* curve-specific.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "curve-specific.h"; sourceTree = "<group>"; };
 		27FC74EE20BD10B900435C50 /* types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = types.h; sourceTree = "<group>"; };
-		27FC74EF20BD10B900435C50 /* platform-specific.inc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.pascal; path = "platform-specific.inc"; sourceTree = "<group>"; };
+		27FC74EF20BD10B900435C50 /* platform-specific.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "platform-specific.h"; sourceTree = "<group>"; };
 		27FC74F020BD10B900435C50 /* Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		27FC74F220BD10B900435C50 /* ripemd160.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ripemd160.c; sourceTree = "<group>"; };
 		27FC74F320BD10B900435C50 /* uECC.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = uECC.c; sourceTree = "<group>"; };
@@ -200,9 +200,9 @@
 				27FC74EA20BD10B900435C50 /* ripemd160.h */,
 				27FC74EB20BD10B900435C50 /* uECC_vli.h */,
 				27FC74EC20BD10B900435C50 /* libbase58.h */,
-				27FC74ED20BD10B900435C50 /* curve-specific.inc */,
+				27FC74ED20BD10B900435C50 /* curve-specific.h */,
 				27FC74EE20BD10B900435C50 /* types.h */,
-				27FC74EF20BD10B900435C50 /* platform-specific.inc */,
+				27FC74EF20BD10B900435C50 /* platform-specific.h */,
 				27FC74F020BD10B900435C50 /* Bridging-Header.h */,
 			);
 			path = include;
@@ -316,14 +316,14 @@
 				27FC750A20BD10B900435C50 /* PublicKey.swift in Sources */,
 				27FC750020BD10B900435C50 /* ChainRouter.swift in Sources */,
 				27FC750E20BD10B900435C50 /* main.swift in Sources */,
-				27FC750520BD10B900435C50 /* platform-specific.inc in Sources */,
+				27FC750520BD10B900435C50 /* platform-specific.h in Sources */,
 				27FC750D20BD10B900435C50 /* BigInt.swift in Sources */,
 				27FC750C20BD10B900435C50 /* ChainModels.swift in Sources */,
 				27FC750920BD10B900435C50 /* KeyPair.swift in Sources */,
 				27FC74FF20BD10B900435C50 /* Signature.swift in Sources */,
 				27FC750720BD10B900435C50 /* uECC.c in Sources */,
 				27FC751720BD247700435C50 /* AnyEncodable.swift in Sources */,
-				27FC750420BD10B900435C50 /* curve-specific.inc in Sources */,
+				27FC750420BD10B900435C50 /* curve-specific.h in Sources */,
 				27FC750820BD10B900435C50 /* base58.c in Sources */,
 				27FC750620BD10B900435C50 /* ripemd160.c in Sources */,
 				27FC750320BD10B900435C50 /* BaseRouter.swift in Sources */,

@@ -24,7 +24,7 @@ extension EOSRPC {
         internalRequest(router: router, completion: completion)
     }
     
-    func pushTransaction(transaction: PackedTransaction, completion: @escaping (_ result: PackedTransaction?, _ error: Error?) -> ()) {
+    func pushTransaction(transaction: SignedTransaction, completion: @escaping (_ result: SignedTransaction?, _ error: Error?) -> ()) {
         let router = ChainRouter(endpoint: .PushTransaction(transaction: transaction))
         internalRequest(router: router, completion: completion)
     }
