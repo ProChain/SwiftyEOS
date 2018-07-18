@@ -1328,24 +1328,24 @@ int uECC_sign_forbc(const uint8_t *private_key,
                     unsigned hash_size,
                     uint8_t *signature,
                     uECC_Curve curve){
-    uECC_word_t s[uECC_MAX_WORDS];
-    uECC_word_t r[uECC_MAX_WORDS];
+    uECC_word_t s[curve->num_words];
+    uECC_word_t r[curve->num_words];
     
-    uECC_word_t s3[uECC_MAX_WORDS];
-    uECC_vli_set(s3, curve->n, uECC_MAX_WORDS);
-    uECC_vli_rshift1(s3, uECC_MAX_WORDS);
+    uECC_word_t s3[curve->num_words];
+    uECC_vli_set(s3, curve->n, curve->num_words);
+    uECC_vli_rshift1(s3, curve->num_words);
     
     int i = 0;
     while(i < 2000) {
         if(!uECC_sign(private_key, message_hash, hash_size, signature, curve)){
             continue;
         }
-        uECC_vli_bytesToNative(r, signature, 32);
-        uECC_vli_bytesToNative(s, signature+32, 32);
+        uECC_vli_bytesToNative(r, signature, curve->num_bytes);
+        uECC_vli_bytesToNative(s, signature+curve->num_bytes, curve->num_bytes);
         
-        if(uECC_vli_cmp(s, s3, uECC_MAX_WORDS) >= 0){
-            uECC_vli_modSub(s, curve->n, s, curve->n, uECC_MAX_WORDS);
-            uECC_vli_nativeToBytes(signature+32, 32, s);
+        if(uECC_vli_cmp(s, s3, curve->num_words) >= 0){
+            uECC_vli_modSub(s, curve->n, s, curve->n, curve->num_words);
+            uECC_vli_nativeToBytes(signature+curve->num_bytes, curve->num_bytes, s);
         }
         
         if (uECC_vli_numBits(r, uECC_MAX_WORDS) < 256 &&

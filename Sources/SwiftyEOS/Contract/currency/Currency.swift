@@ -216,18 +216,20 @@ struct DataWriter {
         var writer = DataWriter()
         
         if chainId != nil {
-            writer.pushData(data: chainId!.hexadecimal()!)
+            writer.bytesList.append(contentsOf: chainId!.hexadecimal()!)
         }
-        writer.pushInt(value: Int(pkt.transaction.expiration.timeIntervalSince1970) & 0xffffffff)
-        writer.pushShort(value: Int(pkt.transaction.refBlockNum)! & 0xffff)
-        writer.pushInt(value: Int(pkt.transaction.refBlockPrefix)! & 0xffffffff)
+        writer.pushInt(value: Int(pkt.transaction.expiration.timeIntervalSince1970) & 0xFFFFFFFF)
+        writer.pushShort(value: Int(pkt.transaction.refBlockNum)! & 0xFFFF)
+        writer.pushInt(value: Int(pkt.transaction.refBlockPrefix)! & 0xFFFFFFFF)
         writer.pushVariableUInt(value: 0) // max_net_usage_words
         writer.pushVariableUInt(value: 0) // max_kcpu_usage
         writer.pushVariableUInt(value: 0) // delay_sec
         writer.pushVariableUInt(value: 0) // context_free_actions
         writer.pushActions(actions: pkt.transaction.actions)
         writer.pushVariableUInt(value: 0) // transaction_extensions
-//        writer.pushData(data: Data(repeating: 0x00, count: 32)) // TypeChainId
+        if chainId != nil {
+            writer.bytesList.append(contentsOf: Data(repeating: 0x00, count: 32))
+        }
         
         return Data(bytes: writer.bytesList)
     }
@@ -254,10 +256,11 @@ struct PackedTransaction {
         let packedSha256 = [UInt8](digest)
         var signature = Data(repeating: UInt8(0), count: 32*2)
         let rectId = signature.withUnsafeMutableBytes { bytes -> Int32 in
-            return uECC_sign_forbc([UInt8](pk.data), packedSha256, UInt32(packedSha256.count), bytes, uECC_secp256k1())
+            return uECC_sign_forbc([UInt8](pk.data), packedSha256, UInt32(packedSha256.count), bytes, curve(enclave: pk.enclave))
+//            return uECC_sign([UInt8](pk.data), packedSha256, UInt32(packedSha256.count), bytes, curve(enclave: pk.enclave))
         }
         if rectId == -1 {
-            
+            return
         } else {
             let binLength = 65 + 4
             var bin = Data(repeating: UInt8(0), count: binLength)
@@ -295,7 +298,7 @@ struct PackedTransaction {
             let s = bin.withUnsafeBytes { (bytes: UnsafePointer<UInt8>) -> Data? in
                 
                 let success = sigBin.withUnsafeMutableBytes { ptr -> Bool in
-                    return b58enc(ptr, &sigBinLength, bytes, binLength)
+                    return se_b58enc(ptr, &sigBinLength, bytes, binLength)
                 }
                 if success {
                     return sigBin.subdata(in: 0..<(sigBinLength-1))
@@ -341,14 +344,22 @@ struct Currency {
                     
                     let auth = Authorization(actor: tranfer.from, permission: "active")
                     let action = Action(account: abiJson.code, name: abiJson.action, authorization: [auth], data: bin!.binargs)
-                    let rawTx = Transaction(refBlockNum: "\(blockInfo!.blockNum)", refBlockPrefix: "\(blockInfo!.refBlockPrefix)", expiration: Date(timeIntervalSinceNow: 60), scope: [transfer.from, transfer.to], actions: [action], authorizations: [])
+                    let rawTx = Transaction(refBlockNum: "\(blockInfo!.blockNum)", refBlockPrefix: "\(blockInfo!.refBlockPrefix)", expiration: Date(timeIntervalSinceNow: 30), scope: [transfer.from, transfer.to], actions: [action], authorizations: [])
 //                    let rawTx = Transaction(refBlockNum: "59596", refBlockPrefix: "2950203573", expiration: Date(timeIntervalSince1970: 1531368174), scope: [transfer.from, transfer.to], actions: [action], authorizations: [])
                     
                     var tx = PackedTransaction(transaction: rawTx, compression: "none")
                     tx.sign(pk: privateKey, chainId: chainInfo!.chainId!)
                     let signedTx = SignedTransaction(packedTx: tx)
                     EOSRPC.sharedInstance.pushTransaction(transaction: signedTx, completion: { (txResult, error) in
-                        
+                        if error != nil {
+                            if error is RPCErrorResponse {
+                                print("\((error as! RPCErrorResponse).errorDescription())")
+                            } else {
+                                print("other error: \(String(describing: error?.localizedDescription))")
+                            }
+                        } else {
+                            print("ok")
+                        }
                     })
                 })
             })

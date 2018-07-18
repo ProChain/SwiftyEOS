@@ -74,14 +74,16 @@ class EOSRPC {
                 return
             }
             
-            do {
-                let decoder = self.decoder
-                let responseObject = try decoder.decode(T.self, from: data)
-                completion(responseObject, error)
-            } catch {
-                completion(nil, NSError(domain: errorDomain, code: 1,
-                                        userInfo: [NSLocalizedDescriptionKey: "Decoding error \(error)"]))
+            let decoder = self.decoder
+            guard let responseObject = try? decoder.decode(T.self, from: data) else {
+                guard let errorResponse = try? decoder.decode(RPCErrorResponse.self, from: data) else {
+                    completion(nil, NSError(domain: errorDomain, code: 1, userInfo: [NSLocalizedDescriptionKey: "Decoding error \(String(describing: error))"]))
+                    return
+                }
+                completion(nil, errorResponse)
+                return
             }
+            completion(responseObject, error)
         }
         
         dataTask.resume()

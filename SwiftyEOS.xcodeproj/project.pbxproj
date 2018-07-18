@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2783777A20F8A308003CC8DB /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2783777920F8A308003CC8DB /* Error.swift */; };
 		27FC74FD20BD10B900435C50 /* Crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FC74DA20BD10B800435C50 /* Crypto.swift */; };
 		27FC74FE20BD10B900435C50 /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FC74DD20BD10B800435C50 /* Currency.swift */; };
 		27FC74FF20BD10B900435C50 /* Signature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FC74DF20BD10B900435C50 /* Signature.swift */; };
@@ -44,6 +45,7 @@
 
 /* Begin PBXFileReference section */
 		27201543208E0673001205A3 /* SwiftyEOS */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SwiftyEOS; sourceTree = BUILT_PRODUCTS_DIR; };
+		2783777920F8A308003CC8DB /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		27FC74DA20BD10B800435C50 /* Crypto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Crypto.swift; sourceTree = "<group>"; };
 		27FC74DD20BD10B800435C50 /* Currency.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
 		27FC74DF20BD10B900435C50 /* Signature.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Signature.swift; sourceTree = "<group>"; };
@@ -233,6 +235,7 @@
 			children = (
 				27FC74FA20BD10B900435C50 /* ChainModels.swift */,
 				27FC74FB20BD10B900435C50 /* BigInt.swift */,
+				2783777920F8A308003CC8DB /* Error.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -326,6 +329,7 @@
 				27FC750420BD10B900435C50 /* curve-specific.inc in Sources */,
 				27FC750820BD10B900435C50 /* base58.c in Sources */,
 				27FC750620BD10B900435C50 /* ripemd160.c in Sources */,
+				2783777A20F8A308003CC8DB /* Error.swift in Sources */,
 				27FC750320BD10B900435C50 /* BaseRouter.swift in Sources */,
 				27FC74FE20BD10B900435C50 /* Currency.swift in Sources */,
 				27FC750220BD10B900435C50 /* EOSRPC.swift in Sources */,

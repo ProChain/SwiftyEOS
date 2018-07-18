@@ -73,6 +73,14 @@ enum SecureEnclave: String {
     case Secp256r1 = "R1"
 }
 
+func curve(enclave: SecureEnclave) -> uECC_Curve {
+    if enclave == .Secp256k1 {
+        return uECC_secp256k1()
+    } else {
+        return uECC_secp256r1()
+    }
+}
+
 public func ccSha256(_ digest: UnsafeMutableRawPointer?, _ data: UnsafeRawPointer?, _ size: Int) -> Bool {
     let opaquePtr = OpaquePointer(digest)
     return CC_SHA256(data, CC_LONG(size), UnsafeMutablePointer<UInt8>(opaquePtr)).pointee != 0
@@ -91,9 +99,9 @@ extension String {
         
         var size = bin.count
         let success = source.withUnsafeBytes { (sourceBytes: UnsafePointer<CChar>) -> Bool in
-            if b58tobin(&bin, &size, sourceBytes, source.count) {
+            if se_b58tobin(&bin, &size, sourceBytes, source.count) {
                 bin = Array(bin[(bin.count - size)..<bin.count])
-                return b58check(bin, size, sourceBytes, source.count) == Int32(version)
+                return se_b58check(bin, size, sourceBytes, source.count) == Int32(version)
             }
             return false
         }
@@ -122,7 +130,7 @@ extension Data {
             let s = self.withUnsafeBytes { (bytes: UnsafePointer<UInt8>) -> Data? in
                 var size = enc.count
                 let success = enc.withUnsafeMutableBytes { ptr -> Bool in
-                    return b58enc(ptr, &size, bytes, self.count)
+                    return se_b58enc(ptr, &size, bytes, self.count)
                 }
                 if success {
                     return enc.subdata(in: 0..<(size-1))
@@ -145,7 +153,7 @@ extension Data {
         let s = self.withUnsafeBytes { (bytes: UnsafePointer<UInt8>) -> Data? in
             var size = enc.count
             let success = enc.withUnsafeMutableBytes { ptr -> Bool in
-                return b58check_enc(ptr, &size, version, bytes, self.count)
+                return se_b58check_enc(ptr, &size, version, bytes, self.count)
             }
             if success {
                 return enc.subdata(in: 0..<(size-1))
@@ -163,7 +171,7 @@ extension Data {
         
         var size = bin.count
         let success = source.withUnsafeBytes { (sourceBytes: UnsafePointer<CChar>) -> Bool in
-            if b58tobin(&bin, &size, sourceBytes, source.count) {
+            if se_b58tobin(&bin, &size, sourceBytes, source.count) {
                 return true
             }
             return false
