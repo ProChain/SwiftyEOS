@@ -42,3 +42,11 @@ struct BlockInfo: Codable {
     var inputTransactions: [String]?
 //    var regions: [Any]?
 }
+
+struct Account {
+    
+}
+
+struct KeyAccountsResult: Codable {
+    var accountNames: [String]
+}
