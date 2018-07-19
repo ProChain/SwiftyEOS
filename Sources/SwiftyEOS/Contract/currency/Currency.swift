@@ -345,7 +345,6 @@ struct Currency {
                     let auth = Authorization(actor: tranfer.from, permission: "active")
                     let action = Action(account: abiJson.code, name: abiJson.action, authorization: [auth], data: bin!.binargs)
                     let rawTx = Transaction(refBlockNum: "\(blockInfo!.blockNum)", refBlockPrefix: "\(blockInfo!.refBlockPrefix)", expiration: Date(timeIntervalSinceNow: 30), scope: [transfer.from, transfer.to], actions: [action], authorizations: [])
-//                    let rawTx = Transaction(refBlockNum: "59596", refBlockPrefix: "2950203573", expiration: Date(timeIntervalSince1970: 1531368174), scope: [transfer.from, transfer.to], actions: [action], authorizations: [])
                     
                     var tx = PackedTransaction(transaction: rawTx, compression: "none")
                     tx.sign(pk: privateKey, chainId: chainInfo!.chainId!)
