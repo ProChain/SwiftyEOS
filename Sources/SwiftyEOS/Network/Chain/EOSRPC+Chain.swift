@@ -28,4 +28,9 @@ extension EOSRPC {
         let router = ChainRouter(endpoint: .PushTransaction(transaction: transaction))
         internalRequest(router: router, completion: completion)
     }
+    
+    func getCurrencyBalance(account: String, symbol: String, code: String, completion: @escaping (_ result: [String]?, _ error: Error?) -> ()) {
+        let router = ChainRouter(endpoint: .GetCurrencyBalance(account: account, symbol: symbol, code: code))
+        internalRequest(router: router, completion: completion)
+    }
 }

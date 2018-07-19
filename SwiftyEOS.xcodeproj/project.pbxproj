@@ -22,6 +22,16 @@
 		270DD59120FF429400C6763B /* base58.c in Sources */ = {isa = PBXBuildFile; fileRef = 27FC74F420BD10B900435C50 /* base58.c */; };
 		270DD59421007A7400C6763B /* HistoryRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270DD59321007A7400C6763B /* HistoryRouter.swift */; };
 		270DD59621007A8200C6763B /* EOSRPC+History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270DD59521007A8200C6763B /* EOSRPC+History.swift */; };
+		270DD59C2100903600C6763B /* ChainRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FC74E220BD10B900435C50 /* ChainRouter.swift */; };
+		270DD59D2100904100C6763B /* EOSRPC+Chain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FC74E320BD10B900435C50 /* EOSRPC+Chain.swift */; };
+		270DD59E2100904300C6763B /* EOSRPC+History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270DD59521007A8200C6763B /* EOSRPC+History.swift */; };
+		270DD59F2100904500C6763B /* HistoryRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270DD59321007A7400C6763B /* HistoryRouter.swift */; };
+		270DD5A02100904700C6763B /* EOSRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FC74E520BD10B900435C50 /* EOSRPC.swift */; };
+		270DD5A12100904A00C6763B /* BaseRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FC74E620BD10B900435C50 /* BaseRouter.swift */; };
+		270DD5A22100904E00C6763B /* ChainModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FC74FA20BD10B900435C50 /* ChainModels.swift */; };
+		270DD5A32100905100C6763B /* BigInt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FC74FB20BD10B900435C50 /* BigInt.swift */; };
+		270DD5A42100905400C6763B /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2783777920F8A308003CC8DB /* Error.swift */; };
+		270DD5A52100905A00C6763B /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FC74DD20BD10B800435C50 /* Currency.swift */; };
 		2783777A20F8A308003CC8DB /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2783777920F8A308003CC8DB /* Error.swift */; };
 		27FC74FD20BD10B900435C50 /* Crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FC74DA20BD10B800435C50 /* Crypto.swift */; };
 		27FC74FE20BD10B900435C50 /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FC74DD20BD10B800435C50 /* Currency.swift */; };
@@ -433,9 +443,19 @@
 				270DD58A20FF2EA200C6763B /* PublicKey.swift in Sources */,
 				270DD58F20FF428F00C6763B /* ripemd160.c in Sources */,
 				270DD58920FEEB4F00C6763B /* SEWallet.swift in Sources */,
+				270DD5A12100904A00C6763B /* BaseRouter.swift in Sources */,
+				270DD5A32100905100C6763B /* BigInt.swift in Sources */,
 				270DD58D20FF3A2F00C6763B /* Crypto.swift in Sources */,
+				270DD5A22100904E00C6763B /* ChainModels.swift in Sources */,
+				270DD59E2100904300C6763B /* EOSRPC+History.swift in Sources */,
+				270DD5A02100904700C6763B /* EOSRPC.swift in Sources */,
 				270DD59020FF429200C6763B /* uECC.c in Sources */,
 				270DD58C20FF3A2600C6763B /* PrivateKey.swift in Sources */,
+				270DD59C2100903600C6763B /* ChainRouter.swift in Sources */,
+				270DD5A52100905A00C6763B /* Currency.swift in Sources */,
+				270DD59D2100904100C6763B /* EOSRPC+Chain.swift in Sources */,
+				270DD59F2100904500C6763B /* HistoryRouter.swift in Sources */,
+				270DD5A42100905400C6763B /* Error.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

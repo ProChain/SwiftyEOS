@@ -324,7 +324,7 @@ struct Transfer: Codable {
 }
 
 struct Currency {
-    static func transferCurrency(tranfer: Transfer, privateKey: PrivateKey) {
+    static func transferCurrency(transfer: Transfer, privateKey: PrivateKey) {
         EOSRPC.sharedInstance.chainInfo { (chainInfo, error) in
             if error != nil {
                 return
@@ -335,14 +335,14 @@ struct Currency {
                     return
                 }
                 
-                let abiJson = AbiJson(code: "eosio.token", action: "transfer", args: tranfer)
+                let abiJson = AbiJson(code: "eosio.token", action: "transfer", args: transfer)
                 
                 EOSRPC.sharedInstance.abiJsonToBin(abi: abiJson, completion: { (bin, error) in
                     if error != nil {
                         return
                     }
                     
-                    let auth = Authorization(actor: tranfer.from, permission: "active")
+                    let auth = Authorization(actor: transfer.from, permission: "active")
                     let action = Action(account: abiJson.code, name: abiJson.action, authorization: [auth], data: bin!.binargs)
                     let rawTx = Transaction(refBlockNum: "\(blockInfo!.blockNum)", refBlockPrefix: "\(blockInfo!.refBlockPrefix)", expiration: Date(timeIntervalSinceNow: 30), scope: [transfer.from, transfer.to], actions: [action], authorizations: [])
                     

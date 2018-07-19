@@ -20,13 +20,13 @@ class HistoryRouter: BaseRouter {
     
     override var method: HTTPMethod {
         switch endpoint {
-        case .GetKeyAccounts return .post
+        case .GetKeyAccounts: return .post
         }
     }
     
     override var path: String {
         switch endpoint {
-        case .GetKeyAccounts return "/history/get_key_accounts"
+        case .GetKeyAccounts: return "/history/get_key_accounts"
         }
     }
     
