@@ -41,6 +41,6 @@ transfer.to = "raojiraoji12"
 transfer.quantity = "1.0000 EOS"
 transfer.memo = "test"
 
-Currency.transferCurrency(tranfer: transfer, privateKey: importedPk!)
+//Currency.transferCurrency(tranfer: transfer, privateKey: importedPk!)
 
 RunLoop.main.run()

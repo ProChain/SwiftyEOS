@@ -10,21 +10,21 @@ import Foundation
 
 let errorDomain = "SwiftyEOSErrorDomain"
 
-var iso8601dateFormatter: DateFormatter = {
+var se_iso8601dateFormatter: DateFormatter = {
     let dateFormatter = DateFormatter()
     dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
     dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS"
     return dateFormatter
 }()
 
-var iso8601dateFormatterWithoutMilliseconds: DateFormatter = {
+var se_iso8601dateFormatterWithoutMilliseconds: DateFormatter = {
     let dateFormatter = DateFormatter()
     dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
     dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
     return dateFormatter
 }()
 
-var iso8601dateFormatterRequest: DateFormatter = {
+var se_iso8601dateFormatterRequest: DateFormatter = {
     let dateFormatter = DateFormatter()
     dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
     dateFormatter.dateFormat = "yyyy-MM-ddTHH:mm:ss"
@@ -35,16 +35,16 @@ func customDateFormatter(_ decoder: Decoder) throws -> Date {
     let dateString = try decoder.singleValueContainer().decode(String.self)
     switch dateString.count {
     case 20..<Int.max:
-        return iso8601dateFormatter.date(from: dateString)!
+        return se_iso8601dateFormatter.date(from: dateString)!
     case 19:
-        return iso8601dateFormatterWithoutMilliseconds.date(from: dateString)!
+        return se_iso8601dateFormatterWithoutMilliseconds.date(from: dateString)!
     default:
         let dateKey = decoder.codingPath.last
         fatalError("Unexpected date coding key: \(String(describing: dateKey))")
     }
 }
 
-class EOSRPC {
+@objcMembers class EOSRPC: NSObject {
     class var sharedInstance: EOSRPC {
         struct Singleton {
             static let instance : EOSRPC = EOSRPC()
@@ -68,22 +68,36 @@ class EOSRPC {
         let dataTask = URLSession.shared.dataTask(with: request) {
             (data, response, error) in
             
-            guard let data = data, error == nil else {
-                completion(nil, NSError(domain: errorDomain, code: 1,
-                                        userInfo: [NSLocalizedDescriptionKey: "Networking error \(String(describing: error)) \(String(describing: response))"]))
-                return
-            }
-            
-            let decoder = self.decoder
-            guard let responseObject = try? decoder.decode(T.self, from: data) else {
-                guard let errorResponse = try? decoder.decode(RPCErrorResponse.self, from: data) else {
-                    completion(nil, NSError(domain: errorDomain, code: 1, userInfo: [NSLocalizedDescriptionKey: "Decoding error \(String(describing: error))"]))
+            DispatchQueue.main.async {
+                guard let data = data, error == nil else {
+                    completion(nil, NSError(domain: errorDomain, code: 1,
+                                            userInfo: [NSLocalizedDescriptionKey: "Networking error \(String(describing: error)) \(String(describing: response))"]))
                     return
                 }
-                completion(nil, errorResponse)
-                return
+                
+                let decoder = self.decoder
+                //                do {
+                //                    let responseObject = try decoder.decode(T.self, from: data)
+                //                    completion(responseObject, error)
+                //                } catch {
+                //                    do {
+                //                        let errorResponse = try decoder.decode(RPCErrorResponse.self, from: data)
+                //                        completion(nil, errorResponse)
+                //                    } catch {
+                //                        completion(nil, NSError(domain: errorDomain, code: 1, userInfo: [NSLocalizedDescriptionKey: "Decoding error \(String(describing: error))"]))
+                //                    }
+                //                }
+                guard let responseObject = try? decoder.decode(T.self, from: data) else {
+                    guard let errorResponse = try? decoder.decode(RPCErrorResponse.self, from: data) else {
+                        completion(nil, NSError(domain: errorDomain, code: 1, userInfo: [NSLocalizedDescriptionKey: "Decoding error \(String(describing: error))"]))
+                        return
+                    }
+                    completion(nil, errorResponse)
+                    return
+                }
+                completion(responseObject, error)
             }
-            completion(responseObject, error)
+            
         }
         
         dataTask.resume()

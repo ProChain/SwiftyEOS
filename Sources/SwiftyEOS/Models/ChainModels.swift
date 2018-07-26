@@ -40,13 +40,44 @@ struct BlockInfo: Codable {
     var scheduleVersion: UInt64
     var newProducers: [String]?
     var inputTransactions: [String]?
-//    var regions: [Any]?
+    //    var regions: [Any]?
 }
 
-struct Account {
-    
+@objcMembers class KeyAccountsResult: NSObject, Codable {
+    var accountNames: [String] = []
 }
 
-struct KeyAccountsResult: Codable {
-    var accountNames: [String]
+@objcMembers class AuthKey: NSObject, Codable {
+    var key: String?
+    var weight: Int = 0
+}
+
+@objcMembers class RequiredAuth: NSObject, Codable {
+    var keys: [AuthKey]?
+}
+
+@objcMembers class AccountPermission: NSObject, Codable {
+    var permName: String?
+    var parent: String?
+    var requiredAuth: RequiredAuth?
+}
+
+@objcMembers class Account: NSObject, Codable {
+    var accountName: String = ""
+    var permissions: [AccountPermission]?
+}
+
+@objcMembers class TableRowResponse<T: Codable>: NSObject, Codable {
+    var rows: [T]?
+    var more: Bool = false
+}
+
+struct TableRowRequestParam: Codable {
+    var scope: String
+    var code: String
+    var table: String
+    var json: Bool
+    var lowerBound: Int32?
+    var upperBound: Int32?
+    var limit: Int32?
 }

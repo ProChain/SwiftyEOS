@@ -14,6 +14,8 @@ enum ChainEndpoint {
     case PushTransaction(transaction: SignedTransaction)
     case AbiJsonToBin(abi: AbiJson)
     case GetCurrencyBalance(account: String, symbol: String, code: String)
+    case GetAccount(account: String)
+    case GetTableRows(param: TableRowRequestParam)
 }
 
 class ChainRouter: BaseRouter {
@@ -23,13 +25,7 @@ class ChainRouter: BaseRouter {
     }
     
     override var method: HTTPMethod {
-        switch endpoint {
-        case .GetInfo: return .get
-        case .GetBlock: return .post
-        case .PushTransaction: return .post
-        case .AbiJsonToBin: return .post
-        case .GetCurrencyBalance: return .post
-        }
+        return .post
     }
     
     override var path: String {
@@ -39,6 +35,8 @@ class ChainRouter: BaseRouter {
         case .PushTransaction: return "/chain/push_transaction"
         case .AbiJsonToBin: return "/chain/abi_json_to_bin"
         case .GetCurrencyBalance: return "/chain/get_currency_balance"
+        case .GetAccount: return "/chain/get_account"
+        case .GetTableRows: return "/chain/get_table_rows"
         }
     }
     
@@ -70,6 +68,16 @@ class ChainRouter: BaseRouter {
             let encoder = JSONEncoder()
             encoder.keyEncodingStrategy = .convertToSnakeCase
             let jsonData = try! encoder.encode(["account": account, "symbol": symbol, "code": code])
+            return jsonData
+        case .GetAccount(let account):
+            let encoder = JSONEncoder()
+            encoder.keyEncodingStrategy = .convertToSnakeCase
+            let jsonData = try! encoder.encode(["account_name": account])
+            return jsonData
+        case .GetTableRows(let param):
+            let encoder = JSONEncoder()
+            encoder.keyEncodingStrategy = .convertToSnakeCase
+            let jsonData = try! encoder.encode(param)
             return jsonData
         }
     }

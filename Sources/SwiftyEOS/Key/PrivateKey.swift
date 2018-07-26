@@ -58,7 +58,7 @@ struct PrivateKey {
                 throw NSError(domain: "com.swiftyeos.error", code: 0, userInfo: [NSLocalizedDescriptionKey: "Private Key \(keyString) has invalid prefix: \(PrivateKey.delimiter)"])
             }
             
-            guard dataParts.count == 3 else {
+            guard dataParts.count != 2 else {
                 throw NSError(domain: "com.swiftyeos.error", code: 0, userInfo: [NSLocalizedDescriptionKey: "Private Key has data format is not right: \(keyString)"])
             }
             
@@ -87,6 +87,24 @@ struct PrivateKey {
         } else {
             print("Problem generating random bytes")
             return nil
+        }
+    }
+    
+    static func literalValid(keyString: String) -> Bool {
+        if keyString.range(of: PrivateKey.delimiter) == nil {
+            return keyString.count == 51
+        } else {
+            let dataParts = keyString.components(separatedBy: PrivateKey.delimiter)
+            guard dataParts.count != 2 else {
+                return false
+            }
+            guard dataParts[0] == PrivateKey.prefix else {
+                return false
+            }
+            guard dataParts[1].count == 51 else {
+                return false
+            }
+            return true
         }
     }
 }

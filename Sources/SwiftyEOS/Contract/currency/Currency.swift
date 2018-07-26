@@ -218,9 +218,9 @@ struct DataWriter {
         if chainId != nil {
             writer.bytesList.append(contentsOf: chainId!.hexadecimal()!)
         }
-        writer.pushInt(value: Int(pkt.transaction.expiration.timeIntervalSince1970) & 0xFFFFFFFF)
+        writer.pushInt(value: Int(UInt32(pkt.transaction.expiration.timeIntervalSince1970) & 0xFFFFFFFF))
         writer.pushShort(value: Int(pkt.transaction.refBlockNum)! & 0xFFFF)
-        writer.pushInt(value: Int(pkt.transaction.refBlockPrefix)! & 0xFFFFFFFF)
+        writer.pushInt(value: Int(UInt32(pkt.transaction.refBlockPrefix)! & 0xFFFFFFFF))
         writer.pushVariableUInt(value: 0) // max_net_usage_words
         writer.pushVariableUInt(value: 0) // max_kcpu_usage
         writer.pushVariableUInt(value: 0) // delay_sec
@@ -257,7 +257,7 @@ struct PackedTransaction {
         var signature = Data(repeating: UInt8(0), count: 32*2)
         let rectId = signature.withUnsafeMutableBytes { bytes -> Int32 in
             return uECC_sign_forbc([UInt8](pk.data), packedSha256, UInt32(packedSha256.count), bytes, curve(enclave: pk.enclave))
-//            return uECC_sign([UInt8](pk.data), packedSha256, UInt32(packedSha256.count), bytes, curve(enclave: pk.enclave))
+            //            return uECC_sign([UInt8](pk.data), packedSha256, UInt32(packedSha256.count), bytes, curve(enclave: pk.enclave))
         }
         if rectId == -1 {
             return
@@ -345,6 +345,7 @@ struct Currency {
                     let auth = Authorization(actor: transfer.from, permission: "active")
                     let action = Action(account: abiJson.code, name: abiJson.action, authorization: [auth], data: bin!.binargs)
                     let rawTx = Transaction(refBlockNum: "\(blockInfo!.blockNum)", refBlockPrefix: "\(blockInfo!.refBlockPrefix)", expiration: Date(timeIntervalSinceNow: 30), scope: [transfer.from, transfer.to], actions: [action], authorizations: [])
+                    //                    let rawTx = Transaction(refBlockNum: "59596", refBlockPrefix: "2950203573", expiration: Date(timeIntervalSince1970: 1531368174), scope: [transfer.from, transfer.to], actions: [action], authorizations: [])
                     
                     var tx = PackedTransaction(transaction: rawTx, compression: "none")
                     tx.sign(pk: privateKey, chainId: chainInfo!.chainId!)
