@@ -52,4 +52,12 @@ struct PublicKey {
     func wif() -> String {
         return self.data.publicKeyEncodeString(enclave: enclave)
     }
+    
+    func rawPublicKey() -> String {
+        let withoutDelimiter = self.wif().components(separatedBy: "_").last
+        guard withoutDelimiter!.hasPrefix("EOS") else {
+            return "EOS\(withoutDelimiter!)"
+        }
+        return withoutDelimiter!
+    }
 }

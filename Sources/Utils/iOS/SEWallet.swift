@@ -18,7 +18,7 @@ import Foundation
     
     lazy var keystore: SEKeystore! = {
         let libraryDirectory = NSSearchPathForDirectoriesInDomains(.libraryDirectory, .userDomainMask, true)[0]
-        return SEKeystore(keyDir: libraryDirectory.appending("/eos_keystore"))
+        return SEKeystore(keyDir: libraryDirectory.appending("/keystore"))
     }()
     
     func importAccount(privateKey: String, passcode: String, succeed: ((_ account: SELocalAccount) -> Void)?, failed:((_ error: Error) -> Void)?) {
@@ -147,14 +147,16 @@ import Foundation
     func deleteAccount(passcode: String, account: SELocalAccount) throws {
         let _ = try account.decrypt(passcode: passcode)
         try FileManager.default.removeItem(at: keyUrl.appendingPathComponent(account.publicKey!))
+        SELocalAccount.__account = nil
     }
     
     func changeAccountPasscode(oldcode: String, newcode: String, account: SELocalAccount) throws -> SELocalAccount {
         let pk = try account.decrypt(passcode: oldcode)
         try FileManager.default.removeItem(at: keyUrl.appendingPathComponent(account.publicKey!))
-        let account = SELocalAccount(pk: pk, passcode: newcode)
-        try account.write(to: keyUrl.appendingPathComponent(account.publicKey!))
-        return account
+        let newAccount = SELocalAccount(pk: pk, passcode: newcode)
+        try newAccount.write(to: keyUrl.appendingPathComponent(account.publicKey!))
+        SELocalAccount.__account = newAccount
+        return newAccount
     }
     
     func defaultAccount() -> SELocalAccount? {
@@ -213,8 +215,8 @@ struct RawKeystore: Codable {
         return SEKeystoreService.sharedInstance.keystore.defaultAccount()
     }
     
-    
-    static let aesIv = "A-16-Byte-String"
+    //FIXME: Fill with your own iv.
+    static let aesIv = "ReplaceWithYourIv"
     
     var publicKey: String?
     var rawPublicKey: String? {
@@ -300,7 +302,13 @@ struct RawKeystore: Codable {
                                      ivData:rawKeystore.iv.data(using:String.Encoding.utf8)!,
                                      operation:kCCDecrypt)
         let pkString = String(data:decryptedData, encoding:String.Encoding.utf8)
+        if pkString == nil {
+            throw NSError(domain: "", code: 0, userInfo: nil)
+        }
         let pk = try PrivateKey(keyString: pkString!)
+        if pk == nil {
+            throw NSError(domain: "", code: 0, userInfo: nil)
+        }
         let pub = PublicKey(privateKey: pk!)
         guard pub.wif() == rawKeystore.publicKey else {
             throw NSError(domain: "", code: 0, userInfo: nil)

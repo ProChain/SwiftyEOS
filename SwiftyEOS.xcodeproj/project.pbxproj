@@ -32,6 +32,24 @@
 		270DD5A32100905100C6763B /* BigInt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FC74FB20BD10B900435C50 /* BigInt.swift */; };
 		270DD5A42100905400C6763B /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2783777920F8A308003CC8DB /* Error.swift */; };
 		270DD5A52100905A00C6763B /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FC74DD20BD10B800435C50 /* Currency.swift */; };
+		275883A121140CFC00A80837 /* SwiftyEOSTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275883A021140CFC00A80837 /* SwiftyEOSTest.swift */; };
+		275883A721144AFD00A80837 /* ripemd160.c in Sources */ = {isa = PBXBuildFile; fileRef = 27FC74F220BD10B900435C50 /* ripemd160.c */; };
+		275883A821144B0000A80837 /* uECC.c in Sources */ = {isa = PBXBuildFile; fileRef = 27FC74F320BD10B900435C50 /* uECC.c */; };
+		275883A921144B0300A80837 /* base58.c in Sources */ = {isa = PBXBuildFile; fileRef = 27FC74F420BD10B900435C50 /* base58.c */; };
+		275883AA21144B1800A80837 /* PrivateKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FC74F820BD10B900435C50 /* PrivateKey.swift */; };
+		275883AB21144B1B00A80837 /* PublicKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FC74F720BD10B900435C50 /* PublicKey.swift */; };
+		275883AC21144B1E00A80837 /* KeyPair.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FC74F620BD10B900435C50 /* KeyPair.swift */; };
+		275883AD21144B2200A80837 /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FC74DD20BD10B800435C50 /* Currency.swift */; };
+		275883AE21144B2500A80837 /* Crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FC74DA20BD10B800435C50 /* Crypto.swift */; };
+		275883B0211450E600A80837 /* EOSRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FC74E520BD10B900435C50 /* EOSRPC.swift */; };
+		275883B1211450E800A80837 /* BaseRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FC74E620BD10B900435C50 /* BaseRouter.swift */; };
+		275883B2211450EB00A80837 /* EOSRPC+Chain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FC74E320BD10B900435C50 /* EOSRPC+Chain.swift */; };
+		275883B3211450EE00A80837 /* ChainRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FC74E220BD10B900435C50 /* ChainRouter.swift */; };
+		275883B4211450F000A80837 /* HistoryRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270DD59321007A7400C6763B /* HistoryRouter.swift */; };
+		275883B5211450F200A80837 /* EOSRPC+History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270DD59521007A8200C6763B /* EOSRPC+History.swift */; };
+		275883B6211450FB00A80837 /* ChainModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FC74FA20BD10B900435C50 /* ChainModels.swift */; };
+		275883B7211450FE00A80837 /* BigInt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FC74FB20BD10B900435C50 /* BigInt.swift */; };
+		275883B82114510100A80837 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2783777920F8A308003CC8DB /* Error.swift */; };
 		2783777A20F8A308003CC8DB /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2783777920F8A308003CC8DB /* Error.swift */; };
 		27FC74FD20BD10B900435C50 /* Crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FC74DA20BD10B800435C50 /* Crypto.swift */; };
 		27FC74FE20BD10B900435C50 /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FC74DD20BD10B800435C50 /* Currency.swift */; };
@@ -40,8 +58,6 @@
 		27FC750120BD10B900435C50 /* EOSRPC+Chain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FC74E320BD10B900435C50 /* EOSRPC+Chain.swift */; };
 		27FC750220BD10B900435C50 /* EOSRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FC74E520BD10B900435C50 /* EOSRPC.swift */; };
 		27FC750320BD10B900435C50 /* BaseRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FC74E620BD10B900435C50 /* BaseRouter.swift */; };
-		27FC750420BD10B900435C50 /* curve-specific.inc in Sources */ = {isa = PBXBuildFile; fileRef = 27FC74ED20BD10B900435C50 /* curve-specific.inc */; };
-		27FC750520BD10B900435C50 /* platform-specific.inc in Sources */ = {isa = PBXBuildFile; fileRef = 27FC74EF20BD10B900435C50 /* platform-specific.inc */; };
 		27FC750620BD10B900435C50 /* ripemd160.c in Sources */ = {isa = PBXBuildFile; fileRef = 27FC74F220BD10B900435C50 /* ripemd160.c */; };
 		27FC750720BD10B900435C50 /* uECC.c in Sources */ = {isa = PBXBuildFile; fileRef = 27FC74F320BD10B900435C50 /* uECC.c */; };
 		27FC750820BD10B900435C50 /* base58.c in Sources */ = {isa = PBXBuildFile; fileRef = 27FC74F420BD10B900435C50 /* base58.c */; };
@@ -81,6 +97,10 @@
 		270DD59321007A7400C6763B /* HistoryRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryRouter.swift; sourceTree = "<group>"; };
 		270DD59521007A8200C6763B /* EOSRPC+History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EOSRPC+History.swift"; sourceTree = "<group>"; };
 		27201543208E0673001205A3 /* SwiftyEOS */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SwiftyEOS; sourceTree = BUILT_PRODUCTS_DIR; };
+		2758839E21140CFC00A80837 /* SwiftyEOSTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftyEOSTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		275883A021140CFC00A80837 /* SwiftyEOSTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftyEOSTest.swift; sourceTree = "<group>"; };
+		275883A221140CFC00A80837 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		275883B92114516A00A80837 /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		2783777920F8A308003CC8DB /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		2790805E2109E247008BCCB7 /* asm_arm.inc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = asm_arm.inc.h; sourceTree = "<group>"; };
 		27FC74DA20BD10B800435C50 /* Crypto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Crypto.swift; sourceTree = "<group>"; };
@@ -121,6 +141,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		27201540208E0673001205A3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2758839B21140CFC00A80837 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -173,9 +200,9 @@
 			isa = PBXGroup;
 			children = (
 				27FC74E720BD10B900435C50 /* Libraries */,
-				27FC750F20BD10C100435C50 /* Tests */,
 				27FC74D720BD10B800435C50 /* Sources */,
 				270DD57820FEEACA00C6763B /* SwiftyEOS-iOS-Example */,
+				2758839F21140CFC00A80837 /* SwiftyEOSTest */,
 				27201544208E0673001205A3 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -185,8 +212,19 @@
 			children = (
 				27201543208E0673001205A3 /* SwiftyEOS */,
 				270DD57720FEEACA00C6763B /* SwiftyEOS-iOS-Example.app */,
+				2758839E21140CFC00A80837 /* SwiftyEOSTest.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		2758839F21140CFC00A80837 /* SwiftyEOSTest */ = {
+			isa = PBXGroup;
+			children = (
+				275883A021140CFC00A80837 /* SwiftyEOSTest.swift */,
+				275883A221140CFC00A80837 /* Info.plist */,
+				275883B92114516A00A80837 /* Bridging-Header.h */,
+			);
+			path = SwiftyEOSTest;
 			sourceTree = "<group>";
 		};
 		27FC74D720BD10B800435C50 /* Sources */ = {
@@ -328,13 +366,6 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		27FC750F20BD10C100435C50 /* Tests */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Tests;
-			sourceTree = "<group>";
-		};
 		27FC751120BD247700435C50 /* AnyCodable */ = {
 			isa = PBXGroup;
 			children = (
@@ -383,6 +414,23 @@
 			productReference = 27201543208E0673001205A3 /* SwiftyEOS */;
 			productType = "com.apple.product-type.tool";
 		};
+		2758839D21140CFC00A80837 /* SwiftyEOSTest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 275883A321140CFC00A80837 /* Build configuration list for PBXNativeTarget "SwiftyEOSTest" */;
+			buildPhases = (
+				2758839A21140CFC00A80837 /* Sources */,
+				2758839B21140CFC00A80837 /* Frameworks */,
+				2758839C21140CFC00A80837 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SwiftyEOSTest;
+			productName = SwiftyEOSTest;
+			productReference = 2758839E21140CFC00A80837 /* SwiftyEOSTest.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -398,6 +446,9 @@
 					};
 					27201542208E0673001205A3 = {
 						CreatedOnToolsVersion = 9.3;
+					};
+					2758839D21140CFC00A80837 = {
+						CreatedOnToolsVersion = 9.4.1;
 					};
 				};
 			};
@@ -416,6 +467,7 @@
 			targets = (
 				27201542208E0673001205A3 /* SwiftyEOS */,
 				270DD57620FEEACA00C6763B /* SwiftyEOS-iOS-Example */,
+				2758839D21140CFC00A80837 /* SwiftyEOSTest */,
 			);
 		};
 /* End PBXProject section */
@@ -428,6 +480,13 @@
 				270DD58420FEEACC00C6763B /* LaunchScreen.storyboard in Resources */,
 				270DD58120FEEACC00C6763B /* Assets.xcassets in Resources */,
 				270DD57F20FEEACA00C6763B /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2758839C21140CFC00A80837 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -470,14 +529,12 @@
 				27FC750A20BD10B900435C50 /* PublicKey.swift in Sources */,
 				27FC750020BD10B900435C50 /* ChainRouter.swift in Sources */,
 				27FC750E20BD10B900435C50 /* main.swift in Sources */,
-				27FC750520BD10B900435C50 /* platform-specific.inc in Sources */,
 				27FC750D20BD10B900435C50 /* BigInt.swift in Sources */,
 				27FC750C20BD10B900435C50 /* ChainModels.swift in Sources */,
 				27FC750920BD10B900435C50 /* KeyPair.swift in Sources */,
 				27FC74FF20BD10B900435C50 /* Signature.swift in Sources */,
 				27FC750720BD10B900435C50 /* uECC.c in Sources */,
 				27FC751720BD247700435C50 /* AnyEncodable.swift in Sources */,
-				27FC750420BD10B900435C50 /* curve-specific.inc in Sources */,
 				27FC750820BD10B900435C50 /* base58.c in Sources */,
 				27FC750620BD10B900435C50 /* ripemd160.c in Sources */,
 				2783777A20F8A308003CC8DB /* Error.swift in Sources */,
@@ -489,6 +546,31 @@
 				270DD59421007A7400C6763B /* HistoryRouter.swift in Sources */,
 				27FC750120BD10B900435C50 /* EOSRPC+Chain.swift in Sources */,
 				27FC750B20BD10B900435C50 /* PrivateKey.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2758839A21140CFC00A80837 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				275883B3211450EE00A80837 /* ChainRouter.swift in Sources */,
+				275883AD21144B2200A80837 /* Currency.swift in Sources */,
+				275883AB21144B1B00A80837 /* PublicKey.swift in Sources */,
+				275883AE21144B2500A80837 /* Crypto.swift in Sources */,
+				275883B4211450F000A80837 /* HistoryRouter.swift in Sources */,
+				275883A721144AFD00A80837 /* ripemd160.c in Sources */,
+				275883B0211450E600A80837 /* EOSRPC.swift in Sources */,
+				275883A921144B0300A80837 /* base58.c in Sources */,
+				275883B7211450FE00A80837 /* BigInt.swift in Sources */,
+				275883B5211450F200A80837 /* EOSRPC+History.swift in Sources */,
+				275883B6211450FB00A80837 /* ChainModels.swift in Sources */,
+				275883A121140CFC00A80837 /* SwiftyEOSTest.swift in Sources */,
+				275883B2211450EB00A80837 /* EOSRPC+Chain.swift in Sources */,
+				275883B1211450E800A80837 /* BaseRouter.swift in Sources */,
+				275883AC21144B1E00A80837 /* KeyPair.swift in Sources */,
+				275883A821144B0000A80837 /* uECC.c in Sources */,
+				275883AA21144B1800A80837 /* PrivateKey.swift in Sources */,
+				275883B82114510100A80837 /* Error.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -696,6 +778,44 @@
 			};
 			name = Release;
 		};
+		275883A421140CFC00A80837 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = SwiftyEOSTest/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = pro.chain.SwiftyEOSTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "SwiftyEOSTest/Bridging-Header.h";
+				SWIFT_VERSION = 4.0;
+				SYSTEM_HEADER_SEARCH_PATHS = Libraries/include;
+			};
+			name = Debug;
+		};
+		275883A521140CFC00A80837 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = SwiftyEOSTest/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = pro.chain.SwiftyEOSTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "SwiftyEOSTest/Bridging-Header.h";
+				SWIFT_VERSION = 4.0;
+				SYSTEM_HEADER_SEARCH_PATHS = Libraries/include;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -722,6 +842,15 @@
 			buildConfigurations = (
 				2720154B208E0673001205A3 /* Debug */,
 				2720154C208E0673001205A3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		275883A321140CFC00A80837 /* Build configuration list for PBXNativeTarget "SwiftyEOSTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				275883A421140CFC00A80837 /* Debug */,
+				275883A521140CFC00A80837 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

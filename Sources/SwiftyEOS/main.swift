@@ -26,20 +26,27 @@ print("Hello, SwiftyEOS!")
 //    }
 //}
 
-//let (pk, pub, err) = generateRandomKeyPair(enclave: .Secp256k1)
-//print("private key: \(pk!.wif())")
-//print("public key : \(pub!.wif())")
+let (pk, pub) = generateRandomKeyPair(enclave: .Secp256r1)
+print("private key: \(pk!.wif())")
+print("public key : \(pub!.wif())")
 
-let importedPk = try PrivateKey(keyString: "5HsaHvRCPrjU3yhapB5rLRyuKHuFTsziidA13Uw6WnQTeJAG3t4")
-let importedPub = PublicKey(privateKey: importedPk!)
-print("imported private key: \(importedPk!.wif())")
-print("imported public key : \(importedPub.wif())")
 
-var transfer = Transfer()
-transfer.from = "raoji"
-transfer.to = "raojiraoji12"
-transfer.quantity = "1.0000 EOS"
-transfer.memo = "test"
+
+
+
+
+
+
+//let importedPk = try PrivateKey(keyString: "5HsaHvRCPrjU3yhapB5rLRyuKHuFTsziidA13Uw6WnQTeJAG3t4")
+//let importedPub = PublicKey(privateKey: importedPk!)
+//print("imported private key: \(importedPk!.wif())")
+//print("imported public key : \(importedPub.wif())")
+//
+//var transfer = Transfer()
+//transfer.from = "raoji"
+//transfer.to = "raojiraoji12"
+//transfer.quantity = "1.0000 EOS"
+//transfer.memo = "test"
 
 //Currency.transferCurrency(tranfer: transfer, privateKey: importedPk!)
 
