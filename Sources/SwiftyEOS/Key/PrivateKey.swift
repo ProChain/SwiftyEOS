@@ -77,6 +77,10 @@ struct PrivateKey {
         return self.data.wifString(enclave: enclave)
     }
     
+    func rawPrivateKey() -> String {
+        return self.wif().components(separatedBy: "_").last!
+    }
+    
     static func randomPrivateKey(enclave: SecureEnclave = .Secp256k1) -> PrivateKey? {
         var keyData = Data(count: 32)
         let result = keyData.withUnsafeMutableBytes { (mutableBytes: UnsafeMutablePointer<UInt8>) -> Int32 in
