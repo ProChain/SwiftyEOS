@@ -1323,6 +1323,131 @@ int uECC_sign(const uint8_t *private_key,
     return 0;
 }
 
+static void EccPoint_add(uECC_word_t * X1,
+                      uECC_word_t * Y1,
+                      uECC_word_t * X2,
+                      uECC_word_t * Y2,
+                      uECC_Curve curve) {
+    wordcount_t num_words = curve->num_words;
+    
+    uECC_word_t one[num_words];
+    
+    uECC_vli_clear(one, num_words);
+    one[0] = 1;
+    
+    if (uECC_vli_equal(X1, X2, num_words) && uECC_vli_equal(Y1, Y2, num_words)) {
+//        double_jacobian_default(X1, Y1, one, curve);
+        curve->double_jacobian(X1, Y1, one, curve);
+        uECC_vli_modInv(one, one, curve->p, num_words);
+        apply_z(X1, Y1, one, curve);
+    } else if (uECC_vli_equal(X1, X2, num_words)) {
+        uECC_vli_clear(X1, num_words);
+        uECC_vli_clear(Y1, num_words);
+    } else {
+        uECC_word_t A[num_words];
+        uECC_word_t B[num_words];
+        uECC_word_t X3[num_words];
+        uECC_word_t Y3[num_words];
+        
+        uECC_vli_modSub(A, Y1, Y2, curve->p, num_words);
+        uECC_vli_modSub(B, X1, X2, curve->p, num_words);
+        uECC_vli_modInv(B, B, curve->p, num_words);
+        uECC_vli_modMult_fast(A, B, A, curve);
+        
+        uECC_vli_modMult_fast(X3, A, A, curve);
+        uECC_vli_modSub(X3, X3, X1, curve->p, num_words);
+        uECC_vli_modSub(X3, X3, X2, curve->p, num_words);
+        
+        uECC_vli_modSub(B, X1, X3, curve->p, num_words);
+        uECC_vli_modMult_fast(B, B, A, curve);
+        uECC_vli_modSub(Y3, B, Y1, curve->p, num_words);
+        
+        uECC_vli_set(X1, X3, num_words);
+        uECC_vli_set(Y1, Y3, num_words);
+    }
+}
+
+int comp_char(const uint8_t *pk, const uint8_t *ck, unsigned length){
+    int i;
+    for(i=0; i< length;i++){
+        if(pk[i] != ck[i]){
+            return 0;
+        }
+    }
+    return 1;
+}
+
+int check_signature_forbc(const uint8_t *public_key,
+                          const uint8_t *hash,
+                          unsigned hash_size,
+                          const uint8_t *signature,
+                          uECC_Curve curve) {
+    int recid = -1;
+    uECC_word_t R[curve->num_words*2];
+    uECC_word_t sum[curve->num_words*2];
+    
+    uECC_word_t *Rx = R;
+    uECC_word_t *Ry = R+curve->num_words;
+    
+    uECC_word_t *sumx = sum;
+    uECC_word_t *sumy = sum+curve->num_words;
+    
+    uECC_word_t r[curve->num_words];
+    uECC_word_t s[curve->num_words];
+    uECC_word_t e[curve->num_words];
+    uECC_word_t x[curve->num_words];
+    
+    uECC_word_t s3[curve->num_words];
+    
+    uint8_t deR[curve->num_bytes+1];
+    uint8_t coR[curve->num_bytes*2];
+    
+    uint8_t comp_pk[curve->num_bytes*2];
+    
+    uECC_vli_bytesToNative(r, signature, curve->num_bytes);
+    uECC_vli_bytesToNative(s, signature+curve->num_bytes, curve->num_bytes);
+    uECC_vli_bytesToNative(e, hash, curve->num_bytes);
+    
+    uECC_vli_modSub(e, curve->n, e, curve->n, curve->num_words);
+    uECC_vli_modInv(r, r, curve->n, curve->num_words);
+    
+    uECC_vli_modMult(s, s, r, curve->n, curve->num_words);
+    uECC_vli_modMult(e, e, r, curve->n, curve->num_words);
+    
+    uECC_vli_bytesToNative(x, signature, curve->num_bytes);
+    uECC_vli_sub(s3, curve->p, curve->n, curve->num_words);
+    
+    for (recid = 0; recid < 4; recid ++) {
+        if (recid & 2) {
+            if (uECC_vli_cmp(s3, x, curve->num_words) >= 0) {
+                uECC_vli_add(x, x, curve->n, curve->num_words);
+            } else {
+                return -1;
+            }
+        }
+        
+        deR[0] = (uint8_t)(0x02+(recid&1));
+        
+        uECC_vli_nativeToBytes(deR+1, curve->num_bytes, x);
+        uECC_decompress(deR, coR, curve);
+        
+        uECC_vli_bytesToNative(Rx, coR, curve->num_bytes);
+        uECC_vli_bytesToNative(Ry, coR+curve->num_bytes, curve->num_bytes);
+        
+        EccPoint_mult(R, R, s, 0, uECC_vli_numBits(s, BITS_TO_WORDS(curve->num_n_bits)), curve);
+        EccPoint_mult(sum, curve->G, e, 0, uECC_vli_numBits(e, BITS_TO_WORDS(curve->num_n_bits)), curve);
+        EccPoint_add(sumx, sumy, Rx, Ry, curve);
+        
+        uECC_vli_nativeToBytes(comp_pk, curve->num_bytes, sumx);
+        uECC_vli_nativeToBytes(comp_pk+curve->num_bytes, curve->num_bytes, sumy);
+        
+        if (comp_char(public_key, comp_pk, curve->num_bytes*2)) {
+            return recid;
+        }
+    }
+    return -1;
+}
+
 int uECC_sign_forbc(const uint8_t *private_key,
                     const uint8_t *message_hash,
                     unsigned hash_size,
@@ -1348,13 +1473,12 @@ int uECC_sign_forbc(const uint8_t *private_key,
             uECC_vli_nativeToBytes(signature+curve->num_bytes, curve->num_bytes, s);
         }
         
-        if (uECC_vli_numBits(r, uECC_MAX_WORDS) < 256 &&
-            uECC_vli_numBits(s, uECC_MAX_WORDS) < 256 &&
-            uECC_vli_numBits(r, uECC_MAX_WORDS) > 248 &&
-            uECC_vli_numBits(s, uECC_MAX_WORDS) > 248) {
-            uint8_t public_key[32*2];
+        if (uECC_vli_numBits(r, uECC_MAX_WORDS) < 256 && uECC_vli_numBits(s, uECC_MAX_WORDS) < 256 &&
+            uECC_vli_numBits(r, uECC_MAX_WORDS) > 248 && uECC_vli_numBits(s, uECC_MAX_WORDS) > 248) {
+            uint8_t public_key[curve->num_bytes*2];
             uECC_compute_public_key(private_key, public_key, curve);
-            return uECC_verify(public_key, message_hash, hash_size, signature, curve);
+            return check_signature_forbc(public_key, message_hash, hash_size, signature, curve);
+//            return uECC_verify(public_key, message_hash, hash_size, signature, curve);
         }
         
         i++;

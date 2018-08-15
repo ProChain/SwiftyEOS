@@ -81,3 +81,19 @@ struct TableRowRequestParam: Codable {
     var upperBound: Int32?
     var limit: Int32?
 }
+
+@objcMembers class TransactionResultProcessedReceipt: NSObject, Codable {
+    var status: String = ""
+    var cpuUsageUs: UInt64 = 0
+    var netUsageWords: UInt64 = 0
+}
+
+@objcMembers class TransactionResultProcessed: NSObject, Codable {
+    var id: String = ""
+    var receipt: TransactionResultProcessedReceipt?
+}
+
+@objcMembers class TransactionResult: NSObject, Codable {
+    var transactionId: String = ""
+    var processed: TransactionResultProcessed?
+}

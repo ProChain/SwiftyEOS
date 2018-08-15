@@ -254,10 +254,10 @@ struct PackedTransaction {
         
         let digest = Data(bytes: packedBytes, count: packedBytes.count).sha256()
         let packedSha256 = [UInt8](digest)
+
         var signature = Data(repeating: UInt8(0), count: 32*2)
         let rectId = signature.withUnsafeMutableBytes { bytes -> Int32 in
             return uECC_sign_forbc([UInt8](pk.data), packedSha256, UInt32(packedSha256.count), bytes, curve(enclave: pk.enclave))
-            //            return uECC_sign([UInt8](pk.data), packedSha256, UInt32(packedSha256.count), bytes, curve(enclave: pk.enclave))
         }
         if rectId == -1 {
             return
@@ -268,9 +268,9 @@ struct PackedTransaction {
             bin[0] = UInt8(headerBytes)
             
             signature.withUnsafeBytes { (bytes: UnsafePointer<UInt8>) -> Void in
-                bin.withUnsafeMutableBytes({ prt -> Void in
-                    memcpy(prt+1, bytes, 32*2)
-                })
+                bin.withUnsafeMutableBytes { prt -> Void in
+                    memcpy(prt+1, bytes, 64)
+                }
             }
             
             var temp = Data(repeating: UInt8(0), count: 67)
@@ -310,8 +310,8 @@ struct PackedTransaction {
             if s != nil {
                 let sigString = String(data: s!, encoding: .utf8)
                 signatures.append("SIG_K1_\(sigString!)")
+                return
             }
-            
         }
     }
 }
@@ -324,42 +324,37 @@ struct Transfer: Codable {
 }
 
 struct Currency {
-    static func transferCurrency(transfer: Transfer, privateKey: PrivateKey) {
+    static func transferCurrency(transfer: Transfer, privateKey: PrivateKey, completion: @escaping (_ result: TransactionResult?, _ error: Error?) -> ()) {
         EOSRPC.sharedInstance.chainInfo { (chainInfo, error) in
             if error != nil {
+                completion(nil, error)
                 return
             }
-            
             EOSRPC.sharedInstance.getBlock(blockNumOrId: "\(chainInfo!.lastIrreversibleBlockNum)" as AnyObject, completion: { (blockInfo, error) in
                 if error != nil {
+                    completion(nil, error)
                     return
                 }
-                
                 let abiJson = AbiJson(code: "eosio.token", action: "transfer", args: transfer)
                 
                 EOSRPC.sharedInstance.abiJsonToBin(abi: abiJson, completion: { (bin, error) in
                     if error != nil {
+                        completion(nil, error)
                         return
                     }
-                    
                     let auth = Authorization(actor: transfer.from, permission: "active")
                     let action = Action(account: abiJson.code, name: abiJson.action, authorization: [auth], data: bin!.binargs)
-                    let rawTx = Transaction(refBlockNum: "\(blockInfo!.blockNum)", refBlockPrefix: "\(blockInfo!.refBlockPrefix)", expiration: Date(timeIntervalSinceNow: 30), scope: [transfer.from, transfer.to], actions: [action], authorizations: [])
-                    //                    let rawTx = Transaction(refBlockNum: "59596", refBlockPrefix: "2950203573", expiration: Date(timeIntervalSince1970: 1531368174), scope: [transfer.from, transfer.to], actions: [action], authorizations: [])
+                    let rawTx = Transaction(refBlockNum: "\(blockInfo!.blockNum)", refBlockPrefix: "\(blockInfo!.refBlockPrefix)", expiration: Date(timeIntervalSinceNow: 120), scope: [transfer.from, transfer.to], actions: [action], authorizations: [])
                     
                     var tx = PackedTransaction(transaction: rawTx, compression: "none")
                     tx.sign(pk: privateKey, chainId: chainInfo!.chainId!)
                     let signedTx = SignedTransaction(packedTx: tx)
                     EOSRPC.sharedInstance.pushTransaction(transaction: signedTx, completion: { (txResult, error) in
                         if error != nil {
-                            if error is RPCErrorResponse {
-                                print("\((error as! RPCErrorResponse).errorDescription())")
-                            } else {
-                                print("other error: \(String(describing: error?.localizedDescription))")
-                            }
-                        } else {
-                            print("ok")
+                            completion(nil, error)
+                            return
                         }
+                        completion(txResult, nil)
                     })
                 })
             })
