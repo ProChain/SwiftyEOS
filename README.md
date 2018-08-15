@@ -114,3 +114,27 @@ It will return nil if there's no saved wallet.
 Transaction behaviors are not **fully** supported yet, but you still can have a try with sample code at `main.swift`.
 
 The related documents will be provided once the whole function is done. 
+
+1. Currency transfer (2018.08.15)
+
+### Transfer Currency
+
+```swift
+var transfer = Transfer()
+transfer.from = "agoodaccount"
+transfer.to = "gq3dinztgage"
+transfer.quantity = "1.0000 EOS"
+transfer.memo = "eureka"
+
+Currency.transferCurrency(transfer: transfer, privateKey: importedPk!, completion: { (result, error) in
+    if error != nil {
+        if error is RPCErrorResponse {
+            print("\((error as! RPCErrorResponse).errorDescription())")
+        } else {
+            print("other error: \(String(describing: error?.localizedDescription))")
+        }
+    } else {
+        print("done.")
+    }
+})
+```
