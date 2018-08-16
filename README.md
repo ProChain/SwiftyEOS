@@ -116,6 +116,7 @@ Transaction behaviors are not **fully** supported yet, but you still can have a 
 The related documents will be provided once the whole function is done. 
 
 1. Currency transfer (2018.08.15)
+2. Push general transactions (2018.08.16)
 
 ### Transfer Currency
 
@@ -137,4 +138,40 @@ Currency.transferCurrency(transfer: transfer, privateKey: importedPk!, completio
         print("done.")
     }
 })
+```
+
+### Push General Transactions
+
+In Swift:
+
+```swift
+let account = "raoji"
+let asset = "1.0000 EPRA"
+
+let data = "{\"hey\": {\"account\":\"" + account  + "\", \"quantity\":\"" + asset + "\"}}"
+let abi = try! AbiJson(code: "prabox1", action: "withdraw", json: data)
+
+TransactionUtil.pushTransaction(abi: abi, account: account, privateKey: importedPk!, completion: { (result, error) in
+    if error != nil {
+        if error is RPCErrorResponse {
+            print("\((error as! RPCErrorResponse).errorDescription())")
+        } else {
+            print("other error: \(String(describing: error?.localizedDescription))")
+        }
+    } else {
+        print("Ok. Txid: \(result!.transactionId)")
+    }
+})
+```
+
+And also in Objective-C:
+
+```objective-c
+    AbiJson *your_abi;
+    [TransactionUtil pushTransactionWithAbi:your_abi
+                                    account:@"your_account"
+                                   pkString:@"your_private_key"
+                                 completion:^(TransactionResult *result, NSError *error) {
+        
+    }];
 ```

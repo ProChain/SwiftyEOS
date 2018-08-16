@@ -9,6 +9,15 @@
 import Foundation
 
 @objcMembers class TransactionUtil: NSObject {
+    static func pushTransaction(abi: AbiJson, account: String, pkString: String, completion: @escaping (_ result: TransactionResult?, _ error: Error?) -> ()) {
+        guard let privateKey = try? PrivateKey(keyString: pkString) else {
+            completion(nil, NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "invalid private key"]))
+            return
+        }
+        
+        pushTransaction(abi: abi, account: account, privateKey: privateKey!, completion: completion)
+    }
+    
     static func pushTransaction(abi: AbiJson, account: String, privateKey: PrivateKey, completion: @escaping (_ result: TransactionResult?, _ error: Error?) -> ()) {
         EOSRPC.sharedInstance.chainInfo { (chainInfo, error) in
             if error != nil {
