@@ -22,7 +22,7 @@ struct ChainInfo: Codable {
     var blockNetLimit: UInt64
 }
 
-struct BlockInfo: Codable {
+@objcMembers class BlockInfo: NSObject, Codable {
     var previous: String?
     var timestamp: Date?
     var transactionMerkleRoot: String?
@@ -31,16 +31,20 @@ struct BlockInfo: Codable {
     var producerSignature: String?
     var cycles: [String]?
     var id: String?
-    var blockNum: UInt64
-    var refBlockPrefix: UInt64
+    var blockNum: Int = 0
+    var refBlockPrefix: Int = 0
     
     // not metioned in the doc
     var actionMerkleRoot: String?
     var blockMerkleRoot: String?
-    var scheduleVersion: UInt64
+    var scheduleVersion: UInt64 = 0
     var newProducers: [String]?
     var inputTransactions: [String]?
     //    var regions: [Any]?
+    
+    override init() {
+        
+    }
 }
 
 @objcMembers class KeyAccountsResult: NSObject, Codable {

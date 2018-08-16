@@ -61,7 +61,7 @@ class ChainRouter: BaseRouter {
             return jsonData
         case .AbiJsonToBin(let abi):
             let encoder = JSONEncoder()
-            encoder.keyEncodingStrategy = .convertToSnakeCase
+            encoder.keyEncodingStrategy = .useDefaultKeys
             let jsonData = try! encoder.encode(abi)
             return jsonData
         case .GetCurrencyBalance(let account, let symbol, let code):
