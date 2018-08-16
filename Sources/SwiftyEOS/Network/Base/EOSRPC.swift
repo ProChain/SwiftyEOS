@@ -76,17 +76,6 @@ func customDateFormatter(_ decoder: Decoder) throws -> Date {
                 }
                 
                 let decoder = self.decoder
-                //                do {
-                //                    let responseObject = try decoder.decode(T.self, from: data)
-                //                    completion(responseObject, error)
-                //                } catch {
-                //                    do {
-                //                        let errorResponse = try decoder.decode(RPCErrorResponse.self, from: data)
-                //                        completion(nil, errorResponse)
-                //                    } catch {
-                //                        completion(nil, NSError(domain: errorDomain, code: 1, userInfo: [NSLocalizedDescriptionKey: "Decoding error \(String(describing: error))"]))
-                //                    }
-                //                }
                 guard let responseObject = try? decoder.decode(T.self, from: data) else {
                     guard let errorResponse = try? decoder.decode(RPCErrorResponse.self, from: data) else {
                         completion(nil, NSError(domain: errorDomain, code: 1, userInfo: [NSLocalizedDescriptionKey: "Decoding error \(String(describing: error))"]))
