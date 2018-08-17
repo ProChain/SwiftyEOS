@@ -180,3 +180,20 @@ AbiJson *your_abi;
 ### On-device(offline) Wallet Lock & Unlock on iOS
 
 We added `lock` and `timedUnlock` functions to `SELocalAccount`.
+
+## Thanks
+
+Inspired by: 
+ - https://github.com/EOSIO/eos
+ - https://github.com/EOSIO/fc
+ - https://github.com/bitcoin/bitcoin
+ - https://github.com/bitcoin/libbase58
+ - https://github.com/OracleChain/chainkit
+ - https://github.com/OracleChain/PocketEOS-IOS
+
+Built with:
+ - https://github.com/kmackay/micro-ecc
+ - https://github.com/Flight-School/AnyCodable
+
+Contributers:
+ - https://github.com/croath
