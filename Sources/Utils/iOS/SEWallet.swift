@@ -194,6 +194,26 @@ struct RawKeystore: Codable {
     var iv: String
     var publicKey: String
     
+    func decrypt(passcode: String) throws -> PrivateKey {
+        let decryptedData = AESCrypt(inData:self.data.data(using: .utf8)!,
+                                     keyData:passcode.data(using:String.Encoding.utf8)!,
+                                     ivData:self.iv.data(using:String.Encoding.utf8)!,
+                                     operation:kCCDecrypt)
+        let pkString = String(data:decryptedData, encoding:String.Encoding.utf8)
+        if pkString == nil {
+            throw NSError(domain: "", code: 0, userInfo: nil)
+        }
+        let pk = try PrivateKey(keyString: pkString!)
+        if pk == nil {
+            throw NSError(domain: "", code: 0, userInfo: nil)
+        }
+        let pub = PublicKey(privateKey: pk!)
+        guard pub.wif() == self.publicKey else {
+            throw NSError(domain: "", code: 0, userInfo: nil)
+        }
+        return pk!
+    }
+    
     func write(to: URL) throws {
         let encoder = JSONEncoder()
         encoder.keyEncodingStrategy = .convertToSnakeCase
@@ -297,23 +317,66 @@ struct RawKeystore: Codable {
     }
     
     func decrypt(passcode: String) throws -> PrivateKey {
-        let decryptedData = AESCrypt(inData:rawKeystore.data.data(using: .utf8)!,
-                                     keyData:passcode.data(using:String.Encoding.utf8)!,
-                                     ivData:rawKeystore.iv.data(using:String.Encoding.utf8)!,
-                                     operation:kCCDecrypt)
-        let pkString = String(data:decryptedData, encoding:String.Encoding.utf8)
-        if pkString == nil {
-            throw NSError(domain: "", code: 0, userInfo: nil)
+        return try rawKeystore.decrypt(passcode:passcode)
+    }
+    
+    var unlockTimeout: Date = Date(timeIntervalSince1970: 0)
+    var tempKeystore: RawKeystore?
+    var tempPass: String?
+    
+    func timedUnlock(passcode: String, timeout: TimeInterval) throws {
+        guard let pk = try? rawKeystore.decrypt(passcode: passcode) else {
+            throw NSError(domain: "", code: 90001, userInfo: [NSLocalizedDescriptionKey: "passcode not right"])
         }
-        let pk = try PrivateKey(keyString: pkString!)
-        if pk == nil {
-            throw NSError(domain: "", code: 0, userInfo: nil)
+        
+        let tempIv = String.random(length: 16)
+        tempPass = String.random(length: 16)
+        
+        let pkData = pk.wif().data(using:String.Encoding.utf8)!
+        let encrytedData = AESCrypt(inData: pkData,
+                                    keyData: tempPass!.data(using:String.Encoding.utf8)!,
+                                    ivData: tempIv.data(using:String.Encoding.utf8)!,
+                                    operation: kCCEncrypt)
+        tempKeystore = RawKeystore(data: String(data: encrytedData, encoding: .utf8)!,
+                                   iv: tempIv,
+                                   publicKey: publicKey!)
+        unlockTimeout = Date(timeIntervalSinceNow: timeout)
+    }
+    
+    func lock() {
+        tempKeystore = nil
+        tempPass = nil
+    }
+    
+    private func retrievePrivateKey() throws -> PrivateKey {
+        guard tempKeystore != nil && tempPass != nil else {
+            throw NSError(domain: "", code: 90000, userInfo: [NSLocalizedDescriptionKey: "no saved key"])
         }
-        let pub = PublicKey(privateKey: pk!)
-        guard pub.wif() == rawKeystore.publicKey else {
-            throw NSError(domain: "", code: 0, userInfo: nil)
+        
+        guard Date().timeIntervalSince(unlockTimeout) < 0 else {
+            tempKeystore = nil
+            tempPass = nil
+            throw NSError(domain: "", code: 90000, userInfo: [NSLocalizedDescriptionKey: "no saved key"])
         }
-        return pk!
+        
+        return try tempKeystore!.decrypt(passcode: tempPass!)
+    }
+    
+    func pushTransaction(abi: AbiJson, account: String, unlockOncePasscode: String?, completion: @escaping (_ result: TransactionResult?, _ error: Error?) -> ()) {
+        var pk: PrivateKey
+        
+        do {
+            if unlockOncePasscode != nil {
+                pk = try decrypt(passcode: unlockOncePasscode!)
+            } else {
+                pk = try retrievePrivateKey()
+            }
+        } catch let error as NSError {
+            completion(nil, error)
+            return
+        }
+        
+        TransactionUtil.pushTransaction(abi: abi, account: account, pkString: pk.wif(), completion: completion)
     }
 }
 
