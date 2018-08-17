@@ -117,6 +117,7 @@ The related documents will be provided once the whole function is done.
 
 1. Currency transfer (2018.08.15)
 2. Push general transactions (2018.08.16)
+3. On-device(offline) wallet lock & unlock on iOS (2018.08.17)
 
 ### Transfer Currency
 
@@ -167,11 +168,32 @@ TransactionUtil.pushTransaction(abi: abi, account: account, privateKey: imported
 And also in Objective-C:
 
 ```objective-c
-    AbiJson *your_abi;
-    [TransactionUtil pushTransactionWithAbi:your_abi
-                                    account:@"your_account"
-                                   pkString:@"your_private_key"
-                                 completion:^(TransactionResult *result, NSError *error) {
+AbiJson *your_abi;
+[TransactionUtil pushTransactionWithAbi:your_abi
+                                account:@"your_account"
+                               pkString:@"your_private_key"
+                             completion:^(TransactionResult *result, NSError *error) {
         
-    }];
+}];
 ```
+
+### On-device(offline) Wallet Lock & Unlock on iOS
+
+We added `lock` and `timedUnlock` functions to `SELocalAccount`.
+
+## Thanks
+
+Inspired by: 
+ - https://github.com/EOSIO/eos
+ - https://github.com/EOSIO/fc
+ - https://github.com/bitcoin/bitcoin
+ - https://github.com/bitcoin/libbase58
+ - https://github.com/OracleChain/chainkit
+ - https://github.com/OracleChain/PocketEOS-IOS
+
+Built with:
+ - https://github.com/kmackay/micro-ecc
+ - https://github.com/Flight-School/AnyCodable
+
+Contributers:
+ - https://github.com/croath
