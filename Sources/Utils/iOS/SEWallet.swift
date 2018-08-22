@@ -320,11 +320,14 @@ struct RawKeystore: Codable {
         return try rawKeystore.decrypt(passcode:passcode)
     }
     
-    var unlockTimeout: Date = Date(timeIntervalSince1970: 0)
-    var tempKeystore: RawKeystore?
-    var tempPass: String?
+    private var unlockTimeout: Date = Date(timeIntervalSince1970: 0)
+    private var tempKeystore: RawKeystore?
+    private var tempPass: String?
     
     func timedUnlock(passcode: String, timeout: TimeInterval) throws {
+        guard passcode != "" else {
+            throw NSError(domain: "", code: 90001, userInfo: [NSLocalizedDescriptionKey: "passcode not right"])
+        }
         guard let pk = try? rawKeystore.decrypt(passcode: passcode) else {
             throw NSError(domain: "", code: 90001, userInfo: [NSLocalizedDescriptionKey: "passcode not right"])
         }
@@ -341,6 +344,20 @@ struct RawKeystore: Codable {
                                    iv: tempIv,
                                    publicKey: publicKey!)
         unlockTimeout = Date(timeIntervalSinceNow: timeout)
+    }
+    
+    func isLocked() -> Bool {
+        guard tempKeystore != nil && tempPass != nil else {
+            return true
+        }
+        
+        guard Date().timeIntervalSince(unlockTimeout) < 0 else {
+            tempKeystore = nil
+            tempPass = nil
+            return true
+        }
+        
+        return false
     }
     
     func lock() {
