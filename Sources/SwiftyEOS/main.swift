@@ -54,22 +54,26 @@ print("imported public key : \(importedPub.wif())")
 //    }
 //})
 
-let account = "raoji"
-let asset = "1.0000 EPRA"
+//let account = "raoji"
+//let asset = "1.0000 EPRA"
+//
+//let data = "{\"withdrawRequest\": {\"account\":\"" + account  + "\", \"quantity\":\"" + asset + "\"}}"
+//let abi = try! AbiJson(code: "prabox1", action: "withdraw", json: data)
+//
+//TransactionUtil.pushTransaction(abi: abi, account: account, privateKey: importedPk!, completion: { (result, error) in
+//    if error != nil {
+//        if error is RPCErrorResponse {
+//            print("\((error as! RPCErrorResponse).errorDescription())")
+//        } else {
+//            print("other error: \(String(describing: error?.localizedDescription))")
+//        }
+//    } else {
+//        print("Ok. Txid: \(result!.transactionId)")
+//    }
+//})
 
-let data = "{\"withdrawRequest\": {\"account\":\"" + account  + "\", \"quantity\":\"" + asset + "\"}}"
-let abi = try! AbiJson(code: "prabox1", action: "withdraw", json: data)
-
-TransactionUtil.pushTransaction(abi: abi, account: account, privateKey: importedPk!, completion: { (result, error) in
-    if error != nil {
-        if error is RPCErrorResponse {
-            print("\((error as! RPCErrorResponse).errorDescription())")
-        } else {
-            print("other error: \(String(describing: error?.localizedDescription))")
-        }
-    } else {
-        print("Ok. Txid: \(result!.transactionId)")
-    }
-})
+EOSRPC.sharedInstance.getAccount(account: "raoji") { (account, error) in
+    
+}
 
 RunLoop.main.run()
