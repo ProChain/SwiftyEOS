@@ -80,6 +80,7 @@ struct ChainInfo: Codable {
             return ResourceLimit(used: ramUsage, available: UInt64(ramQuota!)!-ramUsage, max: UInt64(ramQuota!)!)
         }
     }
+    var refundRequest: RefundRequest?
 }
 
 @objcMembers class ResourceLimit: NSObject, Codable {
@@ -111,6 +112,15 @@ struct ChainInfo: Codable {
         self.max = max
     }
 }
+
+@objcMembers class RefundRequest: NSObject, Codable {
+    var owner: String?
+    var requestTime: Date?
+    var netAmount: String?
+    var cpuAmount: String?
+}
+
+// table
 
 @objcMembers class TableRowResponse<T: Codable>: NSObject, Codable {
     var rows: [T]?

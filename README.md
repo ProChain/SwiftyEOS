@@ -118,6 +118,8 @@ The related documents will be provided once the whole function is done.
 1. Currency transfer (2018.08.15)
 2. Push general transactions (2018.08.16)
 3. On-device(offline) wallet lock & unlock on iOS (2018.08.17)
+4. Stake/unstake cpu/net (2018.08.28)
+5. Buy/sell ram (2018.08.28)
 
 ### Transfer Currency
 
@@ -180,6 +182,26 @@ AbiJson *your_abi;
 ### On-device(offline) Wallet Lock & Unlock on iOS
 
 We added `lock` and `timedUnlock` functions to `SELocalAccount`.
+
+### Cpu/net/ram operations
+
+There's a `ResourceUtil.swift` file with `ResourceUtil` class including, within which are several methods:
+
+- `stakeResource`
+- `unstakeResource`
+- `buyRam`
+- `sellRam`
+
+Stake resource:
+
+```swift
+ResourceUtil.stakeResource(account: "raoji", net: 1.0, cpu: 1.0, pkString: "5HsaHvRCPrjU3yhapB5rLRyuKHuFTsziidA13Uw6WnQTeJAG3t4", completion: { (result, error) in
+})
+```
+
+We're using `NSObject` inhereiting class for all top level API, so calling in Objective-C is the same way without providing additional bridging files.
+
+And in `SEWallet.swift` file there are helper methods for iOS, too.
 
 ## Thanks
 
