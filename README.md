@@ -156,8 +156,8 @@ let abi = try! AbiJson(code: "prabox1", action: "withdraw", json: data)
 
 TransactionUtil.pushTransaction(abi: abi, account: account, privateKey: importedPk!, completion: { (result, error) in
     if error != nil {
-        if error is RPCErrorResponse {
-            print("\((error as! RPCErrorResponse).errorDescription())")
+        if (error! as NSError).code == RPCErrorResponse.ErrorCode {
+            print("\(((error! as NSError).userInfo[RPCErrorResponse.ErrorKey] as! RPCErrorResponse).errorDescription())")
         } else {
             print("other error: \(String(describing: error?.localizedDescription))")
         }

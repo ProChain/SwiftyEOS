@@ -81,7 +81,7 @@ func customDateFormatter(_ decoder: Decoder) throws -> Date {
                         completion(nil, NSError(domain: errorDomain, code: 1, userInfo: [NSLocalizedDescriptionKey: "Decoding error \(String(describing: error))"]))
                         return
                     }
-                    completion(nil, errorResponse)
+                    completion(nil, NSError(domain: errorDomain, code: RPCErrorResponse.ErrorCode, userInfo: [RPCErrorResponse.ErrorKey: errorResponse]))
                     return
                 }
                 completion(responseObject, error)

@@ -42,10 +42,10 @@ print("imported public key : \(importedPub.wif())")
 //transfer.quantity = "1.0000 EOS"
 //transfer.memo = "test"
 //
-//Currency.transferCurrency(transfer: transfer, privateKey: importedPk!, completion: { (result, error) in
+//Currency.transferCurrency(transfer: transfer, code: "eosio", privateKey: importedPk!, completion: { (result, error) in
 //    if error != nil {
-//        if error is RPCErrorResponse {
-//            print("\((error as! RPCErrorResponse).errorDescription())")
+//        if (error! as NSError).code == RPCErrorResponse.ErrorCode {
+//            print("\(((error! as NSError).userInfo[RPCErrorResponse.ErrorKey] as! RPCErrorResponse).errorDescription())")
 //        } else {
 //            print("other error: \(String(describing: error?.localizedDescription))")
 //        }
@@ -53,7 +53,7 @@ print("imported public key : \(importedPub.wif())")
 //        print("Ok. Txid: \(result!.transactionId)")
 //    }
 //})
-
+//
 //let account = "raoji"
 //let asset = "1.0000 EPRA"
 //
@@ -62,8 +62,8 @@ print("imported public key : \(importedPub.wif())")
 //
 //TransactionUtil.pushTransaction(abi: abi, account: account, privateKey: importedPk!, completion: { (result, error) in
 //    if error != nil {
-//        if error is RPCErrorResponse {
-//            print("\((error as! RPCErrorResponse).errorDescription())")
+//        if (error! as NSError).code == RPCErrorResponse.ErrorCode {
+//            print("\(((error! as NSError).userInfo[RPCErrorResponse.ErrorKey] as! RPCErrorResponse).errorDescription())")
 //        } else {
 //            print("other error: \(String(describing: error?.localizedDescription))")
 //        }
