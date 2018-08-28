@@ -47,6 +47,8 @@ struct ChainInfo: Codable {
     }
 }
 
+// account
+
 @objcMembers class KeyAccountsResult: NSObject, Codable {
     var accountNames: [String] = []
 }
@@ -69,7 +71,56 @@ struct ChainInfo: Codable {
 @objcMembers class Account: NSObject, Codable {
     var accountName: String = ""
     var permissions: [AccountPermission]?
+    var netLimit: ResourceLimit?
+    var cpuLimit: ResourceLimit?
+    var ramQuota: String?
+    var ramUsage: UInt64 = 0
+    var ramLimit: ResourceLimit? {
+        get {
+            return ResourceLimit(used: ramUsage, available: UInt64(ramQuota!)!-ramUsage, max: UInt64(ramQuota!)!)
+        }
+    }
+    var refundRequest: RefundRequest?
 }
+
+@objcMembers class ResourceLimit: NSObject, Codable {
+    var used: UInt64
+    var available: UInt64
+    var max: UInt64
+    
+    private enum CodingKeys: String, CodingKey {
+        case used, available, max
+    }
+    
+    init(used: UInt64, available: UInt64, max: UInt64) {
+        self.used = used
+        self.available = available
+        self.max = max
+    }
+    
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        self.used = try container.decode(UInt64.self, forKey: .used)
+        guard let available = try UInt64(container.decode(String.self, forKey: .available)) else {
+            throw DecodingError.dataCorrupted(.init(codingPath: [CodingKeys.available], debugDescription: "Expecting string representation of UInt64"))
+        }
+        self.available = available
+        guard let max = try UInt64(container.decode(String.self, forKey: .max)) else {
+            throw DecodingError.dataCorrupted(.init(codingPath: [CodingKeys.max], debugDescription: "Expecting string representation of UInt64"))
+        }
+        self.max = max
+    }
+}
+
+@objcMembers class RefundRequest: NSObject, Codable {
+    var owner: String?
+    var requestTime: Date?
+    var netAmount: String?
+    var cpuAmount: String?
+}
+
+// table
 
 @objcMembers class TableRowResponse<T: Codable>: NSObject, Codable {
     var rows: [T]?
@@ -85,6 +136,8 @@ struct TableRowRequestParam: Codable {
     var upperBound: Int32?
     var limit: Int32?
 }
+
+// transaction result
 
 @objcMembers class TransactionResultProcessedReceipt: NSObject, Codable {
     var status: String = ""

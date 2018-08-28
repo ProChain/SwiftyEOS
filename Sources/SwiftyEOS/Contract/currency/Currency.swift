@@ -8,14 +8,14 @@
 
 import Foundation
 
-struct Transfer: Codable {
+@objcMembers class Transfer: NSObject, Codable {
     var from: String = ""
     var to: String = ""
     var quantity: String = ""
     var memo: String = ""
 }
 
-struct Currency {
+@objcMembers class Currency {
     static func transferCurrency(transfer: Transfer, code: String, privateKey: PrivateKey, completion: @escaping (_ result: TransactionResult?, _ error: Error?) -> ()) {
         let encoder = JSONEncoder()
         encoder.keyEncodingStrategy = .convertToSnakeCase

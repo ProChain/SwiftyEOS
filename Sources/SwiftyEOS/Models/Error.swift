@@ -23,6 +23,9 @@ struct RPCError: Codable {
 }
 
 struct RPCErrorResponse: Error, Codable {
+    static let ErrorKey = "RPCErrorResponse"
+    static let ErrorCode = 80000
+    
     var code: Int
     var message: String
     var error: RPCError

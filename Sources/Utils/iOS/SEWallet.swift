@@ -8,6 +8,21 @@
 
 import Foundation
 
+extension String {
+    
+    static func random(length: Int = 20) -> String {
+        let base = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+        var randomString: String = ""
+        
+        for _ in 0..<length {
+            let randomValue = arc4random_uniform(UInt32(base.count))
+            randomString += "\(base[base.index(base.startIndex, offsetBy: Int(randomValue))])"
+        }
+        return randomString
+    }
+}
+
+
 @objcMembers class SEKeystoreService: NSObject {
     public class var sharedInstance: SEKeystoreService {
         struct Singleton {
@@ -394,6 +409,26 @@ struct RawKeystore: Codable {
         }
         
         TransactionUtil.pushTransaction(abi: abi, account: account, pkString: pk.wif(), completion: completion)
+    }
+    
+    func stakeResource(account: String, net: Float, cpu: Float, unlockOncePasscode: String?, completion: @escaping (_ result: TransactionResult?, _ error: Error?) -> ()) {
+        let abiJson = ResourceUtil.stakeResourceAbiJson(account: account, net: net, cpu: cpu)
+        pushTransaction(abi: abiJson, account: account, unlockOncePasscode: unlockOncePasscode, completion: completion)
+    }
+    
+    func unstakeResource(account: String, net: Float, cpu: Float, unlockOncePasscode: String?, completion: @escaping (_ result: TransactionResult?, _ error: Error?) -> ()) {
+        let abiJson = ResourceUtil.unstakeResourceAbiJson(account: account, net: net, cpu: cpu)
+        pushTransaction(abi: abiJson, account: account, unlockOncePasscode: unlockOncePasscode, completion: completion)
+    }
+    
+    func buyRam(account: String, ramEos: Float, unlockOncePasscode: String?, completion: @escaping (_ result: TransactionResult?, _ error: Error?) -> ()) {
+        let abiJson = ResourceUtil.buyRamAbiJson(account: account, ramEos: ramEos)
+        pushTransaction(abi: abiJson, account: account, unlockOncePasscode: unlockOncePasscode, completion: completion)
+    }
+    
+    func sellRam(account: String, ramBytes: Float, unlockOncePasscode: String?, completion: @escaping (_ result: TransactionResult?, _ error: Error?) -> ()) {
+        let abiJson = ResourceUtil.sellRamAbiJson(account: account, ramBytes: ramBytes)
+        pushTransaction(abi: abiJson, account: account, unlockOncePasscode: unlockOncePasscode, completion: completion)
     }
 }
 
