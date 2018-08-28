@@ -72,21 +72,21 @@ print("imported public key : \(importedPub.wif())")
 //    }
 //})
 
-EOSRPC.sharedInstance.getAccount(account: "raoji") { (account, error) in
-    
-    let net = ByteCountFormatter.string(fromByteCount: Int64(account!.netLimit!.max), countStyle: .binary)
-    let cpu = DateComponentsFormatter().string(from: TimeInterval(account!.cpuLimit!.max))!
-    let ram = ByteCountFormatter.string(fromByteCount: Int64(account!.ramLimit!.max), countStyle: .binary)
-    print("cpu: \(cpu) net: \(net) ram: \(ram)")
-    ResourceUtil.stakeResource(account: "raoji", net: 1.0, cpu: 1.0, pkString: "5HsaHvRCPrjU3yhapB5rLRyuKHuFTsziidA13Uw6WnQTeJAG3t4", completion: { (result, error) in
-        EOSRPC.sharedInstance.getAccount(account: "raoji") { (account, error) in
-            let net = ByteCountFormatter.string(fromByteCount: Int64(account!.netLimit!.max), countStyle: .binary)
-            let cpu = DateComponentsFormatter().string(from: TimeInterval(account!.cpuLimit!.max))!
-            let ram = ByteCountFormatter.string(fromByteCount: Int64(account!.ramLimit!.max), countStyle: .binary)
-            print("cpu: \(cpu) net: \(net)) ram: \(ram)")
-        }
-    })
-    
+//EOSRPC.sharedInstance.getAccount(account: "raoji") { (account, error) in
+//
+//    let net = ByteCountFormatter.string(fromByteCount: Int64(account!.netLimit!.max), countStyle: .binary)
+//    let cpu = DateComponentsFormatter().string(from: TimeInterval(account!.cpuLimit!.max))!
+//    let ram = ByteCountFormatter.string(fromByteCount: Int64(account!.ramLimit!.max), countStyle: .binary)
+//    print("cpu: \(cpu) net: \(net) ram: \(ram)")
+//    ResourceUtil.stakeResource(account: "raoji", net: 1.0, cpu: 1.0, pkString: "5HsaHvRCPrjU3yhapB5rLRyuKHuFTsziidA13Uw6WnQTeJAG3t4", completion: { (result, error) in
+//        EOSRPC.sharedInstance.getAccount(account: "raoji") { (account, error) in
+//            let net = ByteCountFormatter.string(fromByteCount: Int64(account!.netLimit!.max), countStyle: .binary)
+//            let cpu = DateComponentsFormatter().string(from: TimeInterval(account!.cpuLimit!.max))!
+//            let ram = ByteCountFormatter.string(fromByteCount: Int64(account!.ramLimit!.max), countStyle: .binary)
+//            print("cpu: \(cpu) net: \(net)) ram: \(ram)")
+//        }
+//    })
+//
 //    ResourceUtil.buyRam(account: "raoji", ramEos: 10000, pkString: "5HsaHvRCPrjU3yhapB5rLRyuKHuFTsziidA13Uw6WnQTeJAG3t4", completion: { (result, error) in
 //        EOSRPC.sharedInstance.getAccount(account: "raoji") { (account, error) in
 //            let net = ByteCountFormatter.string(fromByteCount: Int64(account!.netLimit!.max), countStyle: .binary)
@@ -95,15 +95,15 @@ EOSRPC.sharedInstance.getAccount(account: "raoji") { (account, error) in
 //            print("cpu: \(cpu) net: \(net)) ram: \(ram)")
 //        }
 //    })
-    
-    ResourceUtil.sellRam(account: "raoji", ramBytes: 1024*1024*512, pkString: "5HsaHvRCPrjU3yhapB5rLRyuKHuFTsziidA13Uw6WnQTeJAG3t4", completion: { (result, error) in
-        EOSRPC.sharedInstance.getAccount(account: "raoji") { (account, error) in
-            let net = ByteCountFormatter.string(fromByteCount: Int64(account!.netLimit!.max), countStyle: .binary)
-            let cpu = DateComponentsFormatter().string(from: TimeInterval(account!.cpuLimit!.max))!
-            let ram = ByteCountFormatter.string(fromByteCount: Int64(account!.ramLimit!.max), countStyle: .binary)
-            print("cpu: \(cpu) net: \(net)) ram: \(ram)")
-        }
-    })
-}
+//
+//    ResourceUtil.sellRam(account: "raoji", ramBytes: 1024*1024*512, pkString: "5HsaHvRCPrjU3yhapB5rLRyuKHuFTsziidA13Uw6WnQTeJAG3t4", completion: { (result, error) in
+//        EOSRPC.sharedInstance.getAccount(account: "raoji") { (account, error) in
+//            let net = ByteCountFormatter.string(fromByteCount: Int64(account!.netLimit!.max), countStyle: .binary)
+//            let cpu = DateComponentsFormatter().string(from: TimeInterval(account!.cpuLimit!.max))!
+//            let ram = ByteCountFormatter.string(fromByteCount: Int64(account!.ramLimit!.max), countStyle: .binary)
+//            print("cpu: \(cpu) net: \(net)) ram: \(ram)")
+//        }
+//    })
+//}
 
 RunLoop.main.run()
