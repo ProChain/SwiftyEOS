@@ -73,20 +73,63 @@ struct ChainInfo: Codable {
     var permissions: [AccountPermission]?
     var netLimit: ResourceLimit?
     var cpuLimit: ResourceLimit?
-    var ramQuota: String?
+    var ramQuota: UInt64 = 0
     var ramUsage: UInt64 = 0
     var ramLimit: ResourceLimit? {
         get {
-            return ResourceLimit(used: ramUsage, available: UInt64(ramQuota!)!-ramUsage, max: UInt64(ramQuota!)!)
+            return ResourceLimit(used: ramUsage, available: ramQuota-ramUsage, max: ramQuota)
         }
     }
     var refundRequest: RefundRequest?
+    var selfDelegatedBandwidth: DelegatedBandwidth?
+    var coreLiquidBalance: String? = ""
+    
+    private enum CodingKeys: String, CodingKey {
+        case accountName
+        case permissions
+        case netLimit
+        case cpuLimit
+        case ramQuota
+        case ramUsage
+        case refundRequest
+        case selfDelegatedBandwidth
+        case coreLiquidBalance
+    }
+    
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        self.accountName = try container.decode(String.self, forKey: .accountName)
+        self.permissions = try container.decode([AccountPermission].self, forKey: .permissions)
+        self.netLimit = try container.decode(ResourceLimit.self, forKey: .netLimit)
+        self.cpuLimit = try container.decode(ResourceLimit.self, forKey: .cpuLimit)
+        
+        if let ramQuota = try? container.decode(UInt64.self, forKey: .ramQuota) {
+            self.ramQuota = ramQuota
+        } else if let ramQuota = try UInt64(container.decode(String.self, forKey: .ramQuota)) {
+            self.ramQuota = ramQuota
+        } else {
+            throw DecodingError.dataCorrupted(.init(codingPath: [CodingKeys.ramQuota], debugDescription: "Expecting string or number representation of UInt64"))
+        }
+        
+        if let ramUsage = try? container.decode(UInt64.self, forKey: .ramUsage) {
+            self.ramUsage = ramUsage
+        } else if let ramUsage = try UInt64(container.decode(String.self, forKey: .ramUsage)) {
+            self.ramUsage = ramUsage
+        } else {
+            throw DecodingError.dataCorrupted(.init(codingPath: [CodingKeys.ramUsage], debugDescription: "Expecting string or number representation of UInt64"))
+        }
+        
+        self.refundRequest = try container.decode(RefundRequest.self, forKey: .refundRequest)
+        self.selfDelegatedBandwidth = try container.decode(DelegatedBandwidth.self, forKey: .selfDelegatedBandwidth)
+        self.coreLiquidBalance = try container.decode(String.self, forKey: .coreLiquidBalance)
+    }
 }
 
 @objcMembers class ResourceLimit: NSObject, Codable {
-    var used: UInt64
-    var available: UInt64
-    var max: UInt64
+    var used: UInt64 = 0
+    var available: UInt64 = 0
+    var max: UInt64 = 0
     
     private enum CodingKeys: String, CodingKey {
         case used, available, max
@@ -101,15 +144,29 @@ struct ChainInfo: Codable {
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
-        self.used = try container.decode(UInt64.self, forKey: .used)
-        guard let available = try UInt64(container.decode(String.self, forKey: .available)) else {
-            throw DecodingError.dataCorrupted(.init(codingPath: [CodingKeys.available], debugDescription: "Expecting string representation of UInt64"))
+        if let used = try? container.decode(UInt64.self, forKey: .used) {
+            self.used = used
+        } else if let used = try UInt64(container.decode(String.self, forKey: .used)) {
+            self.used = used
+        } else {
+            throw DecodingError.dataCorrupted(.init(codingPath: [CodingKeys.used], debugDescription: "Expecting string or number representation of UInt64"))
         }
-        self.available = available
-        guard let max = try UInt64(container.decode(String.self, forKey: .max)) else {
-            throw DecodingError.dataCorrupted(.init(codingPath: [CodingKeys.max], debugDescription: "Expecting string representation of UInt64"))
+        
+        if let available = try? container.decode(UInt64.self, forKey: .available) {
+            self.available = available
+        } else if let available = try UInt64(container.decode(String.self, forKey: .available)) {
+            self.available = available
+        } else {
+            throw DecodingError.dataCorrupted(.init(codingPath: [CodingKeys.available], debugDescription: "Expecting string or number representation of UInt64"))
         }
-        self.max = max
+        
+        if let max = try? container.decode(UInt64.self, forKey: .max) {
+            self.max = max
+        } else if let max = try UInt64(container.decode(String.self, forKey: .max)) {
+            self.max = max
+        } else {
+            throw DecodingError.dataCorrupted(.init(codingPath: [CodingKeys.max], debugDescription: "Expecting string or number representation of UInt64"))
+        }
     }
 }
 
@@ -118,6 +175,13 @@ struct ChainInfo: Codable {
     var requestTime: Date?
     var netAmount: String?
     var cpuAmount: String?
+}
+
+@objcMembers class DelegatedBandwidth: NSObject, Codable {
+    var from: String = ""
+    var to: String = ""
+    var netWeight: String = ""
+    var cpuWeight: String = ""
 }
 
 // table
