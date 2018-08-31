@@ -72,7 +72,9 @@ class BaseRouter : APIConfiguration {
     }
     
     var baseUrl: String {
-        return "http://47.91.247.187:8087/v1"
+        if EOSRPC.endpoint != nil {
+            return EOSRPC.endpoint! + "/v1"
+        }
+        return "https://api.eosnewyork.io/v1"
     }
-    
 }
