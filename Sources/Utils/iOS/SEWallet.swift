@@ -430,6 +430,17 @@ struct RawKeystore: Codable {
         let abiJson = ResourceUtil.sellRamAbiJson(account: account, ramBytes: ramBytes)
         pushTransaction(abi: abiJson, account: account, unlockOncePasscode: unlockOncePasscode, completion: completion)
     }
+    
+    func transferToken(transfer: Transfer, code: String, unlockOncePasscode: String?, completion: @escaping (_ result: TransactionResult?, _ error: Error?) -> ()) {
+        let encoder = JSONEncoder()
+        encoder.keyEncodingStrategy = .convertToSnakeCase
+        let jsonData = try! encoder.encode(transfer)
+        let jsonString = String(data: jsonData, encoding: .utf8)
+        
+        let abiJson = try! AbiJson(code: code, action: "transfer", json: jsonString!)
+        
+        pushTransaction(abi: abiJson, account: transfer.from, unlockOncePasscode: unlockOncePasscode, completion: completion)
+    }
 }
 
 class SEWallet: NSObject {

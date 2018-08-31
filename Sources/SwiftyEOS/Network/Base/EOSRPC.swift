@@ -45,6 +45,8 @@ func customDateFormatter(_ decoder: Decoder) throws -> Date {
 }
 
 @objcMembers class EOSRPC: NSObject {
+    static var endpoint: String?
+    
     class var sharedInstance: EOSRPC {
         struct Singleton {
             static let instance : EOSRPC = EOSRPC()
