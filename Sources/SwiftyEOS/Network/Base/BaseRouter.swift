@@ -75,6 +75,6 @@ class BaseRouter : APIConfiguration {
         if EOSRPC.endpoint != nil {
             return EOSRPC.endpoint! + "/v1"
         }
-        return "http://47.91.247.187:8087/v1"
+        return "https://api.eosnewyork.io/v1"
     }
 }
