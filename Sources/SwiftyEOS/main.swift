@@ -26,6 +26,29 @@ print("Hello, SwiftyEOS!")
 //    }
 //}
 
+//MARK: Jungle TestNet
+let liuAccount = "liulian12345"
+let privateKey = "5Hsk6wB2MPqGPrU53jSVGHm3uvoqWJk3rCrnkGzEGc7HrH28n7t"
+let privatePk = try PrivateKey(keyString: privateKey)
+let testNeedCreateAccount = "liunian12341"
+let testNeedCreatePubKey = "EOS5uLxwJQgpEJteBxBTKiqWnyWiJTQAzAqx71M5AuMZ917oMv4g4"
+
+AccountUtil.stakeCreateAccount(account: testNeedCreateAccount,
+                               ownerKey: testNeedCreatePubKey,
+                               activeKey: testNeedCreatePubKey,
+                               creator: liuAccount,
+                               pkString: privateKey) { (result, error) in
+                                if error != nil {
+                                    if (error! as NSError).code == RPCErrorResponse.ErrorCode {
+                                        print("\(((error! as NSError).userInfo[RPCErrorResponse.ErrorKey] as! RPCErrorResponse).errorDescription())")
+                                    } else {
+                                        print("other error: \(String(describing: error?.localizedDescription))")
+                                    }
+                                } else {
+                                    print("Ok. Txid: \(result!.transactionId)")
+                                }
+}
+
 //let (pk, pub) = generateRandomKeyPair(enclave: .Secp256k1)
 //print("private key: \(pk!.rawPrivateKey())")
 //print("public key : \(pub!.rawPublicKey())")

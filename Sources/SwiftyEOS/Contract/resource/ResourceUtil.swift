@@ -52,6 +52,22 @@ import Foundation
         return try! AbiJson(code: "eosio", action: "delegatebw", json: jsonString!)
     }
     
+    static func stakeResourceAbiJson(from: String, receiver: String,transfer: UInt, net: Float, cpu: Float) -> AbiJson {
+        let param = DelegateParam()
+        param.from = from
+        param.receiver = receiver
+        param.stakeNetQuantity = String(format: "%.4f EOS", net)
+        param.stakeCpuQuantity = String(format: "%.4f EOS", cpu)
+        param.transfer = transfer
+        
+        let encoder = JSONEncoder()
+        encoder.keyEncodingStrategy = .convertToSnakeCase
+        let jsonData = try! encoder.encode(param)
+        let jsonString = String(data: jsonData, encoding: .utf8)
+        
+        return try! AbiJson(code: "eosio", action: "delegatebw", json: jsonString!)
+    }
+    
     static func stakeResource(account: String, net: Float, cpu: Float, pkString: String, completion: @escaping (_ result: TransactionResult?, _ error: Error?) -> ()) {
         let abiJson = self.stakeResourceAbiJson(account: account, net: net, cpu: cpu)
         guard let privateKey = try? PrivateKey(keyString: pkString) else {
@@ -92,6 +108,20 @@ import Foundation
         let param = BuyRamParam()
         param.payer = account
         param.receiver = account
+        param.quant = String(format: "%.4f EOS", ramEos)
+        
+        let encoder = JSONEncoder()
+        encoder.keyEncodingStrategy = .convertToSnakeCase
+        let jsonData = try! encoder.encode(param)
+        let jsonString = String(data: jsonData, encoding: .utf8)
+        
+        return try! AbiJson(code: "eosio", action: "buyram", json: jsonString!)
+    }
+    
+    static func buyRamAbiJson(payer: String, receiver: String, ramEos: Float) -> AbiJson {
+        let param = BuyRamParam()
+        param.payer = payer
+        param.receiver = receiver
         param.quant = String(format: "%.4f EOS", ramEos)
         
         let encoder = JSONEncoder()
