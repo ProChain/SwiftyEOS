@@ -60,6 +60,11 @@
 		275883B7211450FE00A80837 /* BigInt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FC74FB20BD10B900435C50 /* BigInt.swift */; };
 		275883B82114510100A80837 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2783777920F8A308003CC8DB /* Error.swift */; };
 		2783777A20F8A308003CC8DB /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2783777920F8A308003CC8DB /* Error.swift */; };
+		278D33BA215A3F1F00713115 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278D33B9215A3F1F00713115 /* AppDelegate.swift */; };
+		278D33BC215A3F1F00713115 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278D33BB215A3F1F00713115 /* ViewController.swift */; };
+		278D33BE215A3F2100713115 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 278D33BD215A3F2100713115 /* Assets.xcassets */; };
+		278D33C1215A3F2100713115 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 278D33BF215A3F2100713115 /* Main.storyboard */; };
+		278D33CC215A459000713115 /* FeatureListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278D33CB215A459000713115 /* FeatureListViewController.swift */; };
 		27FC74FD20BD10B900435C50 /* Crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FC74DA20BD10B800435C50 /* Crypto.swift */; };
 		27FC74FE20BD10B900435C50 /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FC74DD20BD10B800435C50 /* Currency.swift */; };
 		27FC74FF20BD10B900435C50 /* Signature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FC74DF20BD10B900435C50 /* Signature.swift */; };
@@ -114,6 +119,14 @@
 		275883A221140CFC00A80837 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		275883B92114516A00A80837 /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		2783777920F8A308003CC8DB /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
+		278D33B7215A3F1F00713115 /* Mako.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mako.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		278D33B9215A3F1F00713115 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		278D33BB215A3F1F00713115 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		278D33BD215A3F2100713115 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		278D33C0215A3F2100713115 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		278D33C2215A3F2100713115 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		278D33C3215A3F2100713115 /* Mako.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Mako.entitlements; sourceTree = "<group>"; };
+		278D33CB215A459000713115 /* FeatureListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureListViewController.swift; sourceTree = "<group>"; };
 		2790805E2109E247008BCCB7 /* asm_arm.inc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = asm_arm.inc.h; sourceTree = "<group>"; };
 		27FC74DA20BD10B800435C50 /* Crypto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Crypto.swift; sourceTree = "<group>"; };
 		27FC74DD20BD10B800435C50 /* Currency.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
@@ -160,6 +173,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		2758839B21140CFC00A80837 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		278D33B4215A3F1F00713115 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -223,6 +243,7 @@
 				27FC74D720BD10B800435C50 /* Sources */,
 				270DD57820FEEACA00C6763B /* SwiftyEOS-iOS-Example */,
 				2758839F21140CFC00A80837 /* SwiftyEOSTest */,
+				278D33B8215A3F1F00713115 /* Mako */,
 				27201544208E0673001205A3 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -233,6 +254,7 @@
 				27201543208E0673001205A3 /* SwiftyEOS */,
 				270DD57720FEEACA00C6763B /* SwiftyEOS-iOS-Example.app */,
 				2758839E21140CFC00A80837 /* SwiftyEOSTest.xctest */,
+				278D33B7215A3F1F00713115 /* Mako.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -254,6 +276,52 @@
 				275883B92114516A00A80837 /* Bridging-Header.h */,
 			);
 			path = SwiftyEOSTest;
+			sourceTree = "<group>";
+		};
+		278D33B8215A3F1F00713115 /* Mako */ = {
+			isa = PBXGroup;
+			children = (
+				278D33C7215A453000713115 /* ViewControllers */,
+				278D33B9215A3F1F00713115 /* AppDelegate.swift */,
+				278D33BB215A3F1F00713115 /* ViewController.swift */,
+				278D33BD215A3F2100713115 /* Assets.xcassets */,
+				278D33BF215A3F2100713115 /* Main.storyboard */,
+				278D33C2215A3F2100713115 /* Info.plist */,
+				278D33C3215A3F2100713115 /* Mako.entitlements */,
+			);
+			path = Mako;
+			sourceTree = "<group>";
+		};
+		278D33C7215A453000713115 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				278D33C9215A454200713115 /* Base */,
+				278D33C8215A453A00713115 /* Home */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		278D33C8215A453A00713115 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				278D33CA215A455A00713115 /* FeatureList */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		278D33C9215A454200713115 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		278D33CA215A455A00713115 /* FeatureList */ = {
+			isa = PBXGroup;
+			children = (
+				278D33CB215A459000713115 /* FeatureListViewController.swift */,
+			);
+			path = FeatureList;
 			sourceTree = "<group>";
 		};
 		27FC74D720BD10B800435C50 /* Sources */ = {
@@ -462,13 +530,30 @@
 			productReference = 2758839E21140CFC00A80837 /* SwiftyEOSTest.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		278D33B6215A3F1F00713115 /* Mako */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 278D33C4215A3F2100713115 /* Build configuration list for PBXNativeTarget "Mako" */;
+			buildPhases = (
+				278D33B3215A3F1F00713115 /* Sources */,
+				278D33B4215A3F1F00713115 /* Frameworks */,
+				278D33B5215A3F1F00713115 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Mako;
+			productName = Mako;
+			productReference = 278D33B7215A3F1F00713115 /* Mako.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		2720153B208E0673001205A3 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0940;
+				LastSwiftUpdateCheck = 1000;
 				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = ProChain;
 				TargetAttributes = {
@@ -477,9 +562,13 @@
 					};
 					27201542208E0673001205A3 = {
 						CreatedOnToolsVersion = 9.3;
+						LastSwiftMigration = 1000;
 					};
 					2758839D21140CFC00A80837 = {
 						CreatedOnToolsVersion = 9.4.1;
+					};
+					278D33B6215A3F1F00713115 = {
+						CreatedOnToolsVersion = 10.0;
 					};
 				};
 			};
@@ -499,6 +588,7 @@
 				27201542208E0673001205A3 /* SwiftyEOS */,
 				270DD57620FEEACA00C6763B /* SwiftyEOS-iOS-Example */,
 				2758839D21140CFC00A80837 /* SwiftyEOSTest */,
+				278D33B6215A3F1F00713115 /* Mako */,
 			);
 		};
 /* End PBXProject section */
@@ -518,6 +608,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		278D33B5215A3F1F00713115 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				278D33BE215A3F2100713115 /* Assets.xcassets in Resources */,
+				278D33C1215A3F2100713115 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -614,6 +713,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		278D33B3215A3F1F00713115 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				278D33BC215A3F1F00713115 /* ViewController.swift in Sources */,
+				278D33BA215A3F1F00713115 /* AppDelegate.swift in Sources */,
+				278D33CC215A459000713115 /* FeatureListViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
@@ -631,6 +740,14 @@
 				270DD58320FEEACC00C6763B /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		278D33BF215A3F2100713115 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				278D33C0215A3F2100713115 /* Base */,
+			);
+			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -801,7 +918,7 @@
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Libraries/include/Bridging-Header.h";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				SYSTEM_HEADER_SEARCH_PATHS = Libraries/include;
 			};
 			name = Debug;
@@ -813,7 +930,7 @@
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Libraries/include/Bridging-Header.h";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				SYSTEM_HEADER_SEARCH_PATHS = Libraries/include;
 			};
 			name = Release;
@@ -856,6 +973,47 @@
 			};
 			name = Release;
 		};
+		278D33C5215A3F2100713115 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Mako/Mako.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = Mako/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = pro.chain.Mako;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+			};
+			name = Debug;
+		};
+		278D33C6215A3F2100713115 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Mako/Mako.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = Mako/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = pro.chain.Mako;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -891,6 +1049,15 @@
 			buildConfigurations = (
 				275883A421140CFC00A80837 /* Debug */,
 				275883A521140CFC00A80837 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		278D33C4215A3F2100713115 /* Build configuration list for PBXNativeTarget "Mako" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				278D33C5215A3F2100713115 /* Debug */,
+				278D33C6215A3F2100713115 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
