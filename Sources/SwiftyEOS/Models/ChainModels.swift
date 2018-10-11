@@ -60,6 +60,9 @@ struct ChainInfo: Codable {
 
 @objcMembers class RequiredAuth: NSObject, Codable {
     var keys: [AuthKey]?
+    var threshold: UInt64 = 0
+    var accounts: [String] = []
+    var waits: [String] = []
 }
 
 @objcMembers class AccountPermission: NSObject, Codable {

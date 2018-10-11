@@ -37,12 +37,16 @@ import Foundation
 
 @objcMembers class ResourceUtil: NSObject {
     static func stakeResourceAbiJson(account: String, net: Float, cpu: Float) -> AbiJson {
+        return stakeResourceAbiJson(from: account, receiver: account, transfer: 0, net: net, cpu: cpu)
+    }
+    
+    static func stakeResourceAbiJson(from: String, receiver: String,transfer: UInt, net: Float, cpu: Float) -> AbiJson {
         let param = DelegateParam()
-        param.from = account
-        param.receiver = account
+        param.from = from
+        param.receiver = receiver
         param.stakeNetQuantity = String(format: "%.4f EOS", net)
         param.stakeCpuQuantity = String(format: "%.4f EOS", cpu)
-        param.transfer = 0
+        param.transfer = transfer
         
         let encoder = JSONEncoder()
         encoder.keyEncodingStrategy = .convertToSnakeCase
@@ -89,9 +93,13 @@ import Foundation
     }
     
     static func buyRamAbiJson(account: String, ramEos: Float) -> AbiJson {
+        return buyRamAbiJson(payer: account, receiver: account, ramEos: ramEos)
+    }
+    
+    static func buyRamAbiJson(payer: String, receiver: String, ramEos: Float) -> AbiJson {
         let param = BuyRamParam()
-        param.payer = account
-        param.receiver = account
+        param.payer = payer
+        param.receiver = receiver
         param.quant = String(format: "%.4f EOS", ramEos)
         
         let encoder = JSONEncoder()
