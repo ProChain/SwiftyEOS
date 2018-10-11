@@ -37,7 +37,7 @@ import Foundation
         let param = NewAccountParam()
         param.creator = creator
         param.name = account
-        param.owner = ownerRequiredAuth;
+        param.owner = ownerRequiredAuth
         param.active = activeRequiredAuth
         
         let encoder = JSONEncoder()
@@ -48,11 +48,23 @@ import Foundation
         return try! AbiJson(code: "eosio", action: "newaccount", json: jsonString!)
     }
     
-    static func stakeCreateAccount(account: String, ownerKey: String, activeKey: String, creator: String, pkString: String, completion: @escaping (_ result: TransactionResult?, _ error: Error?) -> ()) {
-        
+    /// creator help someone create an account
+    ///
+    /// - Parameters:
+    ///   - account: account that need to be created
+    ///   - ownerKey: ownerKey(privatekey) for account
+    ///   - activeKey: activeKey(privatekey) for account
+    ///   - creator: creator
+    ///   - pkString: privatekey
+    ///   - ramEos: ram resource
+    ///   - netEos: net resource
+    ///   - cpuEos: cpu resource
+    ///   - transfer: Whether to transfer creator's resources(ram,cpu,net) to account
+    ///   - completion: callback
+    static func stakeCreateAccount(account: String, ownerKey: String, activeKey: String, creator: String, pkString: String, ramEos:Float, netEos: Float, cpuEos: Float, transfer: Bool, completion: @escaping (_ result: TransactionResult?, _ error: Error?) -> ()) {
         let newaccountAbiJson = self.stakeNewAccountAbiJson(creator: creator,account: account, ownerKey: ownerKey, activeKey: activeKey)
-        let buyRamAbiJson = ResourceUtil.buyRamAbiJson(payer: creator, receiver: account, ramEos: 1.0)
-        let delegatebwAbiJson = ResourceUtil.stakeResourceAbiJson(from: creator, receiver: account, transfer: 1, net: 1.0, cpu: 1.0)
+        let buyRamAbiJson = ResourceUtil.buyRamAbiJson(payer: creator, receiver: account, ramEos: ramEos)
+        let delegatebwAbiJson = ResourceUtil.stakeResourceAbiJson(from: creator, receiver: account, transfer: transfer ? 1: 0, net: netEos, cpu: cpuEos)
         
         guard let privateKey = try? PrivateKey(keyString: pkString) else {
             completion(nil, NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "invalid private key"]))

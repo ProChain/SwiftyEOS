@@ -37,7 +37,11 @@ AccountUtil.stakeCreateAccount(account: testNeedCreateAccount,
                                ownerKey: testNeedCreatePubKey,
                                activeKey: testNeedCreatePubKey,
                                creator: liuAccount,
-                               pkString: privateKey) { (result, error) in
+                               pkString: privateKey,
+                               ramEos: 1.0,
+                               netEos: 1.0,
+                               cpuEos: 1.0,
+                               transfer: true) { (result, error) in
                                 if error != nil {
                                     if (error! as NSError).code == RPCErrorResponse.ErrorCode {
                                         print("\(((error! as NSError).userInfo[RPCErrorResponse.ErrorKey] as! RPCErrorResponse).errorDescription())")
@@ -59,23 +63,23 @@ let importedPub = PublicKey(privateKey: importedPk!)
 print("imported private key: \(importedPk!.wif())")
 print("imported public key : \(importedPub.wif())")
 
-//var transfer = Transfer()
-//transfer.from = "raoji"
-//transfer.to = "raojiraoji12"
-//transfer.quantity = "1.0000 EOS"
-//transfer.memo = "test"
-//
-//Currency.transferCurrency(transfer: transfer, code: "eosio", privateKey: importedPk!, completion: { (result, error) in
-//    if error != nil {
-//        if (error! as NSError).code == RPCErrorResponse.ErrorCode {
-//            print("\(((error! as NSError).userInfo[RPCErrorResponse.ErrorKey] as! RPCErrorResponse).errorDescription())")
-//        } else {
-//            print("other error: \(String(describing: error?.localizedDescription))")
-//        }
-//    } else {
-//        print("Ok. Txid: \(result!.transactionId)")
-//    }
-//})
+var transfer = Transfer()
+transfer.from = "raoji"
+transfer.to = "raojiraoji12"
+transfer.quantity = "1.0000 EOS"
+transfer.memo = "test"
+
+Currency.transferCurrency(transfer: transfer, code: "eosio", privateKey: importedPk!, completion: { (result, error) in
+    if error != nil {
+        if (error! as NSError).code == RPCErrorResponse.ErrorCode {
+            print("\(((error! as NSError).userInfo[RPCErrorResponse.ErrorKey] as! RPCErrorResponse).errorDescription())")
+        } else {
+            print("other error: \(String(describing: error?.localizedDescription))")
+        }
+    } else {
+        print("Ok. Txid: \(result!.transactionId)")
+    }
+})
 //
 //let account = "raoji"
 //let asset = "1.0000 EPRA"
