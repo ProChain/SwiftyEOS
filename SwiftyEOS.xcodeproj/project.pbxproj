@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		1F95866B214B63B7000F01FB /* AccountUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F95866A214B63B7000F01FB /* AccountUtil.swift */; };
-		1FA2171E215E38AD0074315F /* NLEOSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FA2171D215E38AD0074315F /* NLEOSTests.m */; };
 		270DD57A20FEEACA00C6763B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270DD57920FEEACA00C6763B /* AppDelegate.swift */; };
 		270DD57C20FEEACA00C6763B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270DD57B20FEEACA00C6763B /* ViewController.swift */; };
 		270DD57F20FEEACA00C6763B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 270DD57D20FEEACA00C6763B /* Main.storyboard */; };
@@ -109,15 +108,6 @@
 
 /* Begin PBXFileReference section */
 		1F95866A214B63B7000F01FB /* AccountUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountUtil.swift; sourceTree = "<group>"; };
-		1FA216B9215E33AD0074315F /* NLEOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NLEOS.h; sourceTree = "<group>"; };
-		1FA216BA215E33AD0074315F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1FA216C4215E33AE0074315F /* NLEOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NLEOSTests.swift; sourceTree = "<group>"; };
-		1FA216C6215E33AE0074315F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1FA21712215E38AD0074315F /* NLEOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NLEOS.h; sourceTree = "<group>"; };
-		1FA21713215E38AD0074315F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1FA21718215E38AD0074315F /* NLEOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NLEOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		1FA2171D215E38AD0074315F /* NLEOSTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NLEOSTests.m; sourceTree = "<group>"; };
-		1FA2171F215E38AD0074315F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		270DD57120FEE72D00C6763B /* SEWallet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEWallet.swift; sourceTree = "<group>"; };
 		270DD57720FEEACA00C6763B /* SwiftyEOS-iOS-Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SwiftyEOS-iOS-Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		270DD57920FEEACA00C6763B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -169,13 +159,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		1FA21715215E38AD0074315F /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		270DD57420FEEACA00C6763B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -206,42 +189,6 @@
 				1F95866A214B63B7000F01FB /* AccountUtil.swift */,
 			);
 			path = account;
-			sourceTree = "<group>";
-		};
-		1FA216B8215E33AD0074315F /* NLEOS */ = {
-			isa = PBXGroup;
-			children = (
-				1FA216B9215E33AD0074315F /* NLEOS.h */,
-				1FA216BA215E33AD0074315F /* Info.plist */,
-			);
-			path = NLEOS;
-			sourceTree = "<group>";
-		};
-		1FA216C3215E33AE0074315F /* NLEOSTests */ = {
-			isa = PBXGroup;
-			children = (
-				1FA216C4215E33AE0074315F /* NLEOSTests.swift */,
-				1FA216C6215E33AE0074315F /* Info.plist */,
-			);
-			path = NLEOSTests;
-			sourceTree = "<group>";
-		};
-		1FA21711215E38AD0074315F /* NLEOS */ = {
-			isa = PBXGroup;
-			children = (
-				1FA21712215E38AD0074315F /* NLEOS.h */,
-				1FA21713215E38AD0074315F /* Info.plist */,
-			);
-			path = NLEOS;
-			sourceTree = "<group>";
-		};
-		1FA2171C215E38AD0074315F /* NLEOSTests */ = {
-			isa = PBXGroup;
-			children = (
-				1FA2171D215E38AD0074315F /* NLEOSTests.m */,
-				1FA2171F215E38AD0074315F /* Info.plist */,
-			);
-			path = NLEOSTests;
 			sourceTree = "<group>";
 		};
 		270DD56F20FEE6E100C6763B /* Utils */ = {
@@ -298,10 +245,6 @@
 				27FC74D720BD10B800435C50 /* Sources */,
 				270DD57820FEEACA00C6763B /* SwiftyEOS-iOS-Example */,
 				2758839F21140CFC00A80837 /* SwiftyEOSTest */,
-				1FA216B8215E33AD0074315F /* NLEOS */,
-				1FA216C3215E33AE0074315F /* NLEOSTests */,
-				1FA21711215E38AD0074315F /* NLEOS */,
-				1FA2171C215E38AD0074315F /* NLEOSTests */,
 				27201544208E0673001205A3 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -312,7 +255,6 @@
 				27201543208E0673001205A3 /* SwiftyEOS */,
 				270DD57720FEEACA00C6763B /* SwiftyEOS-iOS-Example.app */,
 				2758839E21140CFC00A80837 /* SwiftyEOSTest.xctest */,
-				1FA21718215E38AD0074315F /* NLEOSTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -492,23 +434,6 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		1FA21717215E38AD0074315F /* NLEOSTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 1FA21724215E38AD0074315F /* Build configuration list for PBXNativeTarget "NLEOSTests" */;
-			buildPhases = (
-				1FA21714215E38AD0074315F /* Sources */,
-				1FA21715215E38AD0074315F /* Frameworks */,
-				1FA21716215E38AD0074315F /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = NLEOSTests;
-			productName = NLEOSTests;
-			productReference = 1FA21718215E38AD0074315F /* NLEOSTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 		270DD57620FEEACA00C6763B /* SwiftyEOS-iOS-Example */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 270DD58620FEEACC00C6763B /* Build configuration list for PBXNativeTarget "SwiftyEOS-iOS-Example" */;
@@ -571,9 +496,6 @@
 				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = ProChain;
 				TargetAttributes = {
-					1FA21717215E38AD0074315F = {
-						CreatedOnToolsVersion = 10.0;
-					};
 					270DD57620FEEACA00C6763B = {
 						CreatedOnToolsVersion = 9.4.1;
 					};
@@ -601,19 +523,11 @@
 				27201542208E0673001205A3 /* SwiftyEOS */,
 				270DD57620FEEACA00C6763B /* SwiftyEOS-iOS-Example */,
 				2758839D21140CFC00A80837 /* SwiftyEOSTest */,
-				1FA21717215E38AD0074315F /* NLEOSTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		1FA21716215E38AD0074315F /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		270DD57520FEEACA00C6763B /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -634,14 +548,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		1FA21714215E38AD0074315F /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				1FA2171E215E38AD0074315F /* NLEOSTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		270DD57320FEEACA00C6763B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -755,49 +661,6 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		1FA21725215E38AD0074315F /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_IDENTITY = "Mac Developer";
-				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = 4MV7MDF7SM;
-				INFOPLIST_FILE = NLEOSTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@loader_path/../Frameworks",
-				);
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.iliunian.NLEOSTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Debug;
-		};
-		1FA21726215E38AD0074315F /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_IDENTITY = "Mac Developer";
-				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = 4MV7MDF7SM;
-				INFOPLIST_FILE = NLEOSTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@loader_path/../Frameworks",
-				);
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.iliunian.NLEOSTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
 		270DD58720FEEACC00C6763B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1021,15 +884,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1FA21724215E38AD0074315F /* Build configuration list for PBXNativeTarget "NLEOSTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				1FA21725215E38AD0074315F /* Debug */,
-				1FA21726215E38AD0074315F /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		270DD58620FEEACC00C6763B /* Build configuration list for PBXNativeTarget "SwiftyEOS-iOS-Example" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
