@@ -730,24 +730,24 @@
         <scene sceneID="cQG-P2-XQM">
             <objects>
                 <viewController id="rJp-oW-ZR1" customClass="FeatureListViewController" customModule="Mako" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" id="vDP-N6-tbM">
-                        <rect key="frame" x="0.0" y="0.0" width="300" height="500"/>
+                    <view key="view" misplaced="YES" id="vDP-N6-tbM">
+                        <rect key="frame" x="0.0" y="0.0" width="200" height="500"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kgc-QK-9ex">
-                                <rect key="frame" x="0.0" y="0.0" width="300" height="500"/>
+                                <rect key="frame" x="0.0" y="0.0" width="200" height="500"/>
                                 <clipView key="contentView" id="X50-cA-kJP">
-                                    <rect key="frame" x="1" y="1" width="298" height="498"/>
+                                    <rect key="frame" x="1" y="1" width="198" height="498"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" viewBased="YES" id="ro1-CF-CQD">
-                                            <rect key="frame" x="0.0" y="0.0" width="298" height="498"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="198" height="498"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                             <tableColumns>
-                                                <tableColumn width="295" minWidth="40" maxWidth="1000" id="irc-yw-MsL">
+                                                <tableColumn width="195" minWidth="40" maxWidth="1000" id="irc-yw-MsL">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -761,7 +761,7 @@
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
                                                         <tableCellView id="bWD-oH-p5n">
-                                                            <rect key="frame" x="1" y="1" width="295" height="17"/>
+                                                            <rect key="frame" x="1" y="1" width="195" height="17"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IyP-6f-QfM">
@@ -770,7 +770,7 @@
                                                                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSActionTemplate" id="eQb-bq-4qS"/>
                                                                 </imageView>
                                                                 <textField identifier="MenuCell" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gvl-Lj-gKq">
-                                                                    <rect key="frame" x="25" y="0.0" width="270" height="17"/>
+                                                                    <rect key="frame" x="25" y="0.0" width="170" height="17"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="6Pc-6J-h1U">
                                                                         <font key="font" metaFont="system"/>
@@ -796,7 +796,7 @@
                                 </clipView>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="500" id="8co-w3-Ibc"/>
-                                    <constraint firstAttribute="width" constant="300" id="EQ7-jw-osv"/>
+                                    <constraint firstAttribute="width" constant="200" id="EQ7-jw-osv"/>
                                 </constraints>
                                 <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="HFY-AC-6GH">
                                     <rect key="frame" x="-100" y="-100" width="238" height="16"/>
