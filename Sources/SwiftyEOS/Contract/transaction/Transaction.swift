@@ -161,30 +161,22 @@ struct DataWriter {
         pushBase(value: IntegerLiteralType(value), stride: stride(from: 0, to: 57, by: 8))
     }
     
-    mutating func pushChar(value: CChar) {
-        bytesList.append(UInt8(value))
+    mutating func pushChar(value: CUnsignedChar) {
+        bytesList.append(value)
     }
     
     mutating func pushVariableUInt(value: CUnsignedInt) {
-        var b = value & 0x7f
-        var newValue = value >> 7
-        if newValue > 0 {
-            b = b | (1 << 7)
-        } else {
-            b = b | (0 << 7)
-        }
-        pushChar(value: CChar(b))
-        
-        while newValue != 0 {
-            b = value & 0x7f
-            newValue = value >> 7
-            if newValue > 0 {
+        var val: CUnsignedLongLong = CUnsignedLongLong(value)
+        repeat {
+            var b: CUnsignedChar = CUnsignedChar(val) & 0x7f
+            val >>= 7
+            if val > 0 {
                 b = b | (1 << 7)
             } else {
                 b = b | (0 << 7)
             }
-            pushChar(value: CChar(b))
-        }
+            pushChar(value: b)
+        } while val != 0
     }
     
     mutating func pushPermission(permissions: [Authorization]) {
