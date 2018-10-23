@@ -43,7 +43,7 @@ extension EOSRPC {
             }
             let balanceString = resultArray!.first
             let parts = balanceString!.components(separatedBy: " ")
-            if parts.count != 2 || parts[1] != "EOS" {
+            if parts.count != 2 {
                 completion(NSDecimalNumber.zero, nil)
                 return
             }
