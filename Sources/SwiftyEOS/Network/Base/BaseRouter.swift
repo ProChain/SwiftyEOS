@@ -75,6 +75,7 @@ class BaseRouter : APIConfiguration {
         if EOSRPC.endpoint != nil {
             return EOSRPC.endpoint! + "/v1"
         }
+        return "http://jungle.cryptolions.io:18888/v1"
         return "https://api.eosnewyork.io/v1"
     }
 }

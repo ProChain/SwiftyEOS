@@ -11,16 +11,16 @@ import Foundation
 @objcMembers class DelegateParam: NSObject, Codable {
     var from: String = ""
     var receiver: String = ""
-    var stakeNetQuantity: String = ""
-    var stakeCpuQuantity: String = ""
+    var stake_net_quantity: String = ""
+    var stake_cpu_quantity: String = ""
     var transfer: UInt = 0
 }
 
 @objcMembers class UndelegateParam: NSObject, Codable {
     var from: String = ""
     var receiver: String = ""
-    var unstakeNetQuantity: String = ""
-    var unstakeCpuQuantity: String = ""
+    var unstake_net_quantity: String = ""
+    var unstake_cpu_quantity: String = ""
     var transfer: UInt = 0
 }
 
@@ -44,8 +44,8 @@ import Foundation
         let param = DelegateParam()
         param.from = from
         param.receiver = receiver
-        param.stakeNetQuantity = String(format: "%.4f EOS", net)
-        param.stakeCpuQuantity = String(format: "%.4f EOS", cpu)
+        param.stake_net_quantity = String(format: "%.4f EOS", net)
+        param.stake_cpu_quantity = String(format: "%.4f EOS", cpu)
         param.transfer = transfer
         
         let encoder = JSONEncoder()
@@ -70,8 +70,8 @@ import Foundation
         let param = UndelegateParam()
         param.from = account
         param.receiver = account
-        param.unstakeNetQuantity = String(format: "%.4f EOS", net)
-        param.unstakeCpuQuantity = String(format: "%.4f EOS", cpu)
+        param.unstake_net_quantity = String(format: "%.4f EOS", net)
+        param.unstake_cpu_quantity = String(format: "%.4f EOS", cpu)
         param.transfer = 0
         
         let encoder = JSONEncoder()
