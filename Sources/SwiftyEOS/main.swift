@@ -69,7 +69,7 @@ transfer.to = "raojiraoji12"
 transfer.quantity = "1.0000 EOS"
 transfer.memo = "test"
 
-Currency.transferCurrency(transfer: transfer, code: "eosio", privateKey: importedPk!, completion: { (result, error) in
+Currency.transferCurrency(transfer: transfer, code: "eosio.token", privateKey: importedPk!, completion: { (result, error) in
     if error != nil {
         if (error! as NSError).code == RPCErrorResponse.ErrorCode {
             print("\(((error! as NSError).userInfo[RPCErrorResponse.ErrorKey] as! RPCErrorResponse).errorDescription())")
