@@ -150,5 +150,5 @@ Currency.transferCurrency(transfer: transfer, code: "eosio", privateKey: importe
 //        print("Ok. Txid: \(result!.transactionId)")
 //    }
 //}
-//
-//RunLoop.main.run()
+
+RunLoop.main.run()
