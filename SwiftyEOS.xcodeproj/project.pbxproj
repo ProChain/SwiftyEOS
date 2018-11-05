@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F95866B214B63B7000F01FB /* AccountUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F95866A214B63B7000F01FB /* AccountUtil.swift */; };
 		270DD57A20FEEACA00C6763B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270DD57920FEEACA00C6763B /* AppDelegate.swift */; };
 		270DD57C20FEEACA00C6763B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270DD57B20FEEACA00C6763B /* ViewController.swift */; };
 		270DD57F20FEEACA00C6763B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 270DD57D20FEEACA00C6763B /* Main.storyboard */; };
@@ -87,6 +88,18 @@
 		27FC751720BD247700435C50 /* AnyEncodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FC751420BD247700435C50 /* AnyEncodable.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXBuildRule section */
+		1FA21835215E48910074315F /* PBXBuildRule */ = {
+			isa = PBXBuildRule;
+			compilerSpec = com.apple.compilers.proxy.script;
+			fileType = pattern.proxy;
+			isEditable = 1;
+			outputFiles = (
+			);
+			script = "# Type a script or drag a script file from your workspace to insert its path.\n";
+		};
+/* End PBXBuildRule section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		27201541208E0673001205A3 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -100,6 +113,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1F95866A214B63B7000F01FB /* AccountUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountUtil.swift; sourceTree = "<group>"; };
 		270DD57120FEE72D00C6763B /* SEWallet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEWallet.swift; sourceTree = "<group>"; };
 		270DD57720FEEACA00C6763B /* SwiftyEOS-iOS-Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SwiftyEOS-iOS-Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		270DD57920FEEACA00C6763B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -191,6 +205,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1F958669214B63A0000F01FB /* account */ = {
+			isa = PBXGroup;
+			children = (
+				1F95866A214B63B7000F01FB /* AccountUtil.swift */,
+			);
+			path = account;
+			sourceTree = "<group>";
+		};
 		270DD56F20FEE6E100C6763B /* Utils */ = {
 			isa = PBXGroup;
 			children = (
@@ -370,6 +392,7 @@
 			isa = PBXGroup;
 			children = (
 				2719729D218F5DD300CFF288 /* contract */,
+				1F958669214B63A0000F01FB /* account */,
 				27107CCD2133F40D00FDB599 /* resource */,
 				2720E71721254A7E00643AE6 /* transaction */,
 				27FC74DC20BD10B800435C50 /* currency */,
@@ -516,6 +539,7 @@
 				27201541208E0673001205A3 /* CopyFiles */,
 			);
 			buildRules = (
+				1FA21835215E48910074315F /* PBXBuildRule */,
 			);
 			dependencies = (
 			);
@@ -677,6 +701,7 @@
 				27FC750A20BD10B900435C50 /* PublicKey.swift in Sources */,
 				27FC750020BD10B900435C50 /* ChainRouter.swift in Sources */,
 				2719729F218F5DE800CFF288 /* Contract.swift in Sources */,
+				1F95866B214B63B7000F01FB /* AccountUtil.swift in Sources */,
 				2720E71B21257D9E00643AE6 /* TransactionUtil.swift in Sources */,
 				27FC750E20BD10B900435C50 /* main.swift in Sources */,
 				27FC750D20BD10B900435C50 /* BigInt.swift in Sources */,

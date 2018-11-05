@@ -26,6 +26,33 @@ print("Hello, SwiftyEOS!")
 //    }
 //}
 
+//MARK: Jungle TestNet
+let liuAccount = "liulian12345"
+let privateKey = "5Hsk6wB2MPqGPrU53jSVGHm3uvoqWJk3rCrnkGzEGc7HrH28n7t"
+let privatePk = try PrivateKey(keyString: privateKey)
+let testNeedCreateAccount = "liunian12341"
+let testNeedCreatePubKey = "EOS5uLxwJQgpEJteBxBTKiqWnyWiJTQAzAqx71M5AuMZ917oMv4g4"
+
+AccountUtil.stakeCreateAccount(account: testNeedCreateAccount,
+                               ownerKey: testNeedCreatePubKey,
+                               activeKey: testNeedCreatePubKey,
+                               creator: liuAccount,
+                               pkString: privateKey,
+                               ramEos: 1.0,
+                               netEos: 1.0,
+                               cpuEos: 1.0,
+                               transfer: true) { (result, error) in
+                                if error != nil {
+                                    if (error! as NSError).code == RPCErrorResponse.ErrorCode {
+                                        print("\(((error! as NSError).userInfo[RPCErrorResponse.ErrorKey] as! RPCErrorResponse).errorDescription())")
+                                    } else {
+                                        print("other error: \(String(describing: error?.localizedDescription))")
+                                    }
+                                } else {
+                                    print("Ok. Txid: \(result!.transactionId)")
+                                }
+}
+
 //let (pk, pub) = generateRandomKeyPair(enclave: .Secp256k1)
 //print("private key: \(pk!.rawPrivateKey())")
 //print("public key : \(pub!.rawPublicKey())")
@@ -36,23 +63,23 @@ let importedPub = PublicKey(privateKey: importedPk!)
 print("imported private key: \(importedPk!.wif())")
 print("imported public key : \(importedPub.wif())")
 
-//var transfer = Transfer()
-//transfer.from = "raoji"
-//transfer.to = "raojiraoji12"
-//transfer.quantity = "1.0000 EOS"
-//transfer.memo = "test"
-//
-//Currency.transferCurrency(transfer: transfer, code: "eosio", privateKey: importedPk!, completion: { (result, error) in
-//    if error != nil {
-//        if (error! as NSError).code == RPCErrorResponse.ErrorCode {
-//            print("\(((error! as NSError).userInfo[RPCErrorResponse.ErrorKey] as! RPCErrorResponse).errorDescription())")
-//        } else {
-//            print("other error: \(String(describing: error?.localizedDescription))")
-//        }
-//    } else {
-//        print("Ok. Txid: \(result!.transactionId)")
-//    }
-//})
+var transfer = Transfer()
+transfer.from = "raoji"
+transfer.to = "raojiraoji12"
+transfer.quantity = "1.0000 EOS"
+transfer.memo = "test"
+
+Currency.transferCurrency(transfer: transfer, code: "eosio", privateKey: importedPk!, completion: { (result, error) in
+    if error != nil {
+        if (error! as NSError).code == RPCErrorResponse.ErrorCode {
+            print("\(((error! as NSError).userInfo[RPCErrorResponse.ErrorKey] as! RPCErrorResponse).errorDescription())")
+        } else {
+            print("other error: \(String(describing: error?.localizedDescription))")
+        }
+    } else {
+        print("Ok. Txid: \(result!.transactionId)")
+    }
+})
 //
 
 //let account = "raoji"
