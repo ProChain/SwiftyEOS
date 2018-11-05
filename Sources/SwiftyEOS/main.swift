@@ -10,27 +10,27 @@ import Foundation
 
 print("Hello, SwiftyEOS!")
 
-//EOSRPC.sharedInstance.chainInfo { (chainInfo, error) in
-//    if error == nil {
-//        print("Success: \(chainInfo!)")
-//    } else {
-//        print("Error: \(error!.localizedDescription)")
-//    }
-//}
-//
-//EOSRPC.sharedInstance.getBlock(blockNumOrId: 5 as AnyObject) { (blockInfo, error) in
-//    if error == nil {
-//        print("Success: \(blockInfo!)")
-//    } else {
-//        print("Error: \(error!.localizedDescription)")
-//    }
-//}
+EOSRPC.sharedInstance.chainInfo { (chainInfo, error) in
+    if error == nil {
+        print("Success: \(chainInfo!)")
+    } else {
+        print("Error: \(error!.localizedDescription)")
+    }
+}
+
+EOSRPC.sharedInstance.getBlock(blockNumOrId: 5 as AnyObject) { (blockInfo, error) in
+    if error == nil {
+        print("Success: \(blockInfo!)")
+    } else {
+        print("Error: \(error!.localizedDescription)")
+    }
+}
 
 //MARK: Jungle TestNet
 let liuAccount = "liulian12345"
 let privateKey = "5Hsk6wB2MPqGPrU53jSVGHm3uvoqWJk3rCrnkGzEGc7HrH28n7t"
 let privatePk = try PrivateKey(keyString: privateKey)
-let testNeedCreateAccount = "liunian12341"
+let testNeedCreateAccount = "liunian12342"
 let testNeedCreatePubKey = "EOS5uLxwJQgpEJteBxBTKiqWnyWiJTQAzAqx71M5AuMZ917oMv4g4"
 
 AccountUtil.stakeCreateAccount(account: testNeedCreateAccount,
@@ -58,28 +58,28 @@ AccountUtil.stakeCreateAccount(account: testNeedCreateAccount,
 //print("public key : \(pub!.rawPublicKey())")
 
 
-let importedPk = try PrivateKey(keyString: "5HsaHvRCPrjU3yhapB5rLRyuKHuFTsziidA13Uw6WnQTeJAG3t4")
-let importedPub = PublicKey(privateKey: importedPk!)
-print("imported private key: \(importedPk!.wif())")
-print("imported public key : \(importedPub.wif())")
-
-var transfer = Transfer()
-transfer.from = "raoji"
-transfer.to = "raojiraoji12"
-transfer.quantity = "1.0000 EOS"
-transfer.memo = "test"
-
-Currency.transferCurrency(transfer: transfer, code: "eosio", privateKey: importedPk!, completion: { (result, error) in
-    if error != nil {
-        if (error! as NSError).code == RPCErrorResponse.ErrorCode {
-            print("\(((error! as NSError).userInfo[RPCErrorResponse.ErrorKey] as! RPCErrorResponse).errorDescription())")
-        } else {
-            print("other error: \(String(describing: error?.localizedDescription))")
-        }
-    } else {
-        print("Ok. Txid: \(result!.transactionId)")
-    }
-})
+//let importedPk = try PrivateKey(keyString: privateKey)
+//let importedPub = PublicKey(privateKey: importedPk!)
+//print("imported private key: \(importedPk!.wif())")
+//print("imported public key : \(importedPub.wif())")
+//
+//var transfer = Transfer()
+//transfer.from = liuAccount
+//transfer.to = testNeedCreateAccount
+//transfer.quantity = "1.0000 EOS"
+//transfer.memo = "test"
+//
+//Currency.transferCurrency(transfer: transfer, code: "eosio.token", privateKey: importedPk!, completion: { (result, error) in
+//    if error != nil {
+//        if (error! as NSError).code == RPCErrorResponse.ErrorCode {
+//            print("\(((error! as NSError).userInfo[RPCErrorResponse.ErrorKey] as! RPCErrorResponse).errorDescription())")
+//        } else {
+//            print("other error: \(String(describing: error?.localizedDescription))")
+//        }
+//    } else {
+//        print("Ok. Txid: \(result!.transactionId)")
+//    }
+//})
 //
 
 //let account = "raoji"

@@ -10,7 +10,7 @@ import Foundation
 
 @objcMembers class NewAccountParam: NSObject, Codable {
     var creator: String = ""
-    var name: String = ""
+    var newact: String = ""
     var owner: RequiredAuth?
     var active: RequiredAuth?
 }
@@ -36,7 +36,7 @@ import Foundation
         
         let param = NewAccountParam()
         param.creator = creator
-        param.name = account
+        param.newact = account
         param.owner = ownerRequiredAuth
         param.active = activeRequiredAuth
         
