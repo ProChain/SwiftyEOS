@@ -1,5 +1,5 @@
 language: objective-c
-osx_image: xcode9.3
+osx_image: xcode10.1
 xcode_project: SwiftyEOS.xcodeproj
 xcode_scheme: SwiftyEOS
 script: xcodebuild clean && xcodebuild build -project SwiftyEOS.xcodeproj -scheme SwiftyEOS

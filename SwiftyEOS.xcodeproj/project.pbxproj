@@ -41,6 +41,7 @@
 		27107CD42135334900FDB599 /* AnyDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FC751220BD247700435C50 /* AnyDecodable.swift */; };
 		27107CD62135334E00FDB599 /* AnyEncodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FC751420BD247700435C50 /* AnyEncodable.swift */; };
 		2719729F218F5DE800CFF288 /* Contract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2719729E218F5DE800CFF288 /* Contract.swift */; };
+		271972A3219004FF00CFF288 /* Contract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2719729E218F5DE800CFF288 /* Contract.swift */; };
 		2720E71921254CF200643AE6 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2720E71821254CF200643AE6 /* Transaction.swift */; };
 		2720E71B21257D9E00643AE6 /* TransactionUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2720E71A21257D9E00643AE6 /* TransactionUtil.swift */; };
 		275883A121140CFC00A80837 /* SwiftyEOSTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275883A021140CFC00A80837 /* SwiftyEOSTest.swift */; };
@@ -686,6 +687,7 @@
 				270DD5A52100905A00C6763B /* Currency.swift in Sources */,
 				270DD59D2100904100C6763B /* EOSRPC+Chain.swift in Sources */,
 				270DD59F2100904500C6763B /* HistoryRouter.swift in Sources */,
+				271972A3219004FF00CFF288 /* Contract.swift in Sources */,
 				270DD5A42100905400C6763B /* Error.swift in Sources */,
 				27107CD42135334900FDB599 /* AnyDecodable.swift in Sources */,
 			);
