@@ -16,6 +16,7 @@ enum ChainEndpoint {
     case GetCurrencyBalance(account: String, symbol: String, code: String)
     case GetAccount(account: String)
     case GetTableRows(param: TableRowRequestParam)
+    case GetAbi(accountName: String)
 }
 
 class ChainRouter: BaseRouter {
@@ -37,6 +38,7 @@ class ChainRouter: BaseRouter {
         case .GetCurrencyBalance: return "/chain/get_currency_balance"
         case .GetAccount: return "/chain/get_account"
         case .GetTableRows: return "/chain/get_table_rows"
+        case .GetAbi: return "/chain/get_abi"
         }
     }
     
@@ -78,6 +80,11 @@ class ChainRouter: BaseRouter {
             let encoder = JSONEncoder()
             encoder.keyEncodingStrategy = .convertToSnakeCase
             let jsonData = try! encoder.encode(param)
+            return jsonData
+        case .GetAbi(let accountName):
+            let encoder = JSONEncoder()
+            encoder.keyEncodingStrategy = .convertToSnakeCase
+            let jsonData = try! encoder.encode(["account_name": accountName])
             return jsonData
         }
     }

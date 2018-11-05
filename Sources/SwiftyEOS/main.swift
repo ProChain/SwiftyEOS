@@ -54,6 +54,7 @@ print("imported public key : \(importedPub.wif())")
 //    }
 //})
 //
+
 //let account = "raoji"
 //let asset = "1.0000 EPRA"
 //
@@ -106,4 +107,21 @@ print("imported public key : \(importedPub.wif())")
 //    })
 //}
 
-RunLoop.main.run()
+
+//var transJson = """
+//[ "raoji", "raojiraoji12", "1.0000 EOS", "test" ]
+//"""
+//
+//TransactionUtil.pushTransaction(code: "eosio.token", action: "transfer", paramsJson: transJson, account: "raoji", pkString: importedPk!.rawPrivateKey()) { (result, error) in
+//    if error != nil {
+//        if (error! as NSError).code == RPCErrorResponse.ErrorCode {
+//            print("\(((error! as NSError).userInfo[RPCErrorResponse.ErrorKey] as! RPCErrorResponse).errorDescription())")
+//        } else {
+//            print("other error: \(String(describing: error?.localizedDescription))")
+//        }
+//    } else {
+//        print("Ok. Txid: \(result!.transactionId)")
+//    }
+//}
+//
+//RunLoop.main.run()
