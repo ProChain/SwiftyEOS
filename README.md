@@ -120,6 +120,8 @@ The related documents will be provided once the whole function is done.
 3. On-device(offline) wallet lock & unlock on iOS (2018.08.17)
 4. Stake/unstake cpu/net (2018.08.28)
 5. Buy/sell ram (2018.08.28)
+6. Create account (2018.10)
+7. Push transaction with params list (2018.11.05)
 
 ### Transfer Currency
 

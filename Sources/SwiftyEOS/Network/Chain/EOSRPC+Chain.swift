@@ -66,4 +66,9 @@ extension EOSRPC {
         let router = ChainRouter(endpoint: .GetTableRows(param: param))
         internalRequest(router: router, completion: completion)
     }
+    
+    func getAbi(accountName: String, completion: @escaping (_ result: Abi?, _ error: Error?) -> ()) {
+        let router = ChainRouter(endpoint: .GetAbi(accountName: accountName))
+        internalRequest(router: router, completion: completion)
+    }
 }

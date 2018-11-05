@@ -40,6 +40,8 @@
 		27107CD32135334400FDB599 /* AnyCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FC751320BD247700435C50 /* AnyCodable.swift */; };
 		27107CD42135334900FDB599 /* AnyDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FC751220BD247700435C50 /* AnyDecodable.swift */; };
 		27107CD62135334E00FDB599 /* AnyEncodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FC751420BD247700435C50 /* AnyEncodable.swift */; };
+		2719729F218F5DE800CFF288 /* Contract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2719729E218F5DE800CFF288 /* Contract.swift */; };
+		271972A3219004FF00CFF288 /* Contract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2719729E218F5DE800CFF288 /* Contract.swift */; };
 		2720E71921254CF200643AE6 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2720E71821254CF200643AE6 /* Transaction.swift */; };
 		2720E71B21257D9E00643AE6 /* TransactionUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2720E71A21257D9E00643AE6 /* TransactionUtil.swift */; };
 		275883A121140CFC00A80837 /* SwiftyEOSTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275883A021140CFC00A80837 /* SwiftyEOSTest.swift */; };
@@ -125,6 +127,7 @@
 		270DD59321007A7400C6763B /* HistoryRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryRouter.swift; sourceTree = "<group>"; };
 		270DD59521007A8200C6763B /* EOSRPC+History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EOSRPC+History.swift"; sourceTree = "<group>"; };
 		27107CCE2133F42400FDB599 /* ResourceUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceUtil.swift; sourceTree = "<group>"; };
+		2719729E218F5DE800CFF288 /* Contract.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contract.swift; sourceTree = "<group>"; };
 		27201543208E0673001205A3 /* SwiftyEOS */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SwiftyEOS; sourceTree = BUILT_PRODUCTS_DIR; };
 		2720E71821254CF200643AE6 /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
 		2720E71A21257D9E00643AE6 /* TransactionUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionUtil.swift; sourceTree = "<group>"; };
@@ -258,6 +261,14 @@
 			path = resource;
 			sourceTree = "<group>";
 		};
+		2719729D218F5DD300CFF288 /* contract */ = {
+			isa = PBXGroup;
+			children = (
+				2719729E218F5DE800CFF288 /* Contract.swift */,
+			);
+			path = contract;
+			sourceTree = "<group>";
+		};
 		2720153A208E0673001205A3 = {
 			isa = PBXGroup;
 			children = (
@@ -381,6 +392,7 @@
 		27FC74DB20BD10B800435C50 /* Contract */ = {
 			isa = PBXGroup;
 			children = (
+				2719729D218F5DD300CFF288 /* contract */,
 				1F958669214B63A0000F01FB /* account */,
 				27107CCD2133F40D00FDB599 /* resource */,
 				2720E71721254A7E00643AE6 /* transaction */,
@@ -675,6 +687,7 @@
 				270DD5A52100905A00C6763B /* Currency.swift in Sources */,
 				270DD59D2100904100C6763B /* EOSRPC+Chain.swift in Sources */,
 				270DD59F2100904500C6763B /* HistoryRouter.swift in Sources */,
+				271972A3219004FF00CFF288 /* Contract.swift in Sources */,
 				270DD5A42100905400C6763B /* Error.swift in Sources */,
 				27107CD42135334900FDB599 /* AnyDecodable.swift in Sources */,
 			);
@@ -689,6 +702,7 @@
 				27FC751520BD247700435C50 /* AnyDecodable.swift in Sources */,
 				27FC750A20BD10B900435C50 /* PublicKey.swift in Sources */,
 				27FC750020BD10B900435C50 /* ChainRouter.swift in Sources */,
+				2719729F218F5DE800CFF288 /* Contract.swift in Sources */,
 				1F95866B214B63B7000F01FB /* AccountUtil.swift in Sources */,
 				2720E71B21257D9E00643AE6 /* TransactionUtil.swift in Sources */,
 				27FC750E20BD10B900435C50 /* main.swift in Sources */,

@@ -61,7 +61,7 @@ func customDateFormatter(_ decoder: Decoder) throws -> Date {
         return decoder
     }
     
-    internal func internalRequest<T: Codable>(router: BaseRouter, completion: @escaping (_ result: T?, _ error: Error?) -> ()) {
+    internal func internalRequest<T: Decodable>(router: BaseRouter, completion: @escaping (_ result: T?, _ error: Error?) -> ()) {
         guard let request = try? router.urlRequest() else {
             completion(nil, NSError(domain: errorDomain, code: 1, userInfo: [NSLocalizedDescriptionKey: "Error creating request"]))
             return
