@@ -411,6 +411,23 @@ struct RawKeystore: Codable {
         TransactionUtil.pushTransaction(abi: abi, account: account, pkString: pk.wif(), completion: completion)
     }
     
+    func pushTransaction(code: String, action: String, paramsJson: String, account: String, unlockOncePasscode: String?, completion: @escaping (_ result: TransactionResult?, _ error: Error?) -> ()) {
+        var pk: PrivateKey
+        
+        do {
+            if unlockOncePasscode != nil {
+                pk = try decrypt(passcode: unlockOncePasscode!)
+            } else {
+                pk = try retrievePrivateKey()
+            }
+        } catch let error as NSError {
+            completion(nil, error)
+            return
+        }
+        
+        TransactionUtil.pushTransaction(code: code, action: action, paramsJson: paramsJson, account: account, pkString: pk.wif(), completion: completion)
+    }
+    
     func stakeResource(account: String, net: Float, cpu: Float, unlockOncePasscode: String?, completion: @escaping (_ result: TransactionResult?, _ error: Error?) -> ()) {
         let abiJson = ResourceUtil.stakeResourceAbiJson(account: account, net: net, cpu: cpu)
         pushTransaction(abi: abiJson, account: account, unlockOncePasscode: unlockOncePasscode, completion: completion)
