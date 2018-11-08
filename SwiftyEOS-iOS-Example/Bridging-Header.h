@@ -16,5 +16,6 @@
 #import <ripemd160.h>
 #import <bip32.h>
 #import <bip39.h>
+#import <curves.h>
 
 #endif /* Bridging_Header_h */

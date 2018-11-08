@@ -16,6 +16,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        let (pk, pub, mn) = generateRandomKeyPair(enclave: .Secp256k1)
+        print("private key: \(pk!.rawPrivateKey())")
+        print("public key : \(pub!.rawPublicKey())")
+        print("mnemonic : \(mn ?? "")")
+        
         return true
     }
 

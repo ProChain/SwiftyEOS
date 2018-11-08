@@ -56,7 +56,6 @@
 		2730778E21916C1B0099E6B0 /* sha3.c in Sources */ = {isa = PBXBuildFile; fileRef = 2730778B21916C1A0099E6B0 /* sha3.c */; };
 		2730778F21916C1B0099E6B0 /* curves.c in Sources */ = {isa = PBXBuildFile; fileRef = 2730778C21916C1A0099E6B0 /* curves.c */; };
 		275883A121140CFC00A80837 /* SwiftyEOSTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 275883A021140CFC00A80837 /* SwiftyEOSTest.swift */; };
-		275883A721144AFD00A80837 /* ripemd160.c in Sources */ = {isa = PBXBuildFile; fileRef = 27FC74F220BD10B900435C50 /* ripemd160.c */; };
 		275883A821144B0000A80837 /* uECC.c in Sources */ = {isa = PBXBuildFile; fileRef = 27FC74F320BD10B900435C50 /* uECC.c */; };
 		275883A921144B0300A80837 /* base58.c in Sources */ = {isa = PBXBuildFile; fileRef = 27FC74F420BD10B900435C50 /* base58.c */; };
 		275883AA21144B1800A80837 /* PrivateKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FC74F820BD10B900435C50 /* PrivateKey.swift */; };
@@ -79,6 +78,18 @@
 		278D33BE215A3F2100713115 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 278D33BD215A3F2100713115 /* Assets.xcassets */; };
 		278D33C1215A3F2100713115 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 278D33BF215A3F2100713115 /* Main.storyboard */; };
 		278D33CC215A459000713115 /* FeatureListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 278D33CB215A459000713115 /* FeatureListViewController.swift */; };
+		279BCF6021941BE80089F1DA /* curves.c in Sources */ = {isa = PBXBuildFile; fileRef = 2730778C21916C1A0099E6B0 /* curves.c */; };
+		279BCF6121941BEB0089F1DA /* secp256k1.c in Sources */ = {isa = PBXBuildFile; fileRef = 2730778A21916C1A0099E6B0 /* secp256k1.c */; };
+		279BCF6221941BEF0089F1DA /* sha3.c in Sources */ = {isa = PBXBuildFile; fileRef = 2730778B21916C1A0099E6B0 /* sha3.c */; };
+		279BCF6321941BF10089F1DA /* hmac.c in Sources */ = {isa = PBXBuildFile; fileRef = 2730778021916B8D0099E6B0 /* hmac.c */; };
+		279BCF6421941BF40089F1DA /* pbkdf2.c in Sources */ = {isa = PBXBuildFile; fileRef = 2730777F21916B8D0099E6B0 /* pbkdf2.c */; };
+		279BCF6521941BF60089F1DA /* rand.c in Sources */ = {isa = PBXBuildFile; fileRef = 2730777E21916B8D0099E6B0 /* rand.c */; };
+		279BCF6621941BF90089F1DA /* sha2.c in Sources */ = {isa = PBXBuildFile; fileRef = 2730778121916B8D0099E6B0 /* sha2.c */; };
+		279BCF6721941BFB0089F1DA /* bignum.c in Sources */ = {isa = PBXBuildFile; fileRef = 2730777621916AC00099E6B0 /* bignum.c */; };
+		279BCF6821941BFD0089F1DA /* ecdsa.c in Sources */ = {isa = PBXBuildFile; fileRef = 2730777321916A9B0099E6B0 /* ecdsa.c */; };
+		279BCF6921941C000089F1DA /* bip32.c in Sources */ = {isa = PBXBuildFile; fileRef = 2730776E2191693C0099E6B0 /* bip32.c */; };
+		279BCF6A21941C020089F1DA /* bip39.c in Sources */ = {isa = PBXBuildFile; fileRef = 2730776F2191693C0099E6B0 /* bip39.c */; };
+		279BCF6B21941C060089F1DA /* ripemd160.c in Sources */ = {isa = PBXBuildFile; fileRef = 27FC74F220BD10B900435C50 /* ripemd160.c */; };
 		27FC74FD20BD10B900435C50 /* Crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FC74DA20BD10B800435C50 /* Crypto.swift */; };
 		27FC74FE20BD10B900435C50 /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FC74DD20BD10B800435C50 /* Currency.swift */; };
 		27FC74FF20BD10B900435C50 /* Signature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FC74DF20BD10B900435C50 /* Signature.swift */; };
@@ -731,28 +742,39 @@
 				270DD59120FF429400C6763B /* base58.c in Sources */,
 				270DD57A20FEEACA00C6763B /* AppDelegate.swift in Sources */,
 				270DD58B20FF39F100C6763B /* KeyPair.swift in Sources */,
+				279BCF6021941BE80089F1DA /* curves.c in Sources */,
 				27107CD32135334400FDB599 /* AnyCodable.swift in Sources */,
 				270DD58A20FF2EA200C6763B /* PublicKey.swift in Sources */,
 				270DD58F20FF428F00C6763B /* ripemd160.c in Sources */,
+				279BCF6721941BFB0089F1DA /* bignum.c in Sources */,
 				27107CD62135334E00FDB599 /* AnyEncodable.swift in Sources */,
+				279BCF6221941BEF0089F1DA /* sha3.c in Sources */,
 				270DD58920FEEB4F00C6763B /* SEWallet.swift in Sources */,
 				270DD5A12100904A00C6763B /* BaseRouter.swift in Sources */,
 				270DD5A32100905100C6763B /* BigInt.swift in Sources */,
 				270DD58D20FF3A2F00C6763B /* Crypto.swift in Sources */,
 				27107CD02135329B00FDB599 /* ResourceUtil.swift in Sources */,
+				279BCF6921941C000089F1DA /* bip32.c in Sources */,
 				270DD5A22100904E00C6763B /* ChainModels.swift in Sources */,
 				27107CD22135330C00FDB599 /* TransactionUtil.swift in Sources */,
+				279BCF6421941BF40089F1DA /* pbkdf2.c in Sources */,
+				279BCF6521941BF60089F1DA /* rand.c in Sources */,
 				270DD59E2100904300C6763B /* EOSRPC+History.swift in Sources */,
 				270DD5A02100904700C6763B /* EOSRPC.swift in Sources */,
 				270DD59020FF429200C6763B /* uECC.c in Sources */,
+				279BCF6821941BFD0089F1DA /* ecdsa.c in Sources */,
+				279BCF6121941BEB0089F1DA /* secp256k1.c in Sources */,
 				270DD58C20FF3A2600C6763B /* PrivateKey.swift in Sources */,
+				279BCF6621941BF90089F1DA /* sha2.c in Sources */,
 				270DD59C2100903600C6763B /* ChainRouter.swift in Sources */,
 				270DD5A52100905A00C6763B /* Currency.swift in Sources */,
 				270DD59D2100904100C6763B /* EOSRPC+Chain.swift in Sources */,
 				270DD59F2100904500C6763B /* HistoryRouter.swift in Sources */,
+				279BCF6A21941C020089F1DA /* bip39.c in Sources */,
 				271972A3219004FF00CFF288 /* Contract.swift in Sources */,
 				270DD5A42100905400C6763B /* Error.swift in Sources */,
 				27107CD42135334900FDB599 /* AnyDecodable.swift in Sources */,
+				279BCF6321941BF10089F1DA /* hmac.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -810,7 +832,6 @@
 				275883AB21144B1B00A80837 /* PublicKey.swift in Sources */,
 				275883AE21144B2500A80837 /* Crypto.swift in Sources */,
 				275883B4211450F000A80837 /* HistoryRouter.swift in Sources */,
-				275883A721144AFD00A80837 /* ripemd160.c in Sources */,
 				275883B0211450E600A80837 /* EOSRPC.swift in Sources */,
 				275883A921144B0300A80837 /* base58.c in Sources */,
 				275883B7211450FE00A80837 /* BigInt.swift in Sources */,
@@ -818,6 +839,7 @@
 				275883B6211450FB00A80837 /* ChainModels.swift in Sources */,
 				275883A121140CFC00A80837 /* SwiftyEOSTest.swift in Sources */,
 				275883B2211450EB00A80837 /* EOSRPC+Chain.swift in Sources */,
+				279BCF6B21941C060089F1DA /* ripemd160.c in Sources */,
 				275883B1211450E800A80837 /* BaseRouter.swift in Sources */,
 				275883AC21144B1E00A80837 /* KeyPair.swift in Sources */,
 				275883A821144B0000A80837 /* uECC.c in Sources */,
