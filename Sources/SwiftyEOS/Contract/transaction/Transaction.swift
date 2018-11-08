@@ -168,7 +168,7 @@ struct DataWriter {
     mutating func pushVariableUInt(value: CUnsignedInt) {
         var val: CUnsignedLongLong = CUnsignedLongLong(value)
         repeat {
-            var b: CUnsignedChar = CUnsignedChar(val) & 0x7f
+            var b: CUnsignedChar = CUnsignedChar(val & 0x7f)
             val >>= 7
             if val > 0 {
                 b = b | (1 << 7)
