@@ -55,6 +55,25 @@ extension String {
         }
     }
     
+    func importAccount(mnemonic: String, passcode: String, succeed: ((_ account: SELocalAccount) -> Void)?, failed:((_ error: Error) -> Void)?) {
+        DispatchQueue.global(qos: .background).async {
+            do {
+                let account = try self.keystore.importAccount(mnemonic: mnemonic, passcode: passcode)
+                if succeed != nil {
+                    DispatchQueue.main.async {
+                        succeed!(account)
+                    }
+                }
+            } catch {
+                if failed != nil {
+                    DispatchQueue.main.async {
+                        failed!(error)
+                    }
+                }
+            }
+        }
+    }
+    
     func newAccount(passcode: String, succeed: ((_ account: SELocalAccount) -> Void)?, failed:((_ error: Error) -> Void)?) {
         DispatchQueue.global(qos: .background).async {
             do {
@@ -62,6 +81,25 @@ extension String {
                 if succeed != nil {
                     DispatchQueue.main.async {
                         succeed!(account)
+                    }
+                }
+            } catch {
+                if failed != nil {
+                    DispatchQueue.main.async {
+                        failed!(error)
+                    }
+                }
+            }
+        }
+    }
+    
+    func newAccountAndMnemonic(passcode: String, succeed: ((_ account: SELocalAccount, _ mnemonic: String) -> Void)?, failed:((_ error: Error) -> Void)?) {
+        DispatchQueue.global(qos: .background).async {
+            do {
+                let (account, mnemonic) = try self.keystore.newLocalAccountAndMnemonic(passcode: passcode)
+                if succeed != nil {
+                    DispatchQueue.main.async {
+                        succeed!(account, mnemonic)
                     }
                 }
             } catch {
@@ -153,10 +191,23 @@ extension String {
         return account
     }
     
+    func importAccount(mnemonic: String, passcode: String) throws -> SELocalAccount {
+        let account = try SELocalAccount(mnemonic: mnemonic, passcode: passcode)
+        try account.write(to: keyUrl.appendingPathComponent(account.publicKey!))
+        return account
+    }
+    
     func newLocalAccount(passcode: String) throws -> SELocalAccount {
         let account = SELocalAccount(passcode: passcode)
         try account.write(to: keyUrl.appendingPathComponent(account.publicKey!))
         return account
+    }
+    
+    func newLocalAccountAndMnemonic(passcode: String) throws -> (SELocalAccount, String) {
+        let account = SELocalAccount(passcode: passcode, needMnemonic: true)
+        let mnemonic = account.mnemonic!
+        try account.write(to: keyUrl.appendingPathComponent(account.publicKey!))
+        return (account, mnemonic)
     }
     
     func deleteAccount(passcode: String, account: SELocalAccount) throws {
@@ -250,6 +301,8 @@ struct RawKeystore: Codable {
         return SEKeystoreService.sharedInstance.keystore.defaultAccount()
     }
     
+    public var mnemonic: String?
+    
     //FIXME: Fill with your own iv.
     static let aesIv = "ReplaceWithYourIv"
     
@@ -270,8 +323,19 @@ struct RawKeystore: Codable {
         self.init(pk: pk!, passcode: passcode)
     }
     
+    convenience init(passcode: String, needMnemonic: Bool) {
+        let (pk, _, mn) = generateRandomKeyPair(enclave: .Secp256k1)
+        self.init(pk: pk!, passcode: passcode)
+        self.mnemonic = mn
+    }
+    
     convenience init(privateKey: String, passcode: String) throws {
         let pk = try PrivateKey(keyString: privateKey)
+        self.init(pk: pk!, passcode: passcode)
+    }
+    
+    convenience init(mnemonic: String, passcode: String) throws {
+        let pk = try PrivateKey(enclave: .Secp256k1, mnemonicString: mnemonic)
         self.init(pk: pk!, passcode: passcode)
     }
     

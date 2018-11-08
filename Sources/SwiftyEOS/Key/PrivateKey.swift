@@ -73,12 +73,12 @@ struct PrivateKey {
         self.data = data
     }
     
-    init?(enclave: SecureEnclave, mnemonicString: String) {
+    init?(enclave: SecureEnclave, mnemonicString: String) throws {
         self.enclave = enclave
         
         let phraseStr = mnemonicString.cString(using: .utf8)
         if mnemonic_check(phraseStr) == 0 {
-            return nil
+            throw NSError(domain: "com.swiftyeos.error", code: 1, userInfo: [NSLocalizedDescriptionKey: "Invalid Mnemonic"])
         }
         
         var seed = Data(count: 512/8)
@@ -136,7 +136,7 @@ struct PrivateKey {
             let mnemonic = data.withUnsafeBytes({ (sourceBytes: UnsafePointer<UInt8>) -> String in
                 return String(cString: mnemonic_from_data(sourceBytes, 16), encoding: .utf8)!
             })
-            return (PrivateKey(enclave: enclave, mnemonicString: mnemonic), mnemonic)
+            return try! (PrivateKey(enclave: enclave, mnemonicString: mnemonic), mnemonic)
         } else {
             print("Problem generating random bytes")
             return (nil, nil)
