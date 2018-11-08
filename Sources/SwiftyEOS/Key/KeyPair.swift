@@ -14,3 +14,10 @@ func generateRandomKeyPair(enclave: SecureEnclave) -> (privateKey: PrivateKey?, 
     
     return (privateKey, publicKey)
 }
+
+func generateRandomKeyPair(enclave: SecureEnclave) -> (privateKey: PrivateKey?, publicKey: PublicKey?, mnemonic: String?) {
+    let (privateKey, mnemonic) = PrivateKey.randomPrivateKeyAndMnemonic(enclave: enclave)
+    let publicKey = PublicKey(privateKey: privateKey!)
+    
+    return (privateKey, publicKey, mnemonic)
+}

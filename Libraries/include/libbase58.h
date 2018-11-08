@@ -24,6 +24,9 @@ extern "C" {
     extern bool se_b58enc(char *b58, size_t *b58sz, const void *bin, size_t binsz);
     extern bool se_b58check_enc(char *b58c, size_t *b58c_sz, uint8_t ver, const void *data, size_t datasz);
     
+    extern int base58_encode_check(const uint8_t *data, int datalen, char *str, int strsize);
+    extern int base58_decode_check(const char *str, uint8_t *data, int datalen);
+    
 #ifdef __cplusplus
 }
 #endif

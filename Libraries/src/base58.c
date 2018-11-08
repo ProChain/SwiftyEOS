@@ -16,8 +16,11 @@
 #include <stdint.h>
 #include <string.h>
 #include <sys/types.h>
+#include "sha2.h"
 
 #include "libbase58.h"
+#include "macros.h"
+#include "ripemd160.h"
 
 bool (*b58_sha256_impl)(void *, const void *, size_t) = NULL;
 
@@ -199,4 +202,38 @@ bool se_b58check_enc(char *b58c, size_t *b58c_sz, uint8_t ver, const void *data,
     }
     
     return se_b58enc(b58c, b58c_sz, buf, 1 + datasz + 4);
+}
+
+int base58_encode_check(const uint8_t *data, int datalen, char *str, int strsize)
+{
+    if (datalen > 128) {
+        return 0;
+    }
+    uint8_t buf[datalen + 32];
+    uint8_t *hash = buf + datalen;
+    memcpy(buf, data, datalen);
+    sha256_Raw(data, datalen, hash);
+    sha256_Raw(hash, 32, hash);
+    size_t res = strsize;
+    bool success = se_b58enc(str, &res, buf, datalen + 4);
+    MEMSET_BZERO(buf, sizeof(buf));
+    return success ? (int)res : 0;
+}
+
+int base58_decode_check(const char *str, uint8_t *data, int datalen)
+{
+    if (datalen > 128) {
+        return 0;
+    }
+    uint8_t d[datalen + 4];
+    size_t res = datalen + 4;
+    if (se_b58tobin(d, &res, str, 0) != true) {
+        return 0;
+    }
+    uint8_t *nd = d + datalen + 4 - res;
+    if (se_b58check(nd, res, str, 0) < 0) {
+        return 0;
+    }
+    memcpy(data, nd, res - 4);
+    return (int)(res - 4);
 }
