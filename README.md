@@ -122,6 +122,7 @@ The related documents will be provided once the whole function is done.
 5. Buy/sell ram (2018.08.28)
 6. Create account (2018.10)
 7. Push transaction with params list (2018.11.05)
+8. Create/import key pairs with mnemonic
 
 ### Transfer Currency
 
@@ -199,6 +200,30 @@ Stake resource:
 ```swift
 ResourceUtil.stakeResource(account: "raoji", net: 1.0, cpu: 1.0, pkString: "5HsaHvRCPrjU3yhapB5rLRyuKHuFTsziidA13Uw6WnQTeJAG3t4", completion: { (result, error) in
 })
+```
+
+### Mnemonic
+
+Create a new key pair:
+
+```swift
+let (pk, pub, mn) = generateRandomKeyPair(enclave: .Secp256k1)
+```
+
+Import existing mnemonic:
+
+```swift
+let (pk, mn) = PrivateKey(enclave: .Secp256k1, mnemonicString: "your words here")
+```
+
+And we do have iOS helper API with mnemonic for key manangement in `SEWallet.swift`. Creating and importing mnemonic is possible now, with `SEKeystoreService` class(or `SEKeystore` deep level API if you're store it on yourself):
+
+```swift
+SEKeystoreService.sharedInstance.newAccountAndMnemonic(passcode: "your pass here", succeed: { (account, mnemonic) in
+
+}) { (error) in
+
+}
 ```
 
 We're using `NSObject` inhereiting class for all top level API, so calling in Objective-C is the same way without providing additional bridging files.

@@ -16,6 +16,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+//        SEKeystoreService.sharedInstance.newAccountAndMnemonic(passcode: "your pass here", succeed: { (account, mnemonic) in
+//            
+//        }) { (error) in
+//
+//        }
+        
         return true
     }
 

@@ -73,6 +73,39 @@ struct PrivateKey {
         self.data = data
     }
     
+    init?(enclave: SecureEnclave, mnemonicString: String) throws {
+        self.enclave = enclave
+        
+        let phraseStr = mnemonicString.cString(using: .utf8)
+        if mnemonic_check(phraseStr) == 0 {
+            throw NSError(domain: "com.swiftyeos.error", code: 1, userInfo: [NSLocalizedDescriptionKey: "Invalid Mnemonic"])
+        }
+        
+        var seed = Data(count: 512/8)
+        seed.withUnsafeMutableBytes { bytes in
+            mnemonic_to_seed(phraseStr, "", bytes, nil)
+        }
+        
+        var node = seed.withUnsafeBytes { (bytes: UnsafePointer<UInt8>) -> HDNode in
+            var node = HDNode()
+            hdnode_from_seed(bytes, Int32(seed.count), UnsafePointer<Int8>("secp256k1"), &node)
+            return node
+        }
+        
+        hdnode_private_ckd(&node, (0x80000000 | (44)));   // 44' - BIP 44 (purpose field)
+        hdnode_private_ckd(&node, (0x80000000 | (194)));  // 194'- EOS (see SLIP 44)
+        hdnode_private_ckd(&node, (0x80000000 | (0)));    // 0'  - Account 0
+        hdnode_private_ckd(&node, 0);                     // 0   - External
+        hdnode_private_ckd(&node, 0);                     // 0   - Slot #0
+        
+        let data =  withUnsafeBytes(of: &node.private_key) { (rawPtr) -> Data in
+            let ptr = rawPtr.baseAddress!.assumingMemoryBound(to: UInt8.self)
+            return Data(bytes: ptr, count: 32)
+        }
+        
+        self.data = data
+    }
+    
     func wif() -> String {
         return self.data.wifString(enclave: enclave)
     }
@@ -91,6 +124,22 @@ struct PrivateKey {
         } else {
             print("Problem generating random bytes")
             return nil
+        }
+    }
+    
+    static func randomPrivateKeyAndMnemonic(enclave: SecureEnclave = .Secp256k1) -> (PrivateKey?, String?) {
+        var data = Data(count: 16)
+        let result = data.withUnsafeMutableBytes { (mutableBytes: UnsafeMutablePointer<UInt8>) -> Int32 in
+            SecRandomCopyBytes(kSecRandomDefault, 16, mutableBytes)
+        }
+        if result == errSecSuccess {
+            let mnemonic = data.withUnsafeBytes({ (sourceBytes: UnsafePointer<UInt8>) -> String in
+                return String(cString: mnemonic_from_data(sourceBytes, 16), encoding: .utf8)!
+            })
+            return try! (PrivateKey(enclave: enclave, mnemonicString: mnemonic), mnemonic)
+        } else {
+            print("Problem generating random bytes")
+            return (nil, nil)
         }
     }
     
