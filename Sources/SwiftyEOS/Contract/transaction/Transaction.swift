@@ -227,7 +227,7 @@ struct DataWriter {
         }
         writer.pushInt(value: Int(UInt32(pkt.transaction.expiration.timeIntervalSince1970) & 0xFFFFFFFF))
         writer.pushShort(value: pkt.transaction.refBlockNum & 0xFFFF)
-        writer.pushInt(value: Int(pkt.transaction.refBlockPrefix & 0xFFFFFFFF))
+        writer.pushInt(value: Int(UInt32(pkt.transaction.refBlockPrefix) & 0xFFFFFFFF))
         writer.pushVariableUInt(value: 0) // max_net_usage_words
         writer.pushVariableUInt(value: 0) // max_kcpu_usage
         writer.pushVariableUInt(value: 0) // delay_sec
