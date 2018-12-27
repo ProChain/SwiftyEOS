@@ -13,4 +13,12 @@ extension EOSRPC {
         let router = HistoryRouter(endpoint: .GetKeyAccounts(pub: pub))
         internalRequest(router: router, completion: completion)
     }
+
+	func getActions(accountName: String, position: Int, offset: Int,
+					completion: @escaping (_ result: ActionsResult?, _ error: Error?) -> Void) {
+		let router = HistoryRouter(endpoint: .GetActions(accountName: accountName,
+														 pos: position,
+														 offset: offset))
+		internalRequest(router: router, completion: completion)
+	}
 }

@@ -109,6 +109,7 @@
 		27FC751520BD247700435C50 /* AnyDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FC751220BD247700435C50 /* AnyDecodable.swift */; };
 		27FC751620BD247700435C50 /* AnyCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FC751320BD247700435C50 /* AnyCodable.swift */; };
 		27FC751720BD247700435C50 /* AnyEncodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27FC751420BD247700435C50 /* AnyEncodable.swift */; };
+		71C2439B21D4D14F00E86F64 /* ActionModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71C2439A21D4D14F00E86F64 /* ActionModels.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildRule section */
@@ -220,6 +221,7 @@
 		27FC751220BD247700435C50 /* AnyDecodable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnyDecodable.swift; sourceTree = "<group>"; };
 		27FC751320BD247700435C50 /* AnyCodable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnyCodable.swift; sourceTree = "<group>"; };
 		27FC751420BD247700435C50 /* AnyEncodable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnyEncodable.swift; sourceTree = "<group>"; };
+		71C2439A21D4D14F00E86F64 /* ActionModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionModels.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -567,6 +569,7 @@
 		27FC74F920BD10B900435C50 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				71C2439A21D4D14F00E86F64 /* ActionModels.swift */,
 				27FC74FA20BD10B900435C50 /* ChainModels.swift */,
 				27FC74FB20BD10B900435C50 /* BigInt.swift */,
 				2783777920F8A308003CC8DB /* Error.swift */,
@@ -793,6 +796,7 @@
 				2720E71B21257D9E00643AE6 /* TransactionUtil.swift in Sources */,
 				27FC750E20BD10B900435C50 /* main.swift in Sources */,
 				2730778E21916C1B0099E6B0 /* sha3.c in Sources */,
+				71C2439B21D4D14F00E86F64 /* ActionModels.swift in Sources */,
 				27FC750D20BD10B900435C50 /* BigInt.swift in Sources */,
 				27FC750C20BD10B900435C50 /* ChainModels.swift in Sources */,
 				27FC750920BD10B900435C50 /* KeyPair.swift in Sources */,
