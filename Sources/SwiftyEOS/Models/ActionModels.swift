@@ -57,5 +57,5 @@ struct ActionDetails: Codable {
 	let data: AnyCodable
 	let account: String
 	let name: String
-	let hexData: String
+	let hexData: String?
 }
