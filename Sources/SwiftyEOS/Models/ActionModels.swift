@@ -32,9 +32,9 @@ struct ActionTrace: Codable {
 	let blockTime:String
 	let producerBlockId:String? // can be null on a testnode
 	let accountRamDeltas:[ActionRamDelta]
+	let inlineTraces:[ActionTrace]
 	// TO-DO: unknown types for these fields
 //	let except:Int?
-//	let inlineTraces:[Int]
 }
 
 struct ActionRamDelta: Codable {
